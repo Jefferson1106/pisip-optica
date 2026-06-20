@@ -1,0 +1,73 @@
+package com.uisrael.opticaperfectvisionapi.dominio.entidades;
+
+import java.time.LocalDate;
+
+public class UsuarioAdmministrador {
+	
+	private Integer idUsuario;
+	private String nombres;
+	private String apellidos;
+	private String correo;
+	private String contrasenia;
+	private boolean estado;
+	private LocalDate fechaCreacion;
+	public UsuarioAdmministrador(Integer idUsuario, String nombres, String apellidos, String correo, String contrasenia,
+			boolean estado, LocalDate fechaCreacion) {
+		super();
+		this.idUsuario = idUsuario;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.correo = correo;
+		this.contrasenia = contrasenia;
+		this.estado = estado;
+		this.fechaCreacion = fechaCreacion;
+	}
+	public UsuarioAdmministrador() {
+		super();
+	}
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	public String getNombres() {
+		return nombres;
+	}
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+	public String getApellidos() {
+		return apellidos;
+	}
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	public String getContrasenia() {
+		return contrasenia;
+	}
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
+	public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+	public LocalDate getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(LocalDate fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	
+	
+
+}

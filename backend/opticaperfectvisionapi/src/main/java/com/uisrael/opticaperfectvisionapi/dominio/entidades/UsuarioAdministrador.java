@@ -2,17 +2,17 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
 import java.time.LocalDate;
 
-public class UsuarioAdmministrador {
+public class UsuarioAdministrador {
 	
 	private Integer idUsuario;
 	private String nombres;
 	private String apellidos;
 	private String correo;
 	private String contrasenia;
-	private boolean estado;
+	private String estado;
 	private LocalDate fechaCreacion;
-	public UsuarioAdmministrador(Integer idUsuario, String nombres, String apellidos, String correo, String contrasenia,
-			boolean estado, LocalDate fechaCreacion) {
+	public UsuarioAdministrador(Integer idUsuario, String nombres, String apellidos, String correo, String contrasenia,
+			String estado, LocalDate fechaCreacion) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombres = nombres;
@@ -22,7 +22,7 @@ public class UsuarioAdmministrador {
 		this.estado = estado;
 		this.fechaCreacion = fechaCreacion;
 	}
-	public UsuarioAdmministrador() {
+	public UsuarioAdministrador() {
 		super();
 	}
 	public Integer getIdUsuario() {
@@ -55,10 +55,10 @@ public class UsuarioAdmministrador {
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
-	public boolean isEstado() {
+	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	public LocalDate getFechaCreacion() {

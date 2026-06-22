@@ -24,7 +24,7 @@ public class UsuarioAdministradorEntity {
 	@Column (name = "contrasenia", length = 255)
 	private String contrasenia;
 	@Column (name = "estado", length = 10)
-	private boolean estado;
+	private String estado;
 	private LocalDate fechaCreacion;
 
 

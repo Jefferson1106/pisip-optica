@@ -15,10 +15,11 @@ public class DetalleCatalogoEntity {
 	
 	@Id
 	private Integer idDetalleCatalogo;
+	@Column (name = "id_catalogo")
+	private Integer idCatalogo;
 	@Column (name = "nombre",length = 100)
 	private String nombre;
 	@Column (name = "identificador", length = 100)
 	private String identificador;
 	private LocalDate fechaRegistro;
-
 }

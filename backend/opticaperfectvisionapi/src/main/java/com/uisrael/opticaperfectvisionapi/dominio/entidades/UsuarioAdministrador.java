@@ -5,16 +5,18 @@ import java.time.LocalDate;
 public class UsuarioAdministrador {
 	
 	private Integer idUsuario;
+	private Integer idDetalleCatalogo;
 	private String nombres;
 	private String apellidos;
 	private String correo;
 	private String contrasenia;
 	private String estado;
 	private LocalDate fechaCreacion;
-	public UsuarioAdministrador(Integer idUsuario, String nombres, String apellidos, String correo, String contrasenia,
+	public UsuarioAdministrador(Integer idUsuario,Integer idDetalleCatalogo, String nombres, String apellidos, String correo, String contrasenia,
 			String estado, LocalDate fechaCreacion) {
 		super();
 		this.idUsuario = idUsuario;
+		this.idDetalleCatalogo = idDetalleCatalogo;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
 		this.correo = correo;
@@ -30,6 +32,12 @@ public class UsuarioAdministrador {
 	}
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+	public Integer getIdDetalleCatalogo() {
+		return idDetalleCatalogo;
+	}
+	public void setIdDetalleCatalogo(Integer idDetalleCatalogo) {
+		this.idDetalleCatalogo = idDetalleCatalogo;	
 	}
 	public String getNombres() {
 		return nombres;
@@ -67,7 +75,6 @@ public class UsuarioAdministrador {
 	public void setFechaCreacion(LocalDate fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	
-	
+
 
 }

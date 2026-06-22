@@ -15,6 +15,8 @@ import lombok.Data;
 public class UsuarioAdministradorEntity {
 	@Id
 	private Integer idUsuario;
+	@Column (name = "detalle_catalogo")
+	private Integer idDetalleCatalogo;
 	@Column (name = "nombres", length = 100)
 	private String nombres;
 	@Column (name = "apellidos",length = 100)
@@ -26,7 +28,6 @@ public class UsuarioAdministradorEntity {
 	@Column (name = "estado", length = 10)
 	private String estado;
 	private LocalDate fechaCreacion;
-
 
 
 }

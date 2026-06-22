@@ -14,8 +14,9 @@ import lombok.Data;
 public class DetalleEntregaEntity {
 	@Id
 	private Integer idDetalleEntrega;
+	private Integer idEntrega;
+	private Integer idProducto;
 	private Integer cantidad;
 	private boolean estado;
 	private LocalDate fechaRegistro;
-
 }

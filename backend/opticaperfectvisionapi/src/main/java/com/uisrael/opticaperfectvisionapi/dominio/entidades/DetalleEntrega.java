@@ -4,13 +4,17 @@ import java.time.LocalDate;
 
 public class DetalleEntrega {
 	private Integer idDetalleEntrega;
+	private Integer idEntrega;
+	private Integer idProducto;
 	private Integer cantidad;
 	private boolean estado;
 	private LocalDate fechaRegistro;
 	
-	public DetalleEntrega(Integer idDetalleEntrega, Integer cantidad, boolean estado, LocalDate fechaRegistro) {
+	public DetalleEntrega(Integer idDetalleEntrega,Integer idEntrega, Integer idProducto,Integer cantidad, boolean estado, LocalDate fechaRegistro) {
 		super();
 		this.idDetalleEntrega = idDetalleEntrega;
+		this.idEntrega = idEntrega;
+		this.idProducto = idProducto;
 		this.cantidad = cantidad;
 		this.estado = estado;
 		this.fechaRegistro = fechaRegistro;
@@ -23,6 +27,18 @@ public class DetalleEntrega {
 	}
 	public void setIdDetalleEntrega(Integer idDetalleEntrega) {
 		this.idDetalleEntrega = idDetalleEntrega;
+	}
+	public Integer getIdEntrega() {
+		return idEntrega;
+	}
+	public void setIdEntrega(Integer idEntrega) {
+		this.idEntrega = idEntrega;
+	}
+	public Integer getIdProducto() {
+		return idProducto;
+	}
+	public void setIdProducto(Integer idProducto) {
+		this.idProducto = idProducto;
 	}
 	public Integer getCantidad() {
 		return cantidad;

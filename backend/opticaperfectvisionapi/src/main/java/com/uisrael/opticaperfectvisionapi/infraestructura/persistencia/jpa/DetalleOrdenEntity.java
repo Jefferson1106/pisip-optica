@@ -16,12 +16,14 @@ public class DetalleOrdenEntity {
 	
 	@Id
 	private Integer idDetOrden;
-	@Column (name="material", length =100)
-	private String material;
-	@Column (name="marco", length =100)
-	private String marco;
-	@Column (name="tipoLente", length =100)
-	private String tipoLente;
+	@Column (name="idPedido")
+	private Integer idPedido;
+	@Column (name="idMaterial")
+	private Integer idMaterial;
+	@Column (name="idMarco")
+	private Integer idMarco;
+	@Column (name="idTipoLente")
+	private Integer idTipoLente;
 	@Column (name="tratamiento", length =100)
 	private String tratamiento;
 	@Column (name="cantidad")

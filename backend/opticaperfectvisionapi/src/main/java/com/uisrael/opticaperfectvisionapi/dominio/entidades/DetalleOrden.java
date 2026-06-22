@@ -3,25 +3,29 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 
 public class DetalleOrden {
 	
 	private Integer idDetOrden;
-	private String material;
-	private String marco;
-	private String tipoLente;
+	private Integer idPedido;
+	private Integer idMaterial;
+	private Integer idMarco;
+	private Integer idTipoLente;
 	private String tratamiento;
 	private Integer cantidad;
 	private BigDecimal precioUnitario;
 	private LocalDate fechaRegistro;
 	
-	public DetalleOrden(Integer idDetOrden, String material, String marco, String tipoLente, String tratamiento,
-			Integer cantidad, BigDecimal precioUnitario, LocalDate fechaRegistro) {
+	public DetalleOrden(Integer idDetOrden, Integer idPedido, Integer idMaterial, Integer idMarco, Integer idTipoLente,
+			String tratamiento, Integer cantidad, BigDecimal precioUnitario, LocalDate fechaRegistro) {
 		super();
 		this.idDetOrden = idDetOrden;
-		this.material = material;
-		this.marco = marco;
-		this.tipoLente = tipoLente;
+		this.idPedido = idPedido;
+		this.idMaterial = idMaterial;
+		this.idMarco = idMarco;
+		this.idTipoLente = idTipoLente;
 		this.tratamiento = tratamiento;
 		this.cantidad = cantidad;
 		this.precioUnitario = precioUnitario;
@@ -40,28 +44,36 @@ public class DetalleOrden {
 		this.idDetOrden = idDetOrden;
 	}
 
-	public String getMaterial() {
-		return material;
+	public Integer getIdPedido() {
+		return idPedido;
 	}
 
-	public void setMaterial(String material) {
-		this.material = material;
+	public void setIdPedido(Integer idPedido) {
+		this.idPedido = idPedido;
 	}
 
-	public String getMarco() {
-		return marco;
+	public Integer getIdMaterial() {
+		return idMaterial;
 	}
 
-	public void setMarco(String marco) {
-		this.marco = marco;
+	public void setIdMaterial(Integer idMaterial) {
+		this.idMaterial = idMaterial;
 	}
 
-	public String getTipoLente() {
-		return tipoLente;
+	public Integer getIdMarco() {
+		return idMarco;
 	}
 
-	public void setTipoLente(String tipoLente) {
-		this.tipoLente = tipoLente;
+	public void setIdMarco(Integer idMarco) {
+		this.idMarco = idMarco;
+	}
+
+	public Integer getIdTipoLente() {
+		return idTipoLente;
+	}
+
+	public void setIdTipoLente(Integer idTipoLente) {
+		this.idTipoLente = idTipoLente;
 	}
 
 	public String getTratamiento() {
@@ -95,6 +107,7 @@ public class DetalleOrden {
 	public void setFechaRegistro(LocalDate fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
+	
 	
 	
 }

@@ -20,7 +20,6 @@ public class DetalleEntrega {
 
 	public DetalleEntrega(Integer idDetEntrega, OrdenEntregaEntity ordenEntrega, DetalleOrdenEntity producto,
 			Integer cantidad, Boolean estado, LocalDateTime fechaRegistro) {
-		super();
 		this.idDetEntrega = idDetEntrega;
 		this.ordenEntrega = ordenEntrega;
 		this.producto = producto;

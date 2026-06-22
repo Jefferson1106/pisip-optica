@@ -31,7 +31,6 @@ public class DetalleOrden {
 	public DetalleOrden(Integer idDetOrden, OrdenPedidoEntity ordenPedido, DetalleCatalogoEntity material,
 			DetalleCatalogoEntity marco, DetalleCatalogoEntity tipoLente, String tratamiento, Integer cantidad,
 			BigDecimal precioUnitario, LocalDateTime fechaRegistro) {
-		super();
 		this.idDetOrden = idDetOrden;
 		this.ordenPedido = ordenPedido;
 		this.material = material;

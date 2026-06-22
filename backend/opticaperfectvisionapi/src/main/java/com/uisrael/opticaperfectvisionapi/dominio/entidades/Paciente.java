@@ -1,76 +1,108 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
+import java.time.LocalDateTime;
+
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.UsuarioAdministradorEntity;
+
 public class Paciente {
-	private Integer idUsuario;
-	private Integer cedula;
-    private String nombre;
-    private String paciente;
+
+    private String cedula;
+    private UsuarioAdministradorEntity usuarioAdministrador;
+    private String nombres;
+    private String apellidos;
     private String direccion;
     private String telefono;
     private String correo;
+    private LocalDateTime fechaNacimiento;
+    private LocalDateTime fechaRegistro;
     
-	public Paciente(Integer idUsuario, Integer cedula, String nombre, String paciente, String direccion,
-			String telefono, String correo) {
-		super();
-		this.idUsuario = idUsuario;
+	public Paciente() {
+	
+	}
+
+	public Paciente(String cedula, UsuarioAdministradorEntity usuarioAdministrador, String nombres, String apellidos,
+			String direccion, String telefono, String correo, LocalDateTime fechaNacimiento,
+			LocalDateTime fechaRegistro) {
 		this.cedula = cedula;
-		this.nombre = nombre;
-		this.paciente = paciente;
+		this.usuarioAdministrador = usuarioAdministrador;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.correo = correo;
-	}
-	
-	
-	
-	public Paciente() {
-		super();
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaRegistro = fechaRegistro;
 	}
 
-
-
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	public Integer getCedula() {
+	public String getCedula() {
 		return cedula;
 	}
-	public void setCedula(Integer cedula) {
+
+	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
-	public String getNombre() {
-		return nombre;
+
+	public UsuarioAdministradorEntity getUsuarioAdministrador() {
+		return usuarioAdministrador;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+
+	public void setUsuarioAdministrador(UsuarioAdministradorEntity usuarioAdministrador) {
+		this.usuarioAdministrador = usuarioAdministrador;
 	}
-	public String getPaciente() {
-		return paciente;
+
+	public String getNombres() {
+		return nombres;
 	}
-	public void setPaciente(String paciente) {
-		this.paciente = paciente;
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
 	public String getDireccion() {
 		return direccion;
 	}
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
 	public String getTelefono() {
 		return telefono;
 	}
+
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
 	public String getCorreo() {
 		return correo;
 	}
+
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-    
-    
+
+	public LocalDateTime getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public LocalDateTime getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(LocalDateTime fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
 }

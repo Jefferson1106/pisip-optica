@@ -9,15 +9,13 @@ public class Catalogo {
     private LocalDateTime fechaRegistro;
     
 	public Catalogo(Integer idCatalogo, String descripcion, LocalDateTime fechaRegistro) {
-		super();
 		this.idCatalogo = idCatalogo;
 		this.descripcion = descripcion;
 		this.fechaRegistro = fechaRegistro;
 	}
 	
 	public Catalogo() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 	
 	public Integer getIdCatalogo() {

@@ -1,64 +1,79 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleOrdenEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenEntregaEntity;
 
 public class DetalleEntrega {
-	private Integer idDetalleEntrega;
-	private Integer idEntrega;
-	private Integer idProducto;
-	private Integer cantidad;
-	private boolean estado;
-	private LocalDate fechaRegistro;
-	
-	public DetalleEntrega(Integer idDetalleEntrega,Integer idEntrega, Integer idProducto,Integer cantidad, boolean estado, LocalDate fechaRegistro) {
+
+	private Integer idDetEntrega;
+    private OrdenEntregaEntity ordenEntrega;
+    private DetalleOrdenEntity producto;
+    private Integer cantidad;
+    private Boolean estado;
+    private LocalDateTime fechaRegistro;
+    
+	public DetalleEntrega() {
+
+	}
+
+	public DetalleEntrega(Integer idDetEntrega, OrdenEntregaEntity ordenEntrega, DetalleOrdenEntity producto,
+			Integer cantidad, Boolean estado, LocalDateTime fechaRegistro) {
 		super();
-		this.idDetalleEntrega = idDetalleEntrega;
-		this.idEntrega = idEntrega;
-		this.idProducto = idProducto;
+		this.idDetEntrega = idDetEntrega;
+		this.ordenEntrega = ordenEntrega;
+		this.producto = producto;
 		this.cantidad = cantidad;
 		this.estado = estado;
 		this.fechaRegistro = fechaRegistro;
 	}
-	public DetalleEntrega() {
-		super();
+
+	public Integer getIdDetEntrega() {
+		return idDetEntrega;
 	}
-	public Integer getIdDetalleEntrega() {
-		return idDetalleEntrega;
+
+	public void setIdDetEntrega(Integer idDetEntrega) {
+		this.idDetEntrega = idDetEntrega;
 	}
-	public void setIdDetalleEntrega(Integer idDetalleEntrega) {
-		this.idDetalleEntrega = idDetalleEntrega;
+
+	public OrdenEntregaEntity getOrdenEntrega() {
+		return ordenEntrega;
 	}
-	public Integer getIdEntrega() {
-		return idEntrega;
+
+	public void setOrdenEntrega(OrdenEntregaEntity ordenEntrega) {
+		this.ordenEntrega = ordenEntrega;
 	}
-	public void setIdEntrega(Integer idEntrega) {
-		this.idEntrega = idEntrega;
+
+	public DetalleOrdenEntity getProducto() {
+		return producto;
 	}
-	public Integer getIdProducto() {
-		return idProducto;
+
+	public void setProducto(DetalleOrdenEntity producto) {
+		this.producto = producto;
 	}
-	public void setIdProducto(Integer idProducto) {
-		this.idProducto = idProducto;
-	}
+
 	public Integer getCantidad() {
 		return cantidad;
 	}
+
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
-	public boolean isEstado() {
+
+	public Boolean getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+
+	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
-	public LocalDate getFechaRegistro() {
+
+	public LocalDateTime getFechaRegistro() {
 		return fechaRegistro;
 	}
-	public void setFechaRegistro(LocalDate fechaRegistro) {
+
+	public void setFechaRegistro(LocalDateTime fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-	
-	
-
 }

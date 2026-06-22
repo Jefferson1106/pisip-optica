@@ -1,30 +1,32 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
 
 public class OrdenEntrega {
 	
 	private Integer idEntrega;
-	private Integer idPedido;
-	private Date fechaEntrega;
-	private Boolean recibido;
-	private String observaciones;
-	private LocalDateTime fechaRegistro;
-	
-	public OrdenEntrega(Integer idEntrega, Integer idPedido, Date fechaEntrega, Boolean recibido, String observaciones,
-			LocalDateTime fechaRegistro) {
-		super();
+    private OrdenPedidoEntity ordenPedido;
+    private LocalDate fechaEntrega;
+    private Boolean recibido;
+    private String observaciones;
+    private LocalDateTime fechaRegistro;
+    
+	public OrdenEntrega() {
+
+	}
+
+	public OrdenEntrega(Integer idEntrega, OrdenPedidoEntity ordenPedido, LocalDate fechaEntrega, Boolean recibido,
+			String observaciones, LocalDateTime fechaRegistro) {
 		this.idEntrega = idEntrega;
-		this.idPedido = idPedido;
+		this.ordenPedido = ordenPedido;
 		this.fechaEntrega = fechaEntrega;
 		this.recibido = recibido;
 		this.observaciones = observaciones;
 		this.fechaRegistro = fechaRegistro;
-	}
-
-	public OrdenEntrega() {
-		super();
 	}
 
 	public Integer getIdEntrega() {
@@ -35,19 +37,19 @@ public class OrdenEntrega {
 		this.idEntrega = idEntrega;
 	}
 
-	public Integer getIdPedido() {
-		return idPedido;
+	public OrdenPedidoEntity getOrdenPedido() {
+		return ordenPedido;
 	}
 
-	public void setIdPedido(Integer idPedido) {
-		this.idPedido = idPedido;
+	public void setOrdenPedido(OrdenPedidoEntity ordenPedido) {
+		this.ordenPedido = ordenPedido;
 	}
 
-	public Date getFechaEntrega() {
+	public LocalDate getFechaEntrega() {
 		return fechaEntrega;
 	}
 
-	public void setFechaEntrega(Date fechaEntrega) {
+	public void setFechaEntrega(LocalDate fechaEntrega) {
 		this.fechaEntrega = fechaEntrega;
 	}
 
@@ -74,8 +76,4 @@ public class OrdenEntrega {
 	public void setFechaRegistro(LocalDateTime fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-	
-	
-	
-	
 }

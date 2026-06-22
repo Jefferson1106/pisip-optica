@@ -12,32 +12,27 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+
 @Data
 @Entity
-@Table (name = "detalle_entrega")
-
-public class DetalleEntregaEntity {
-
+@Table(name = "examen_visual")
+public class ExamenVisualEntity {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_detalle_entrega")
-    private Integer idDetEntrega;
+    @Column(name = "id_examen")
+    private Integer idExamen;
 
     @ManyToOne
-    @JoinColumn(name = "id_entrega")
-    private OrdenEntregaEntity ordenEntrega;
+    @JoinColumn(name = "cedula")
+    private PacienteEntity paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_producto")
-    private DetalleOrdenEntity producto;
+    @Column(name = "fecha_examen")
+    private LocalDate fechaExamen;
 
-    @Column(name = "cantidad")
-    private Integer cantidad;
-
-    @Column(name = "estado")
-    private Boolean estado;
+    @Column(name = "observaciones")
+    private String observaciones;
 
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
-
 }

@@ -2,38 +2,45 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 public class DetalleOrden {
 	
 	private Integer idDetOrden;
-	private Integer idPedido;
-	private Integer idMaterial;
-	private Integer idMarco;
-	private Integer idTipoLente;
-	private String tratamiento;
-	private Integer cantidad;
-	private BigDecimal precioUnitario;
-	private LocalDate fechaRegistro;
-	
-	public DetalleOrden(Integer idDetOrden, Integer idPedido, Integer idMaterial, Integer idMarco, Integer idTipoLente,
-			String tratamiento, Integer cantidad, BigDecimal precioUnitario, LocalDate fechaRegistro) {
+    private OrdenPedidoEntity ordenPedido;
+    private DetalleCatalogoEntity material;
+    private DetalleCatalogoEntity marco;
+    private DetalleCatalogoEntity tipoLente;
+    private String tratamiento;
+    private Integer cantidad;
+    private BigDecimal precioUnitario;
+    private LocalDateTime fechaRegistro;
+    
+	public DetalleOrden() {
+
+	}
+
+	public DetalleOrden(Integer idDetOrden, OrdenPedidoEntity ordenPedido, DetalleCatalogoEntity material,
+			DetalleCatalogoEntity marco, DetalleCatalogoEntity tipoLente, String tratamiento, Integer cantidad,
+			BigDecimal precioUnitario, LocalDateTime fechaRegistro) {
 		super();
 		this.idDetOrden = idDetOrden;
-		this.idPedido = idPedido;
-		this.idMaterial = idMaterial;
-		this.idMarco = idMarco;
-		this.idTipoLente = idTipoLente;
+		this.ordenPedido = ordenPedido;
+		this.material = material;
+		this.marco = marco;
+		this.tipoLente = tipoLente;
 		this.tratamiento = tratamiento;
 		this.cantidad = cantidad;
 		this.precioUnitario = precioUnitario;
 		this.fechaRegistro = fechaRegistro;
-	}
-
-	public DetalleOrden() {
-		super();
 	}
 
 	public Integer getIdDetOrden() {
@@ -44,36 +51,36 @@ public class DetalleOrden {
 		this.idDetOrden = idDetOrden;
 	}
 
-	public Integer getIdPedido() {
-		return idPedido;
+	public OrdenPedidoEntity getOrdenPedido() {
+		return ordenPedido;
 	}
 
-	public void setIdPedido(Integer idPedido) {
-		this.idPedido = idPedido;
+	public void setOrdenPedido(OrdenPedidoEntity ordenPedido) {
+		this.ordenPedido = ordenPedido;
 	}
 
-	public Integer getIdMaterial() {
-		return idMaterial;
+	public DetalleCatalogoEntity getMaterial() {
+		return material;
 	}
 
-	public void setIdMaterial(Integer idMaterial) {
-		this.idMaterial = idMaterial;
+	public void setMaterial(DetalleCatalogoEntity material) {
+		this.material = material;
 	}
 
-	public Integer getIdMarco() {
-		return idMarco;
+	public DetalleCatalogoEntity getMarco() {
+		return marco;
 	}
 
-	public void setIdMarco(Integer idMarco) {
-		this.idMarco = idMarco;
+	public void setMarco(DetalleCatalogoEntity marco) {
+		this.marco = marco;
 	}
 
-	public Integer getIdTipoLente() {
-		return idTipoLente;
+	public DetalleCatalogoEntity getTipoLente() {
+		return tipoLente;
 	}
 
-	public void setIdTipoLente(Integer idTipoLente) {
-		this.idTipoLente = idTipoLente;
+	public void setTipoLente(DetalleCatalogoEntity tipoLente) {
+		this.tipoLente = tipoLente;
 	}
 
 	public String getTratamiento() {
@@ -100,14 +107,11 @@ public class DetalleOrden {
 		this.precioUnitario = precioUnitario;
 	}
 
-	public LocalDate getFechaRegistro() {
+	public LocalDateTime getFechaRegistro() {
 		return fechaRegistro;
 	}
 
-	public void setFechaRegistro(LocalDate fechaRegistro) {
+	public void setFechaRegistro(LocalDateTime fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-	
-	
-	
 }

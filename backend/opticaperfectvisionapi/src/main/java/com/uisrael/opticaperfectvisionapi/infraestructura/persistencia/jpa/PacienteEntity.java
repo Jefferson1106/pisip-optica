@@ -6,6 +6,8 @@ import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -14,23 +16,33 @@ import lombok.Data;
 @Table(name = "paciente")
 public class PacienteEntity {
 	
-	@Id
-	private Integer idUsuario;
-	@Column(name = "cedula", length = 13)
-	private Integer cedula;
-	@Column(name = "nombre", length = 50)
-    private String nombre;
-	@Column(name = "paciente", length = 50)
-    private String paciente;
-	@Column(name = "direccion", length = 100)
+    @Id
+    @Column(name = "cedula", length = 13)
+    private String cedula;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private UsuarioAdministradorEntity usuarioAdministrador;
+
+    @Column(name = "nombres", length = 100)
+    private String nombres;
+
+    @Column(name = "apellidos", length = 100)
+    private String apellidos;
+
+    @Column(name = "direccion", length = 255)
     private String direccion;
-	@Column(name = "telefono", length = 10)
+
+    @Column(name = "telefono", length = 20)
     private String telefono;
-	@Column(name = "correo", length = 50)
+
+    @Column(name = "correo", length = 150)
     private String correo;
-	@Column(name = "fechaNacimiento")
-    private Date fechaNacimiento;
-	@Column(name = "fechaRegistro")
+
+    @Column(name = "fecha_nacimiento")
+    private LocalDateTime fechaNacimiento;
+
+    @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
     
 }

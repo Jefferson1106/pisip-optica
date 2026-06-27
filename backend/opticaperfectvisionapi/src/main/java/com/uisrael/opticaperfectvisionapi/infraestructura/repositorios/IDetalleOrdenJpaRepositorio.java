@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleOrdenEntity;
 
-public interface IDetalleOrden extends JpaRepository<DetalleOrdenEntity, Integer> {
+public interface IDetalleOrdenJpaRepositorio extends JpaRepository<DetalleOrdenEntity, Integer> {
 
 }

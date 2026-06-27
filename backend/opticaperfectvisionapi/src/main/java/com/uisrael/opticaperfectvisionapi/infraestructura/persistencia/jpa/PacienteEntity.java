@@ -1,7 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

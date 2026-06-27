@@ -1,6 +1,5 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;

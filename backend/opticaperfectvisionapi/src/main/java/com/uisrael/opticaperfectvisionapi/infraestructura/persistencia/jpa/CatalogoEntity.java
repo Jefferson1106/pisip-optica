@@ -1,6 +1,5 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,6 +22,6 @@ public class CatalogoEntity {
     @Column(name = "descripcion", length = 255)
     private String descripcion;
 
-    @Column(name = "fecha_registro")
-    private LocalDateTime fechaRegistro;
+    @Column(name = "estado")
+    private boolean estado;
 }

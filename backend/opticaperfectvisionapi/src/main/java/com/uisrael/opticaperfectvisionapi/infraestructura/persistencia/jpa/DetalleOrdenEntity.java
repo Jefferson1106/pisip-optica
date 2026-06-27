@@ -1,7 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;

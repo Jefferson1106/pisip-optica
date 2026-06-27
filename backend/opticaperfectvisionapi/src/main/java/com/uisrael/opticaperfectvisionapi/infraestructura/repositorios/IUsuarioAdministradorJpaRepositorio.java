@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.UsuarioAdministradorEntity;
 
-public interface IUsuarioAdministradorRepository extends JpaRepository<UsuarioAdministradorEntity, Integer> {
+public interface IUsuarioAdministradorJpaRepositorio extends JpaRepository<UsuarioAdministradorEntity, Integer> {
 
 }

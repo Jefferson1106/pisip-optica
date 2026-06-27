@@ -1,7 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.ICatalogoUseCase;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.Catalogo;

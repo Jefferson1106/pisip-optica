@@ -1,0 +1,41 @@
+package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.uisrael.opticaperfectvisionapi.dominio.entidades.Paciente;
+import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IPacienteRepositorio;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.PacienteEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IPacienteJpaMapper;
+import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IPacienteJpaRepositorio;
+
+public class PacienteRepositorioImpl implements IPacienteRepositorio{
+	
+	private final IPacienteJpaRepositorio jpaRepositorio;
+	private final IPacienteJpaMapper entityMapper;
+	public PacienteRepositorioImpl(IPacienteJpaRepositorio jpaRepositorio, IPacienteJpaMapper entityMapper) {
+		
+		this.jpaRepositorio = jpaRepositorio;
+		this.entityMapper = entityMapper;
+	}
+	@Override
+	public Paciente guardar(Paciente nuevoPaciente) {
+		PacienteEntity entity=entityMapper.toEntity(nuevoPaciente);
+		PacienteEntity guardado=jpaRepositorio.save(entity);
+		return entityMapper.toDomain(guardado);
+	}
+	@Override
+	public Optional<Paciente> buscarPorId(int idPaciente) {
+		
+		return jpaRepositorio.findById(String.valueOf(idPaciente)).map(entityMapper::toDomain);
+	}
+	@Override
+	public List<Paciente> listarTodos() {
+		
+		return jpaRepositorio.findAll().stream().map(entityMapper::toDomain).toList();
+	}
+
+	
+	
+	
+}

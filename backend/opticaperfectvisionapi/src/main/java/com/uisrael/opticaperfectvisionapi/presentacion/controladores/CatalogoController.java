@@ -62,8 +62,25 @@ public class CatalogoController {
 
 	@PatchMapping("/{id}/estado")
 	public ResponseEntity<CatalogoResponseDto> actualizarEstado(@PathVariable int id,
-			@RequestParam boolean estado) {
-		Catalogo catalogoActualizado = catalogoUseCase.actualizarEstado(id, estado);
+			@RequestParam(required = false) Boolean estado,
+			@RequestBody(required = false) EstadoPatchRequest request) {
+		Boolean estadoFinal = estado != null ? estado : (request != null ? request.getEstado() : null);
+		if (estadoFinal == null) {
+			throw new IllegalArgumentException("El campo estado es obligatorio");
+		}
+		Catalogo catalogoActualizado = catalogoUseCase.actualizarEstado(id, estadoFinal);
 		return ResponseEntity.ok(mapper.toResponseDto(catalogoActualizado));
+	}
+
+	private static class EstadoPatchRequest {
+		private Boolean estado;
+
+		public Boolean getEstado() {
+			return estado;
+		}
+
+		public void setEstado(Boolean estado) {
+			this.estado = estado;
+		}
 	}
 }

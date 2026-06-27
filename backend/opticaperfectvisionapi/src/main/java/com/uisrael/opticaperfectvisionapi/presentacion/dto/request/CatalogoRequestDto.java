@@ -1,13 +1,14 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class CatalogoRequestDto {
-	
-	@NotBlank(message = "La descripción no puede estar vacía")
+    
+	@NotBlank
     private String descripcion;
-	
-	private boolean estado;
+	@NotNull
+	private Boolean estado;
 }

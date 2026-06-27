@@ -1,14 +1,14 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.dto.response;
 
 public class CatalogoResponseDto {
-	private int idCatalogo;
+	private Integer idCatalogo;
     private String descripcion;
 	private boolean estado;
 	
-	public int getIdCatalogo() {
+	public Integer getIdCatalogo() {
 		return idCatalogo;
 	}
-	public void setIdCatalogo(int idCatalogo) {
+	public void setIdCatalogo(Integer idCatalogo) {
 		this.idCatalogo = idCatalogo;
 	}
 	public String getDescripcion() {

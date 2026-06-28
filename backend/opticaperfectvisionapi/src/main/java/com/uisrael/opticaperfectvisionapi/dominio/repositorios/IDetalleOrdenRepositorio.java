@@ -2,6 +2,7 @@ package com.uisrael.opticaperfectvisionapi.dominio.repositorios;
 
 import java.util.List;
 import java.util.Optional;
+
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.DetalleOrden;
 
 public interface IDetalleOrdenRepositorio {
@@ -9,5 +10,7 @@ public interface IDetalleOrdenRepositorio {
 	Optional<DetalleOrden> buscarPorId(int idDetalleOrden);
 	List<DetalleOrden> listarTodos();
 	void eliminar (int idDetalleOrden);
+	
+	DetalleOrden actualizar(int idDetalleOrden, DetalleOrden actualizado);
 
 }

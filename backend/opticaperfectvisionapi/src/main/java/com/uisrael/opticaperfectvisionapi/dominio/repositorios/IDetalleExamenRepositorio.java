@@ -10,4 +10,8 @@ public interface IDetalleExamenRepositorio {
 	Optional<DetalleExamen> buscarPorId(int idDetalleExamen);
 	List<DetalleExamen> listarTodos();
 	void eliminar (int idDetalleExamen);
+	
+	boolean existeDescripcion(String descripcionExamen);
+	
+	DetalleExamen actualizar(int idDetalleExamen, DetalleExamen actualizado);
 }

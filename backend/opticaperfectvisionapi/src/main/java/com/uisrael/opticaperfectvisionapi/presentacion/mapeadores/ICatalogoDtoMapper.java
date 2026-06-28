@@ -8,6 +8,7 @@ import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.CatalogoResp
 
 @Mapper(componentModel = "spring")
 public interface ICatalogoDtoMapper {
+	
 	Catalogo toDomain(CatalogoRequestDto dto);
 	
 	CatalogoResponseDto toResponseDto(Catalogo catalogoPojo);

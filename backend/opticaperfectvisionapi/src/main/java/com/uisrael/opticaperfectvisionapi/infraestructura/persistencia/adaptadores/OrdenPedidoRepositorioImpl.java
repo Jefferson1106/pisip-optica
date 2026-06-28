@@ -33,6 +33,11 @@ public class OrdenPedidoRepositorioImpl implements IOrdenPedidoRepositorio {
 		
 		return jpaRepositorio.findAll().stream().map(entityMapper :: toDomain).toList();
 	}
+	@Override
+	public OrdenPedido actualizar(int idOrdenPedido, OrdenPedido actualizado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 	

@@ -42,6 +42,39 @@ public class DetalleExamenRepositorioImpl implements IDetalleExamenRepositorio {
 		jpaRepositorio.deleteById(idDetalleExamen);
 		
 	}
+	@Override
+	public boolean existeDescripcion(String descripcionExamen) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public DetalleExamen actualizar(int idDetalleExamen, DetalleExamen detalleExamen) {
+		DetalleExamenEntity existente = jpaRepositorio.findById(idDetalleExamen).orElseThrow(() -> new RuntimeException("Detalle examen no encontrado"));
+		
+		existente.setExamenVisual(detalleExamen.getExamenVisual());
+		existente.setEsferaDistanciaOd(detalleExamen.getEsferaDistanciaOd());
+		existente.setCilindroDistanciaOd(detalleExamen.getCilindroDistanciaOd());
+		existente.setEjeDistanciaOd(detalleExamen.getEjeDistanciaOd());
+		existente.setEsferaDistanciaOi(detalleExamen.getEsferaDistanciaOi());
+		existente.setCilindroDistanciaOi(detalleExamen.getCilindroDistanciaOi());
+		existente.setEjeDistanciaOi(detalleExamen.getEjeDistanciaOi());
+		existente.setAdicionOd(detalleExamen.getAdicionOd());
+		existente.setAdicionOi(detalleExamen.getAdicionOi());
+		existente.setDistanciaPupilar(detalleExamen.getDistanciaPupilar());
+		existente.setAlturaBifocal(detalleExamen.getAlturaBifocal());
+		existente.setAlturaProgresivo(detalleExamen.getAlturaProgresivo());
+		existente.setEsferaLecturaOd(detalleExamen.getEsferaLecturaOd());
+		existente.setCilindroLecturaOd(detalleExamen.getCilindroLecturaOd());
+		existente.setEjeLecturaOd(detalleExamen.getEjeLecturaOd());
+		existente.setEsferaLecturaOi(detalleExamen.getEsferaLecturaOi());
+		existente.setCilindroLecturaOi(detalleExamen.getCilindroLecturaOi());
+		existente.setEjeLecturaOi(detalleExamen.getEjeLecturaOi());
+		
+		DetalleExamenEntity guardado = jpaRepositorio.save(existente);
+		
+		return entityMapper.toDomain(guardado);
+	}
 	
 	
 

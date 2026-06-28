@@ -39,6 +39,11 @@ public class DetalleOrdenRepositorioImpl implements IDetalleOrdenRepositorio {
 	public void eliminar(int idDetalleOrden) {
 		jpaRepositorio.deleteById(idDetalleOrden);		
 	}
+	@Override
+	public DetalleOrden actualizar(int idDetalleOrden, DetalleOrden actualizado) {
+		jpaRepositorio.buscarPorId(idDetalleOrden).orElseThrow();
+		return null;
+	}
 	
 	
 

@@ -13,5 +13,7 @@ public interface IOrdenPedidoRepositorio {
 	
 	List<OrdenPedido> listarTodos();
 	
+	OrdenPedido actualizar(int idOrdenPedido, OrdenPedido actualizado);
+	
 
 }

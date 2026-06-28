@@ -1,6 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -112,22 +113,22 @@ public class UsuarioAdministradorController {
 			LoginResponseDto response = mapper.toLoginResponseDto(usuario);
 			return ResponseEntity.ok(response);
 		} catch (UsuarioBloqueadoException e) {
-			return ResponseEntity.status(HttpStatus.LOCKED).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.LOCKED).body(Map.of("message", e.getMessage()));
 		} catch (CredencialesInvalidasException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", e.getMessage()));
 		} catch (UsuarioNoEncontradoException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
 		}
 	}
 
 	@PostMapping("/recuperar-contrasenia")
-	public ResponseEntity<String> recuperarContrasenia(
+	public ResponseEntity<Map<String, String>> recuperarContrasenia(
 			@Valid @RequestBody UsuarioAdministradorRecuperacionRequestDto requestDto) {
 		try {
 			useCase.recuperarContrasenia(requestDto.getCorreo());
-			return ResponseEntity.ok("Se envio la contrasenia al correo registrado");
+			return ResponseEntity.ok(Map.of("message", "Se envio la contrasenia al correo registrado"));
 		} catch (UsuarioNoEncontradoException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
 		}
 	}
 

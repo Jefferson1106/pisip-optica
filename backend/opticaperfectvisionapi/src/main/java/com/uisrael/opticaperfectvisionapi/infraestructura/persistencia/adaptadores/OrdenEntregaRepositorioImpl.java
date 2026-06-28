@@ -40,5 +40,11 @@ public class OrdenEntregaRepositorioImpl implements IOrdenEntregaRepositorio {
 		return jpaRepositorio.findAll().stream().map(entityMapper :: toDomain).toList();
 	}
 
+	@Override
+	public void eliminar(int idOrdenEntrega) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -5,9 +5,10 @@ import org.mapstruct.Mapper;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.DetalleCatalogo;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 
-@Mapper (componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface IDetalleCatalogoJpaMapper {
-DetalleCatalogo toDomain (DetalleCatalogoEntity entity);
-DetalleCatalogoEntity toEntity (DetalleCatalogo detalleCatalogoPojo);
 
+	DetalleCatalogo toDomain(DetalleCatalogoEntity entity);
+
+	DetalleCatalogoEntity toEntity(DetalleCatalogo detalleCatalogoPojo);
 }

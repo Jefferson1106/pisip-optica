@@ -15,9 +15,9 @@ public interface ICatalogoRepositorio {
 	
 	Catalogo actualizar(int id, Catalogo catalogo);
 	
-	Catalogo actualizarEstado(int id, Catalogo cargo);
+	Catalogo actualizarEstado(int id, Catalogo catalogo);
 	
 	boolean existeDescripcion(String descripcion);
 	
-	boolean existeNombreParaOtro(String nombre, int idCargo);
+	boolean existeNombreParaOtro(String nombre, int idCatalogo);
 }

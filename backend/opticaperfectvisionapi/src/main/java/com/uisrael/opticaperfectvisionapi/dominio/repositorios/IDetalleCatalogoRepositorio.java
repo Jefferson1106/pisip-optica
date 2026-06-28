@@ -5,10 +5,19 @@ import java.util.Optional;
 
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.DetalleCatalogo;
 
-public interface IDetalleCatalogoRespositorio {
-	DetalleCatalogo guardar(DetalleCatalogo nuevoDetalleCatalogo);
-	Optional<DetalleCatalogo> buscarPorId(int idDetalleCatalogo);
-	List<DetalleCatalogo> listarTodos();
-	void eliminar (int idDetalleCatalogo);
+public interface IDetalleCatalogoRepositorio {
 
+	DetalleCatalogo guardar(DetalleCatalogo nuevoDetalleCatalogo);
+
+	Optional<DetalleCatalogo> buscarPorId(int idDetalleCatalogo);
+
+	List<DetalleCatalogo> listarTodos();
+
+	DetalleCatalogo actualizar(int id, DetalleCatalogo detalleCatalogo);
+
+	DetalleCatalogo actualizarEstado(int id, DetalleCatalogo detalleCatalogo);
+
+	boolean existeNombre(String nombre);
+
+	boolean existeNombreParaOtro(String nombre, int idDetalleCatalogo);
 }

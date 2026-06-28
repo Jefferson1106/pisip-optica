@@ -32,6 +32,6 @@ public class DetalleCatalogoEntity {
 	@Column(name = "identificador", length = 100)
 	private String identificador;
 
-	@Column(name = "fecha_registro")
-	private LocalDate fechaRegistro;
+	@Column(name = "estado")
+	private boolean estado;
 }

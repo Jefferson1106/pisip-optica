@@ -38,7 +38,7 @@ public class CatalogoRepositorioImpl implements ICatalogoRepositorio {
 
 	@Override
 	public Catalogo actualizar(int id, Catalogo catalogo) {
-		CatalogoEntity existente = jpaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
+		CatalogoEntity existente = jpaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Catalogo no encontrado"));
 
 		existente.setDescripcion(catalogo.getDescripcion());
 		existente.setEstado(catalogo.isEstado());
@@ -49,7 +49,7 @@ public class CatalogoRepositorioImpl implements ICatalogoRepositorio {
 
 	@Override
 	public Catalogo actualizarEstado(int id, Catalogo catalogo) {
-		CatalogoEntity existente = jpaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
+		CatalogoEntity existente = jpaRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Catalogo no encontrado"));
 
 		existente.setEstado(catalogo.isEstado());
 

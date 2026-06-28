@@ -35,10 +35,10 @@ public class CatalogoUseCaseImpl implements ICatalogoUseCase {
 
 	@Override
 	public Catalogo actualizar(int id, Catalogo catalogo) {
-		repositorio.buscarPorId(id).orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
+		repositorio.buscarPorId(id).orElseThrow(() -> new RuntimeException("Catalogo no encontrado"));
 
 		if (repositorio.existeNombreParaOtro(catalogo.getDescripcion().trim(), id)) {
-			throw new RuntimeException("Ya existe otro cargo con ese nombre");
+			throw new RuntimeException("Ya existe otro catalogo con ese nombre");
 		}
 
 		Catalogo actualizado = new Catalogo(id, catalogo.getDescripcion(), catalogo.isEstado());
@@ -48,7 +48,7 @@ public class CatalogoUseCaseImpl implements ICatalogoUseCase {
 	
 	@Override
 	public Catalogo actualizarEstado(int id, boolean estado) {
-		Catalogo actual = repositorio.buscarPorId(id).orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
+		Catalogo actual = repositorio.buscarPorId(id).orElseThrow(() -> new RuntimeException("Catalogo no encontrado"));
 
 		// Solo cambia el estado
 		Catalogo actualizado = new Catalogo(actual.getIdCatalogo(), // o id, según tu constructor

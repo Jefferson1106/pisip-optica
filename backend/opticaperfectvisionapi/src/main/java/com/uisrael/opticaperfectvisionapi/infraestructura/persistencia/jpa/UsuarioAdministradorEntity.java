@@ -1,7 +1,5 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,32 +14,31 @@ import lombok.Data;
 @Entity
 @Table(name = "usuario_administrador")
 public class UsuarioAdministradorEntity {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Integer idUsuario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuario")
+	private Integer idUsuario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_detalle_catalogo")
-    private DetalleCatalogoEntity tipoUsuario;
+	@ManyToOne
+	@JoinColumn(name = "id_detalle_catalogo")
+	private DetalleCatalogoEntity tipoUsuario;
 
-    @Column(name = "nombres", length = 100)
-    private String nombres;
+	@Column(name = "nombres", length = 100)
+	private String nombres;
 
-    @Column(name = "apellidos", length = 100)
-    private String apellidos;
+	@Column(name = "apellidos", length = 100)
+	private String apellidos;
 
-    @Column(name = "correo", length = 150)
-    private String correo;
+	@Column(name = "correo", length = 150)
+	private String correo;
 
-    @Column(name = "contrasenia", length = 255)
-    private String contrasenia;
+	@Column(name = "contrasenia", length = 255)
+	private String contrasenia;
 
-    @Column(name = "estado", length = 10)
-    private String estado;
+	@Column(name = "estado")
+	private boolean estado;
 
-    @Column(name = "fecha_creacion")
-    private LocalDateTime fechaCreacion;
-
+	@Column(name = "intentos_fallidos")
+	private Integer intentosFallidos;
 }

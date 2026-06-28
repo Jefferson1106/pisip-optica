@@ -6,11 +6,22 @@ import java.util.Optional;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.UsuarioAdministrador;
 
 public interface IUsuarioAdministradorRepositorio {
-	
-	UsuarioAdministrador guardar(UsuarioAdministrador nuevoUsuarioAdministrador);
-	
-	Optional<UsuarioAdministrador> buscarPorId(int idUsuarioAdministrador);
-	
+
+	UsuarioAdministrador guardar(UsuarioAdministrador usuarioAdministrador);
+
+	Optional<UsuarioAdministrador> buscarPorId(Integer idUsuario);
+
+	Optional<UsuarioAdministrador> buscarPorCorreo(String correo);
+
 	List<UsuarioAdministrador> listarTodos();
-	
+
+	UsuarioAdministrador actualizar(Integer idUsuario, UsuarioAdministrador usuarioAdministrador);
+
+	UsuarioAdministrador actualizarEstado(Integer idUsuario, boolean estado);
+
+	UsuarioAdministrador actualizarIntentosFallidos(Integer idUsuario, int intentosFallidos);
+
+	boolean existeCorreo(String correo);
+
+	boolean existeCorreoParaOtro(String correo, Integer idUsuario);
 }

@@ -7,9 +7,8 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Usuar
 
 @Mapper(componentModel = "spring")
 public interface IUsuarioAdministradorJpaMapper {
-	
+
 	UsuarioAdministrador toDomain(UsuarioAdministradorEntity entity);
-	
-	UsuarioAdministradorEntity toEntity(UsuarioAdministrador usuarioAdministradorPojo);
-	
+
+	UsuarioAdministradorEntity toEntity(UsuarioAdministrador usuarioAdministrador);
 }

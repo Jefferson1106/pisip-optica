@@ -1,8 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
-import java.time.LocalDateTime;
-
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
+
 
 
 public class UsuarioAdministrador {
@@ -13,15 +12,16 @@ public class UsuarioAdministrador {
     private String apellidos;
     private String correo;
     private String contrasenia;
-    private String estado;
-    private LocalDateTime fechaCreacion;
+    private boolean estado;
+    private int intentosFallidos = 0;
 
     public UsuarioAdministrador() {
 
 	}
 
 	public UsuarioAdministrador(Integer idUsuario, DetalleCatalogoEntity tipoUsuario, String nombres, String apellidos,
-			String correo, String contrasenia, String estado, LocalDateTime fechaCreacion) {
+			String correo, String contrasenia, boolean estado, int intentosFallidos) {
+		super();
 		this.idUsuario = idUsuario;
 		this.tipoUsuario = tipoUsuario;
 		this.nombres = nombres;
@@ -29,7 +29,7 @@ public class UsuarioAdministrador {
 		this.correo = correo;
 		this.contrasenia = contrasenia;
 		this.estado = estado;
-		this.fechaCreacion = fechaCreacion;
+		this.intentosFallidos = intentosFallidos;
 	}
 
 	public Integer getIdUsuario() {
@@ -80,19 +80,19 @@ public class UsuarioAdministrador {
 		this.contrasenia = contrasenia;
 	}
 
-	public String getEstado() {
+	public boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
-	public LocalDateTime getFechaCreacion() {
-		return fechaCreacion;
+	public int getIntentosFallidos() {
+		return intentosFallidos;
 	}
 
-	public void setFechaCreacion(LocalDateTime fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
+	public void setIntentosFallidos(int intentosFallidos) {
+		this.intentosFallidos = intentosFallidos;
 	}
 }

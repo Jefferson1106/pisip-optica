@@ -13,5 +13,5 @@ public interface IOrdenEntregaRepositorio {
 	
 	List<OrdenEntrega> listarTodos();
 	
-	
+	void eliminar (int idOrdenEntrega);
 }

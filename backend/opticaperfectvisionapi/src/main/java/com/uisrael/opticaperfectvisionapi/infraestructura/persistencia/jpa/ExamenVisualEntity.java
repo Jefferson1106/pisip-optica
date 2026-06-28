@@ -1,7 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +32,6 @@ public class ExamenVisualEntity {
     @Column(name = "observaciones")
     private String observaciones;
 
-    @Column(name = "fecha_registro")
-    private LocalDateTime fechaRegistro;
+    @Column(name = "estado")
+    private boolean estado;
 }

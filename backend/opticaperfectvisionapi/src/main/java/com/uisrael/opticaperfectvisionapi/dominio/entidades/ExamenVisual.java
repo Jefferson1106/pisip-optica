@@ -1,7 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.PacienteEntity;
 
@@ -11,19 +10,19 @@ public class ExamenVisual {
     private PacienteEntity paciente;
     private LocalDate fechaExamen;
     private String observaciones;
-    private LocalDateTime fechaRegistro;
+    private boolean estado;
     
 	public ExamenVisual() {
 
 	}
 
 	public ExamenVisual(Integer idExamen, PacienteEntity paciente, LocalDate fechaExamen, String observaciones,
-			LocalDateTime fechaRegistro) {
+			boolean estado) {
 		this.idExamen = idExamen;
 		this.paciente = paciente;
 		this.fechaExamen = fechaExamen;
 		this.observaciones = observaciones;
-		this.fechaRegistro = fechaRegistro;
+		this.estado = estado;
 	}
 
 	public Integer getIdExamen() {
@@ -58,13 +57,15 @@ public class ExamenVisual {
 		this.observaciones = observaciones;
 	}
 
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
+	public boolean isEstado() {
+		return estado;
 	}
 
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
+
+
 }
 
 

@@ -12,7 +12,10 @@ import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleEn
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleExamenUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleOrdenUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IExamenVisualUseCase;
+<<<<<<< HEAD
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IOrdenEntregaUseCase;
+=======
+>>>>>>> 016dbd61e73b14b5e377769b2916b884c0d61bb8
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IOrdenPedidoUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IUsuarioAdministradorUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.CatalogoUseCaseImpl;
@@ -21,7 +24,10 @@ import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.DetalleEntreg
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.DetalleExamenUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.DetalleOrdenUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.ExamenVisualUseCaseImpl;
+<<<<<<< HEAD
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.OrdenEntregaUseCaseImpl;
+=======
+>>>>>>> 016dbd61e73b14b5e377769b2916b884c0d61bb8
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.OrdenPedidoUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.UsuarioAdministradorUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.ICatalogoRepositorio;
@@ -39,7 +45,10 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptador
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.DetalleExamenRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.DetalleOrdenRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.ExamenVisualRepositorioImpl;
+<<<<<<< HEAD
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.OrdenEntregaRepositorioImpl;
+=======
+>>>>>>> 016dbd61e73b14b5e377769b2916b884c0d61bb8
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.OrdenPedidoRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.UsuarioAdministradorRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.ICatalogoJpaMapper;
@@ -128,6 +137,7 @@ public class ConfigGeneral {
 	}
 	
 	@Bean
+<<<<<<< HEAD
 	IDetalleEntregaRepositorio detalleEntregaRepositorio(IDetalleEntregaJpaRepositorio repositorio,
 	                                                     IDetalleEntregaJpaMapper mapper) {
 	    return new DetalleEntregaRepositorioImpl(repositorio, mapper);
@@ -174,4 +184,27 @@ public class ConfigGeneral {
     }
 
 
+=======
+	IOrdenPedidoRepositorio ordenPedidoRepositorio(IOrdenPedidoJpaRepositorio ordenPedidoRepositorio,
+			IOrdenPedidoJpaMapper mapper, IOrdenPedidoJpaRepositorio ordenPedido) {
+		return new OrdenPedidoRepositorioImpl(ordenPedidoRepositorio, mapper);
+	}
+	
+	@Bean
+	IOrdenPedidoUseCase ordenPedidoUseCase(IOrdenPedidoRepositorio repoUseCase) {
+		return new OrdenPedidoUseCaseImpl(repoUseCase);
+	}
+	
+	@Bean
+	IDetalleOrdenRepositorio detalleOrdenRespositorio(IDetalleOrdenJpaRepositorio detalleOrdenRepositorio,
+			IDetalleOrdenJpaMapper mapper, IDetalleOrdenJpaRepositorio detalleOrden) {
+		return new DetalleOrdenRepositorioImpl(detalleOrdenRepositorio, mapper);
+	}
+	
+	@Bean
+	IDetalleOrdenUseCase detalleOrdenUseCase(IDetalleOrdenRepositorio repoUseCase) {
+		return new DetalleOrdenUseCaseImpl(repoUseCase);
+		
+	}
+>>>>>>> 016dbd61e73b14b5e377769b2916b884c0d61bb8
 }

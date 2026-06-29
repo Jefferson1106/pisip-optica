@@ -8,33 +8,42 @@ import org.springframework.context.annotation.Configuration;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.ICatalogoUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleCatalogoUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleExamenUseCase;
+import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleOrdenUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IExamenVisualUseCase;
+import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IOrdenPedidoUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IUsuarioAdministradorUseCase;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.CatalogoUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.DetalleCatalogoUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.DetalleExamenUseCaseImpl;
+import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.DetalleOrdenUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.ExamenVisualUseCaseImpl;
+import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.OrdenPedidoUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl.UsuarioAdministradorUseCaseImpl;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.ICatalogoRepositorio;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IDetalleCatalogoRepositorio;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IDetalleExamenRepositorio;
+import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IDetalleOrdenRepositorio;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IExamenVisualRepositorio;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IOrdenPedidoRepositorio;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IUsuarioAdministradorRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.CatalogoRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.DetalleCatalogoRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.DetalleExamenRepositorioImpl;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.DetalleOrdenRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.ExamenVisualRepositorioImpl;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.OrdenPedidoRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores.UsuarioAdministradorRepositorioImpl;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.ICatalogoJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IDetalleCatalogoJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IDetalleExamenJpaMapper;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IDetalleOrdenJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IExamenVisualJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IOrdenPedidoJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IUsuarioAdministradorJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.ICatalogoJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IDetalleCatalogoJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IDetalleExamenJpaRepositorio;
+import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IDetalleOrdenJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IExamenVisualJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IPacienteJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IUsuarioAdministradorJpaRepositorio;
@@ -106,5 +115,26 @@ public class ConfigGeneral {
 		return new DetalleExamenUseCaseImpl(repoUseCase);
 	}
 	
+	@Bean
+	IOrdenPedidoRepositorio ordenPedidoRepositorio(IOrdenPedidoJpaRepositorio ordenPedidoRepositorio,
+			IOrdenPedidoJpaMapper mapper, IOrdenPedidoJpaRepositorio ordenPedido) {
+		return new OrdenPedidoRepositorioImpl(ordenPedidoRepositorio, mapper);
+	}
 	
+	@Bean
+	IOrdenPedidoUseCase ordenPedidoUseCase(IOrdenPedidoRepositorio repoUseCase) {
+		return new OrdenPedidoUseCaseImpl(repoUseCase);
+	}
+	
+	@Bean
+	IDetalleOrdenRepositorio detalleOrdenRespositorio(IDetalleOrdenJpaRepositorio detalleOrdenRepositorio,
+			IDetalleOrdenJpaMapper mapper, IDetalleOrdenJpaRepositorio detalleOrden) {
+		return new DetalleOrdenRepositorioImpl(detalleOrdenRepositorio, mapper);
+	}
+	
+	@Bean
+	IDetalleOrdenUseCase detalleOrdenUseCase(IDetalleOrdenRepositorio repoUseCase) {
+		return new DetalleOrdenUseCaseImpl(repoUseCase);
+		
+	}
 }

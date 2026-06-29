@@ -40,9 +40,22 @@ public class DetalleOrdenRepositorioImpl implements IDetalleOrdenRepositorio {
 		jpaRepositorio.deleteById(idDetalleOrden);		
 	}
 	@Override
-	public DetalleOrden actualizar(int idDetalleOrden, DetalleOrden actualizado) {
-		jpaRepositorio.buscarPorId(idDetalleOrden).orElseThrow();
-		return null;
+	public DetalleOrden actualizar(int idDetalleOrden, DetalleOrden detalleOrden) {
+		DetalleOrdenEntity existente = jpaRepositorio.findById(idDetalleOrden).orElseThrow(() -> new RuntimeException("Detalle orden no encontrado"));
+		
+		existente.setIdDetOrden(detalleOrden.getIdDetOrden());
+		existente.setOrdenPedido(detalleOrden.getOrdenPedido());
+		existente.setMaterial(detalleOrden.getMaterial());
+		existente.setMarco(detalleOrden.getMarco());
+		existente.setTipoLente(detalleOrden.getTipoLente());
+		existente.setTratamiento(detalleOrden.getTratamiento());
+		existente.setCantidad(detalleOrden.getCantidad());
+		existente.setPrecioUnitario(detalleOrden.getPrecioUnitario());
+		existente.setFechaRegistro(detalleOrden.getFechaRegistro());
+		
+		DetalleOrdenEntity guardado = jpaRepositorio.save(existente);
+		
+		return entityMapper.toDomain(guardado);
 	}
 	
 	

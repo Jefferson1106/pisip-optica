@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
 
-public class DetalleOrdenReponseDto {
+public class DetalleOrdenResponseDto {
 	
 	private Integer idDetOrden;
     private OrdenPedidoEntity ordenPedido;

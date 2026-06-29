@@ -34,9 +34,21 @@ public class OrdenPedidoRepositorioImpl implements IOrdenPedidoRepositorio {
 		return jpaRepositorio.findAll().stream().map(entityMapper :: toDomain).toList();
 	}
 	@Override
-	public OrdenPedido actualizar(int idOrdenPedido, OrdenPedido actualizado) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrdenPedido actualizar(int idOrdenPedido, OrdenPedido ordenPedido) {
+		
+		OrdenPedidoEntity existente = jpaRepositorio.findById(idOrdenPedido).orElseThrow(() -> new RuntimeException("Orden pedido no encontrado"));
+		
+		existente.setIdPedido(ordenPedido.getIdPedido());
+		existente.setExamenVisual(ordenPedido.getExamenVisual());
+		existente.setPaciente(ordenPedido.getPaciente());
+		existente.setFechaPedido(ordenPedido.getFechaPedido());
+		existente.setFechaEntrega(ordenPedido.getFechaEntrega());
+		existente.setEstado(ordenPedido.getEstado());
+		existente.setFechaRegistro(ordenPedido.getFechaRegistro());
+		
+		OrdenPedidoEntity guardado = jpaRepositorio.save(existente);
+		
+		return entityMapper.toDomain(guardado);
 	}
 
 	

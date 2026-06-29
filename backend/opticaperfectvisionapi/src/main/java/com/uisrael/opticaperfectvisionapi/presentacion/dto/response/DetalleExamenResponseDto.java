@@ -25,6 +25,7 @@ public class DetalleExamenResponseDto {
     private BigDecimal esferaLecturaOi;
     private BigDecimal cilindroLecturaOi;
     private Integer ejeLecturaOi;
+    
 	public Integer getIdDetExamen() {
 		return idDetExamen;
 	}

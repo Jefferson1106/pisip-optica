@@ -12,6 +12,8 @@ import lombok.Data;
 public class DetalleExamenRequestDto {
 		
 		@NotBlank
+	 	private Integer idDetExamen;
+		@NotNull
 	  	private ExamenVisualEntity examenVisual;
 		@NotNull
 	    private BigDecimal esferaDistanciaOd;

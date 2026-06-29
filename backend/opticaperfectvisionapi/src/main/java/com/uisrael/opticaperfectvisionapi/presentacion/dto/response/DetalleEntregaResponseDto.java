@@ -12,6 +12,7 @@ public class DetalleEntregaResponseDto {
     private Integer cantidad;
     private Boolean estado;
     private LocalDateTime fechaRegistro;
+    
 	public Integer getIdDetEntrega() {
 		return idDetEntrega;
 	}

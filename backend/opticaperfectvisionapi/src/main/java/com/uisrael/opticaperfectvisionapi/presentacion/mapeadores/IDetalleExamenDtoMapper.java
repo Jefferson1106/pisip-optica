@@ -9,7 +9,7 @@ import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.DetalleExame
 @Mapper(componentModel = "spring")
 public interface IDetalleExamenDtoMapper {
 	
-	DetalleExamen toDomain(DetalleExamenRequestDto dto);
+	DetalleExamen toDomain(DetalleExamenRequestDto detalleOrdenDto);
 	
 	DetalleExamenResponseDto toResponseDto(DetalleExamen detalleExamenPojo);
 

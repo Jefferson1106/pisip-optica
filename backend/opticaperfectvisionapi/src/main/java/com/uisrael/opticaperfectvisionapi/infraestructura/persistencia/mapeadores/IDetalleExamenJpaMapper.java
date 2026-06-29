@@ -7,7 +7,8 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Detal
 
 @Mapper (componentModel = "spring")
 public interface IDetalleExamenJpaMapper {
-	DetalleExamen toDomain (DetalleExamenEntity entity);
+	
+	DetalleExamen toDomain(DetalleExamenEntity entity);
 	DetalleExamenEntity toEntity (DetalleExamen detalleExamenPojo);
 	
 }

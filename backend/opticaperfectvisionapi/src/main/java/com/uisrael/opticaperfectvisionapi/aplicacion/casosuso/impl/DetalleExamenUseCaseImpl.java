@@ -3,7 +3,6 @@ package com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl;
 import java.util.List;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleExamenUseCase;
-import com.uisrael.opticaperfectvisionapi.dominio.entidades.Catalogo;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.DetalleExamen;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IDetalleExamenRepositorio;
 
@@ -12,7 +11,6 @@ public class DetalleExamenUseCaseImpl implements IDetalleExamenUseCase {
 	private final IDetalleExamenRepositorio repositorio;
 	
 	public DetalleExamenUseCaseImpl(IDetalleExamenRepositorio repositorio) {
-		super();
 		this.repositorio = repositorio;
 	}
 

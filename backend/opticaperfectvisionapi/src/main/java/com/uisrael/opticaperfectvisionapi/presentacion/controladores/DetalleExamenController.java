@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IDetalleExamenUseCase;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.DetalleExamen;
@@ -20,6 +22,8 @@ import com.uisrael.opticaperfectvisionapi.presentacion.mapeadores.IDetalleExamen
 
 import jakarta.validation.Valid;
 
+@RestController
+@RequestMapping("/api/detalle-examen")
 public class DetalleExamenController {
 	
 	private final IDetalleExamenUseCase detalleExamenUseCase;
@@ -56,9 +60,9 @@ public class DetalleExamenController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<DetalleExamenResponseDto> actualizar(@PathVariable int id,
-			@Valid @RequestBody CatalogoRequestDto requestDto){
-		DetalleExamen detalleExamenActualizado = detalleExamenUseCase.actualizar(id, mapper.toDomain(requestDto));
-		return ResponseEntity.ok(mapper.toResponseDto(detalleExamenActualizado));
+			@Valid @RequestBody DetalleExamenRequestDto requestDto){
+		DetalleExamen actualizado = detalleExamenUseCase.actualizar(id, mapper.toDomain(requestDto));
+		return ResponseEntity.ok(mapper.toResponseDto(actualizado));
 	}
 	
 

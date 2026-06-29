@@ -107,4 +107,24 @@ public class DetalleOrden {
 	public void setFechaRegistro(LocalDateTime fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
+
+	public Object getEstado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setEstado(Object estado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getIdProducto() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setIdProducto(Object idProducto) {
+		// TODO Auto-generated method stub
+		
+	}
 }

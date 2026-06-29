@@ -1,24 +1,26 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
-
 import java.time.LocalDateTime;
-
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleOrdenEntity;
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenEntregaEntity;
-
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
 @Data
 public class DetalleEntregaRequestDto {
-	
-	@NotBlank
-    private OrdenEntregaEntity ordenEntrega;
-	@NotBlank
-    private DetalleOrdenEntity producto;
-	@NotBlank
+
+    @NotNull
     private Integer cantidad;
-	@NotBlank
+
+    @NotNull
     private Boolean estado;
-	@NotBlank
+
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime fechaRegistro;
 
+    @NotNull
+    private Integer idEntrega;
+
+    @NotNull
+    private Integer idProducto;
 }
+

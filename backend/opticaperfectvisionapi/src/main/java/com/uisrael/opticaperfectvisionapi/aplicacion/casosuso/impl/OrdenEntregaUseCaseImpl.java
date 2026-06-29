@@ -21,15 +21,32 @@ public class OrdenEntregaUseCaseImpl implements IOrdenEntregaUseCase {
 
 	@Override
 	public OrdenEntrega buscarPorId(int idOrdenEntrega) {
-		return repositorio.buscarPorId(idOrdenEntrega)
-				.orElseThrow(()-> new RuntimeException("Orden de entrega no encontrado"));
-
+	    return repositorio.buscarPorId(idOrdenEntrega)
+	        .orElseThrow(() -> new RuntimeException("Orden de entrega no encontrada"));
 	}
 
 	@Override
 	public List<OrdenEntrega> listarTodos() {
-		return repositorio.listarTodos();
+	    return repositorio.listarTodos();
 	}
-	
 
+	@Override
+	public OrdenEntrega actualizar(int idOrdenEntrega, OrdenEntrega ordenEntregaActualizada) {
+	    OrdenEntrega existente = buscarPorId(idOrdenEntrega);
+	    existente.setOrdenPedido(ordenEntregaActualizada.getOrdenPedido());
+	    existente.setFechaEntrega(ordenEntregaActualizada.getFechaEntrega());
+	    existente.setFechaRegistro(ordenEntregaActualizada.getFechaRegistro());
+	    existente.setObservaciones(ordenEntregaActualizada.getObservaciones());
+	    existente.setRecibido(ordenEntregaActualizada.getRecibido());
+	    return repositorio.guardar(existente);
+	}
+
+	@Override
+	public OrdenEntrega actualizarRecibido(int idOrdenEntrega, Boolean recibido) {
+	    OrdenEntrega existente = buscarPorId(idOrdenEntrega);
+	    existente.setRecibido(recibido);
+	    return repositorio.guardar(existente);
+	}
+
+	
 }

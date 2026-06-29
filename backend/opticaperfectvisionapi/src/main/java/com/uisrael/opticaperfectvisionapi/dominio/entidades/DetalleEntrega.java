@@ -8,11 +8,13 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Orden
 public class DetalleEntrega {
 
 	private Integer idDetEntrega;
+	private Integer cantidad;
+	private Boolean estado;
+	private LocalDateTime fechaRegistro;
     private OrdenEntregaEntity ordenEntrega;
     private DetalleOrdenEntity producto;
-    private Integer cantidad;
-    private Boolean estado;
-    private LocalDateTime fechaRegistro;
+    
+    
     
 	public DetalleEntrega() {
 

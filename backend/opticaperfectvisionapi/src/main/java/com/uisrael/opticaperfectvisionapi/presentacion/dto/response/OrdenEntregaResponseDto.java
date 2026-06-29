@@ -8,7 +8,7 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Orden
 public class OrdenEntregaResponseDto {
 	
 	private Integer idEntrega;
-    private OrdenPedidoEntity ordenPedido;
+	private Integer idPedido;
     private LocalDate fechaEntrega;
     private Boolean recibido;
     private String observaciones;
@@ -19,11 +19,11 @@ public class OrdenEntregaResponseDto {
 	public void setIdEntrega(Integer idEntrega) {
 		this.idEntrega = idEntrega;
 	}
-	public OrdenPedidoEntity getOrdenPedido() {
-		return ordenPedido;
+	public Integer getIdPedido() {
+		return idPedido;
 	}
-	public void setOrdenPedido(OrdenPedidoEntity ordenPedido) {
-		this.ordenPedido = ordenPedido;
+	public void setIdPedido(Integer idPedido) {
+		this.idPedido = idPedido;
 	}
 	public LocalDate getFechaEntrega() {
 		return fechaEntrega;
@@ -51,5 +51,6 @@ public class OrdenEntregaResponseDto {
 	}
     
     
-
+    
+    
 }

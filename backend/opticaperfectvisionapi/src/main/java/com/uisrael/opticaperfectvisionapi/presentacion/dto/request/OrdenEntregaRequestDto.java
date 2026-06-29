@@ -12,7 +12,7 @@ import lombok.Data;
 public class OrdenEntregaRequestDto {
 	
 	@NotBlank
-    private OrdenPedidoEntity ordenPedido;
+    private Integer ordenPedido;
     @NotBlank
     private LocalDate fechaEntrega;
     @NotBlank

@@ -7,45 +7,45 @@ import com.uisrael.opticaperfectvisionapi.dominio.entidades.DetalleOrden;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IDetalleOrdenRepositorio;
 
 
-public class DetalleOrdenUseCaseImpl implements IDetalleOrdenUseCase{
-	
-	private final IDetalleOrdenRepositorio repositorio;
+public class DetalleOrdenUseCaseImpl implements IDetalleOrdenUseCase {
 
-	public DetalleOrdenUseCaseImpl(IDetalleOrdenRepositorio repositorio) {
+    private final IDetalleOrdenRepositorio repositorio;
 
-		this.repositorio = repositorio;
-	}
+    public DetalleOrdenUseCaseImpl(IDetalleOrdenRepositorio repositorio) {
+        this.repositorio = repositorio;
+    }
 
-	@Override
-	public DetalleOrden guardar(DetalleOrden nuevoDetalleOrden) {
-		
-		return repositorio.guardar(nuevoDetalleOrden);
-	}
+    @Override
+    public DetalleOrden guardar(DetalleOrden nuevoDetalleOrden) {
+        return repositorio.guardar(nuevoDetalleOrden);
+    }
 
-	@Override
-	public DetalleOrden buscarPorId(int idDetalleOrden) {
-		
-		return repositorio.buscarPorId(idDetalleOrden)
-				.orElseThrow(()-> new RuntimeException("Detalle orden no encontrado"));
-	}
+    @Override
+    public DetalleOrden buscarPorId(int idDetalleOrden) {
+        return repositorio.buscarPorId(idDetalleOrden)
+                .orElseThrow(() -> new RuntimeException("Detalle orden no encontrado"));
+    }
 
-	@Override
-	public List<DetalleOrden> listarTodos() {
-		
-		return repositorio.listarTodos();
-	}
+    @Override
+    public List<DetalleOrden> listarTodos() {
+        return repositorio.listarTodos();
+    }
 
-	@Override
-	public DetalleOrden actualizar(int idDetalleOrden, DetalleOrden detalleOrden) {
-		repositorio.buscarPorId(idDetalleOrden).orElseThrow(()-> new RuntimeException("Detalle orden no encintrado"));
-		
-		DetalleOrden actualizado = new DetalleOrden(detalleOrden.getIdDetOrden(),detalleOrden.getOrdenPedido(),detalleOrden.getMaterial(),
-				detalleOrden.getMarco(),detalleOrden.getTipoLente(),detalleOrden.getTratamiento(),detalleOrden.getCantidad(),detalleOrden.getPrecioUnitario(),
-				detalleOrden.getFechaRegistro());
-		
-		return repositorio.actualizar(idDetalleOrden, actualizado);
-	}
-	
-	
+    @Override
+    public void eliminar(int idDetalleOrden) {
+        repositorio.eliminar(idDetalleOrden);
+    }
 
+    @Override
+    public DetalleOrden actualizar(int idDetalleOrden, DetalleOrden detalleOrden) {
+        DetalleOrden existente = repositorio.buscarPorId(idDetalleOrden)
+                .orElseThrow(() -> new RuntimeException("Detalle orden no encontrado"));
+
+        existente.setCantidad(detalleOrden.getCantidad());
+        existente.setEstado(detalleOrden.getEstado());
+        existente.setFechaRegistro(detalleOrden.getFechaRegistro());
+        existente.setIdProducto(detalleOrden.getIdProducto());
+
+        return repositorio.guardar(existente);
+    }
 }

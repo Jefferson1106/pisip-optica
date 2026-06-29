@@ -4,7 +4,7 @@ import com.uisrael.opticaperfectvisionapi.dominio.entidades.Paciente;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.PacienteRequestDto;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.PacienteResponseDto;
 
-public interface PacienteDtoMapper {
+public interface IPacienteDtoMapper {
 	
 	Paciente toDomain(PacienteRequestDto dto);
 

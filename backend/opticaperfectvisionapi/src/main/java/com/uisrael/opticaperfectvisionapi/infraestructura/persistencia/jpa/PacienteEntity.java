@@ -14,7 +14,7 @@ import lombok.Data;
 @Entity
 @Table(name = "paciente")
 public class PacienteEntity {
-	
+    
     @Id
     @Column(name = "cedula", length = 13)
     private String cedula;
@@ -44,4 +44,6 @@ public class PacienteEntity {
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
     
+    /*@Column(name = "activo")
+    private Boolean activo = true;*/
 }

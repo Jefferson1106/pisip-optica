@@ -3,6 +3,7 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -19,10 +20,12 @@ public class PacienteRequestDto {
 	    private String telefono;
 		@NotBlank
 	    private String correo;
-		@NotBlank
+		@NotNull
 	    private LocalDateTime fechaNacimiento;
-		@NotBlank
+		@NotNull
 	    private LocalDateTime fechaRegistro;
+		@NotNull
+		private Integer idUsuario;
 	    
 
 }

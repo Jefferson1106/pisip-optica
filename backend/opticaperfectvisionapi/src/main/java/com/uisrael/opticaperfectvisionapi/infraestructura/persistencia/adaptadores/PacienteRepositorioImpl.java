@@ -34,6 +34,11 @@ public class PacienteRepositorioImpl implements IPacienteRepositorio{
 		
 		return jpaRepositorio.findAll().stream().map(entityMapper::toDomain).toList();
 	}
+	@Override
+	public void eliminar(String cedula) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 	

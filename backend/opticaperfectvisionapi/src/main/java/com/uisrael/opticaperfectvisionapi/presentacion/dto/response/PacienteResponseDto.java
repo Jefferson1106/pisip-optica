@@ -6,8 +6,8 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Usuar
 
 public class PacienteResponseDto {
 	
-    private String cedula;
-    private UsuarioAdministradorEntity usuarioAdministrador;
+	private String cedula;
+    private Integer idUsuario; // solo el ID del usuario administrador
     private String nombres;
     private String apellidos;
     private String direccion;
@@ -15,17 +15,13 @@ public class PacienteResponseDto {
     private String correo;
     private LocalDateTime fechaNacimiento;
     private LocalDateTime fechaRegistro;
+    private Boolean activo;
+    	
 	public String getCedula() {
 		return cedula;
 	}
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
-	}
-	public UsuarioAdministradorEntity getUsuarioAdministrador() {
-		return usuarioAdministrador;
-	}
-	public void setUsuarioAdministrador(UsuarioAdministradorEntity usuarioAdministrador) {
-		this.usuarioAdministrador = usuarioAdministrador;
 	}
 	public String getNombres() {
 		return nombres;
@@ -68,6 +64,18 @@ public class PacienteResponseDto {
 	}
 	public void setFechaRegistro(LocalDateTime fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
+	}
+	public Boolean getActivo() {
+		return activo;
+	}
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
 	}
     
     

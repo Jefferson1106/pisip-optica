@@ -12,6 +12,10 @@ public interface IPacienteRepositorio {
 	Optional<Paciente> buscarPorId(int idPaciente);
 	
 	List<Paciente> listarTodos();
+	void eliminar(String cedula);
+	
+	
+	
 	
 
 }

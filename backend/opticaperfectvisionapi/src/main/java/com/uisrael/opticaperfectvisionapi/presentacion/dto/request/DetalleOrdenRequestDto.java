@@ -13,21 +13,21 @@ public class DetalleOrdenRequestDto {
 	
 	@NotBlank
 	private Integer idDetOrden;
-	@NotNull
+
     private OrdenPedidoEntity ordenPedido;
-	@NotNull
+	
     private DetalleCatalogoEntity material;
-	@NotNull
+	
     private DetalleCatalogoEntity marco;
-	@NotNull
+	
     private DetalleCatalogoEntity tipoLente;
-	@NotNull
+	
     private String tratamiento;
-	@NotNull
+	
     private Integer cantidad;
-	@NotNull
+	
     private BigDecimal precioUnitario;
-	@NotNull
+	
     private LocalDateTime fechaRegistro;
 
 }

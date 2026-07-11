@@ -41,10 +41,14 @@ public class DetalleOrdenUseCaseImpl implements IDetalleOrdenUseCase {
         DetalleOrden existente = repositorio.buscarPorId(idDetalleOrden)
                 .orElseThrow(() -> new RuntimeException("Detalle orden no encontrado"));
 
+        existente.setOrdenPedido(detalleOrden.getOrdenPedido());
+        existente.setMaterial(detalleOrden.getMaterial());
+        existente.setMarco(detalleOrden.getMarco());
+        existente.setTipoLente(detalleOrden.getTipoLente());
+        existente.setTratamiento(detalleOrden.getTratamiento());
         existente.setCantidad(detalleOrden.getCantidad());
-        existente.setEstado(detalleOrden.getEstado());
+        existente.setPrecioUnitario(detalleOrden.getPrecioUnitario());
         existente.setFechaRegistro(detalleOrden.getFechaRegistro());
-        existente.setIdProducto(detalleOrden.getIdProducto());
 
         return repositorio.guardar(existente);
     }

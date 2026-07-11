@@ -1,21 +1,28 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.dto.response;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.UsuarioAdministradorEntity;
 
 public class PacienteResponseDto {
 	
+	private Integer idPaciente;
 	private String cedula;
-    private Integer idUsuario; // solo el ID del usuario administrador
+	    private Integer idUsuarioRegistro;
     private String nombres;
     private String apellidos;
     private String direccion;
     private String telefono;
     private String correo;
-    private LocalDateTime fechaNacimiento;
+	    private LocalDate fechaNacimiento;
     private LocalDateTime fechaRegistro;
     private Boolean activo;
+
+	public Integer getIdPaciente() {
+		return idPaciente;
+	}
+	public void setIdPaciente(Integer idPaciente) {
+		this.idPaciente = idPaciente;
+	}
     	
 	public String getCedula() {
 		return cedula;
@@ -53,10 +60,10 @@ public class PacienteResponseDto {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public LocalDateTime getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public LocalDateTime getFechaRegistro() {
@@ -71,11 +78,11 @@ public class PacienteResponseDto {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Integer getIdUsuarioRegistro() {
+		return idUsuarioRegistro;
 	}
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setIdUsuarioRegistro(Integer idUsuarioRegistro) {
+		this.idUsuarioRegistro = idUsuarioRegistro;
 	}
     
     

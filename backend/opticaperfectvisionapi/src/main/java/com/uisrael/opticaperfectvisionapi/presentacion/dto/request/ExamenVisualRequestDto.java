@@ -9,8 +9,8 @@ import lombok.Data;
 @Data
 public class ExamenVisualRequestDto {
 
-	@NotBlank
-	private String cedulaPaciente;
+	@NotNull
+	private Integer idPaciente;
 
 	@NotNull
 	private LocalDate fechaExamen;

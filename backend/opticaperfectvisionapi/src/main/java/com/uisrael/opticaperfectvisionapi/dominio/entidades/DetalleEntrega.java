@@ -2,7 +2,7 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
 import java.time.LocalDateTime;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleOrdenEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenEntregaEntity;
 
 public class DetalleEntrega {
@@ -12,7 +12,7 @@ public class DetalleEntrega {
 	private Boolean estado;
 	private LocalDateTime fechaRegistro;
     private OrdenEntregaEntity ordenEntrega;
-    private DetalleOrdenEntity producto;
+	private DetalleCatalogoEntity producto;
     
     
     
@@ -20,7 +20,7 @@ public class DetalleEntrega {
 
 	}
 
-	public DetalleEntrega(Integer idDetEntrega, OrdenEntregaEntity ordenEntrega, DetalleOrdenEntity producto,
+	public DetalleEntrega(Integer idDetEntrega, OrdenEntregaEntity ordenEntrega, DetalleCatalogoEntity producto,
 			Integer cantidad, Boolean estado, LocalDateTime fechaRegistro) {
 		this.idDetEntrega = idDetEntrega;
 		this.ordenEntrega = ordenEntrega;
@@ -46,11 +46,11 @@ public class DetalleEntrega {
 		this.ordenEntrega = ordenEntrega;
 	}
 
-	public DetalleOrdenEntity getProducto() {
+	public DetalleCatalogoEntity getProducto() {
 		return producto;
 	}
 
-	public void setProducto(DetalleOrdenEntity producto) {
+	public void setProducto(DetalleCatalogoEntity producto) {
 		this.producto = producto;
 	}
 

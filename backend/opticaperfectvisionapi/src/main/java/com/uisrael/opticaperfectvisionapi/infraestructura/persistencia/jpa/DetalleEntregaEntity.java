@@ -28,7 +28,7 @@ public class DetalleEntregaEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_producto")
-    private DetalleOrdenEntity producto;
+    private DetalleCatalogoEntity producto;
 
     @Column(name = "cantidad")
     private Integer cantidad;

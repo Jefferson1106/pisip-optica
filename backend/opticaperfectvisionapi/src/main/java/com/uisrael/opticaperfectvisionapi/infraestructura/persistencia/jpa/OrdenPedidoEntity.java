@@ -32,7 +32,7 @@ public class OrdenPedidoEntity {
     private ExamenVisualEntity examenVisual;
 
     @ManyToOne
-    @JoinColumn(name = "id_paciente", foreignKey = @ForeignKey(name = "fk_orden_pedido_paciente"))
+    @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente", foreignKey = @ForeignKey(name = "fk_orden_pedido_paciente"))
     private PacienteEntity paciente;
 
     @Column(name = "fecha_pedido")

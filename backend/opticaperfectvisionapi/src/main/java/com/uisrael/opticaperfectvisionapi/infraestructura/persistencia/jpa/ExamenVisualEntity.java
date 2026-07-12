@@ -27,7 +27,7 @@ public class ExamenVisualEntity {
     private Integer idExamen;
 
     @ManyToOne
-    @JoinColumn(name = "id_paciente", foreignKey = @ForeignKey(name = "fk_examen_visual_paciente"))
+    @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente", foreignKey = @ForeignKey(name = "fk_examen_visual_paciente"))
     private PacienteEntity paciente;
 
     @Column(name = "fecha_examen")

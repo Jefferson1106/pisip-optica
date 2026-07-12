@@ -11,11 +11,8 @@ import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.DetalleEntre
 public interface IDetalleEntregaDtoMapper {
 
     @Mapping(target = "idDetEntrega", ignore = true)
-    @Mapping(target = "ordenEntrega", expression = "java(new OrdenEntregaEntity(dto.getIdEntrega()))")
-    @Mapping(target = "producto", expression = "java(new DetalleOrdenEntity(dto.getIdProducto()))")
     DetalleEntrega toDomain(DetalleEntregaRequestDto dto);
 
-    @Mapping(target = "idEntrega", source = "ordenEntrega.idEntrega")
-    @Mapping(target = "idProducto", source = "producto.idDetOrden") 
-    DetalleEntregaResponseDto toResponseDto(DetalleEntrega entity);
+  
+    DetalleEntregaResponseDto toResponseDto(DetalleEntrega detalleEntregaPojo);
 }

@@ -2,79 +2,74 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
 import java.time.LocalDateTime;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleOrdenEntity;
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenEntregaEntity;
-
 public class DetalleEntrega {
 
-	private Integer idDetEntrega;
-	private Integer cantidad;
-	private Boolean estado;
-	private LocalDateTime fechaRegistro;
-    private OrdenEntregaEntity ordenEntrega;
-    private DetalleOrdenEntity producto;
-    
-    
-    
-	public DetalleEntrega() {
+    private Integer idDetEntrega;
+    private Integer cantidad;
+    private Boolean estado;
+    private LocalDateTime fechaRegistro;
 
-	}
+    // Relaciones (FK)
+    private OrdenEntrega ordenEntrega;       // en vez de idEntrega
+    private DetalleCatalogo productoCatalogo; // en vez de idProducto
 
-	public DetalleEntrega(Integer idDetEntrega, OrdenEntregaEntity ordenEntrega, DetalleOrdenEntity producto,
-			Integer cantidad, Boolean estado, LocalDateTime fechaRegistro) {
-		this.idDetEntrega = idDetEntrega;
-		this.ordenEntrega = ordenEntrega;
-		this.producto = producto;
-		this.cantidad = cantidad;
-		this.estado = estado;
-		this.fechaRegistro = fechaRegistro;
-	}
+    public DetalleEntrega() {}
 
-	public Integer getIdDetEntrega() {
-		return idDetEntrega;
-	}
+    public DetalleEntrega(Integer idDetEntrega, Integer cantidad, Boolean estado, LocalDateTime fechaRegistro,
+                          OrdenEntrega ordenEntrega, DetalleCatalogo productoCatalogo) {
+        this.idDetEntrega = idDetEntrega;
+        this.cantidad = cantidad;
+        this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
+        this.ordenEntrega = ordenEntrega;
+        this.productoCatalogo = productoCatalogo;
+    }
 
-	public void setIdDetEntrega(Integer idDetEntrega) {
-		this.idDetEntrega = idDetEntrega;
-	}
+    public Integer getIdDetEntrega() {
+        return idDetEntrega;
+    }
 
-	public OrdenEntregaEntity getOrdenEntrega() {
-		return ordenEntrega;
-	}
+    public void setIdDetEntrega(Integer idDetEntrega) {
+        this.idDetEntrega = idDetEntrega;
+    }
 
-	public void setOrdenEntrega(OrdenEntregaEntity ordenEntrega) {
-		this.ordenEntrega = ordenEntrega;
-	}
+    public Integer getCantidad() {
+        return cantidad;
+    }
 
-	public DetalleOrdenEntity getProducto() {
-		return producto;
-	}
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
 
-	public void setProducto(DetalleOrdenEntity producto) {
-		this.producto = producto;
-	}
+    public Boolean getEstado() {
+        return estado;
+    }
 
-	public Integer getCantidad() {
-		return cantidad;
-	}
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
 
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
-	}
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
 
-	public Boolean getEstado() {
-		return estado;
-	}
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
-	public void setEstado(Boolean estado) {
-		this.estado = estado;
-	}
+    public OrdenEntrega getOrdenEntrega() {
+        return ordenEntrega;
+    }
 
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
-	}
+    public void setOrdenEntrega(OrdenEntrega ordenEntrega) {
+        this.ordenEntrega = ordenEntrega;
+    }
 
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
+    public DetalleCatalogo getProductoCatalogo() {
+        return productoCatalogo;
+    }
+
+    public void setProductoCatalogo(DetalleCatalogo productoCatalogo) {
+        this.productoCatalogo = productoCatalogo;
+    }
 }

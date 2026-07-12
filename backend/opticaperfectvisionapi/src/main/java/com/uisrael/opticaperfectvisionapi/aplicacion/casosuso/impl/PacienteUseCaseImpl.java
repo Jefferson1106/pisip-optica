@@ -30,7 +30,7 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
         return repositorio.listarTodos();
     }
 
-    /* @Override
+     @Override
    public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
         repositorio.buscarPorId(idPaciente)
                 .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
@@ -49,16 +49,12 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
         );
 
         return repositorio.guardar(actualizado);
-    }*/
+    }
 
     @Override
     public void eliminar(String cedula) {
         repositorio.eliminar(cedula);
     }
 
-	@Override
-	public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

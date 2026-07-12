@@ -2,7 +2,6 @@ package com.uisrael.opticaperfectvisionapi.dominio.repositorios;
 
 import java.util.List;
 import java.util.Optional;
-
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.Paciente;
 
 public interface IPacienteRepositorio {
@@ -14,7 +13,8 @@ public interface IPacienteRepositorio {
 	List<Paciente> listarTodos();
 	void eliminar(String cedula);
 	
-	
+
+	Paciente actualizar(String cedula, Paciente actualizado);
 	
 	
 

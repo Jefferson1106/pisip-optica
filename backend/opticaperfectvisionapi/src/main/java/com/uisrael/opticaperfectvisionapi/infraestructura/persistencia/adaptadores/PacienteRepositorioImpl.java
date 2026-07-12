@@ -39,25 +39,8 @@ public class PacienteRepositorioImpl implements IPacienteRepositorio{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	
-	public Paciente actualizar(String cedula, Paciente paciente) {
-		
-		PacienteEntity existente = jpaRepositorio.findById(cedula).orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
-		
-		existente.setCedula(paciente.getCedula());
-		existente.setApellidos(paciente.getApellidos());
-		existente.setCorreo(paciente.getCorreo());
-		existente.setDireccion(paciente.getDireccion());
-		existente.setNombres(paciente.getNombres());
-		existente.setTelefono(paciente.getTelefono());
-		existente.setFechaRegistro(paciente.getFechaRegistro());
-		
-		PacienteEntity guardado = jpaRepositorio.save(existente);
-		
-		return entityMapper.toDomain(guardado);
-	}
 
-		
+	
+	
 	
 }

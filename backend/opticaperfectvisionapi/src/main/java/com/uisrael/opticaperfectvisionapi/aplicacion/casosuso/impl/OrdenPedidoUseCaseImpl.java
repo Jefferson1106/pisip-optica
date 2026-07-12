@@ -40,7 +40,7 @@ public class OrdenPedidoUseCaseImpl implements IOrdenPedidoUseCase{
 		repositorio.buscarPorId(idOrdenPedido).orElseThrow(()-> new RuntimeException("Orden Pedido no encontrado"));
 		
 		OrdenPedido actualizado = new OrdenPedido(ordenPedido.getIdPedido(),ordenPedido.getExamenVisual(),ordenPedido.getPaciente(),
-				ordenPedido.getFechaPedido(),ordenPedido.getFechaEntrega(),ordenPedido.getEstadoPedido(),
+				ordenPedido.getFechaPedido(),ordenPedido.getFechaEntrega(),ordenPedido.getEstado(),
 				ordenPedido.getFechaRegistro());
 		
 		return repositorio.actualizar(idOrdenPedido, actualizado);

@@ -10,9 +10,9 @@ import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.ExamenVisual
 @Mapper(componentModel = "spring")
 public interface IExamenVisualDtoMapper {
 
-	@Mapping(target = "paciente.idPaciente", source = "idPaciente")
+	@Mapping(target = "paciente.cedula", source = "cedulaPaciente")
 	ExamenVisual toDomain(ExamenVisualRequestDto dto);
 
-	@Mapping(target = "idPaciente", source = "paciente.idPaciente")
+	@Mapping(target = "cedulaPaciente", source = "paciente.cedula")
 	ExamenVisualResponseDto toResponseDto(ExamenVisual examenVisualPojo);
 }

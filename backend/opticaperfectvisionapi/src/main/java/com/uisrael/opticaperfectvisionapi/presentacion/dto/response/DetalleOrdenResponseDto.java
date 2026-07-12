@@ -3,14 +3,17 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.response;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
+
 public class DetalleOrdenResponseDto {
 	
 	private Integer idDetOrden;
-	private Integer idPedido;
-	private Integer idMaterial;
-	private Integer idMarco;
-	private Integer idTipoLente;
-	private String tratamiento;
+    private OrdenPedidoEntity ordenPedido;
+    private DetalleCatalogoEntity material;
+    private DetalleCatalogoEntity marco;
+    private DetalleCatalogoEntity tipoLente;
+    private String tratamiento;
     private Integer cantidad;
     private BigDecimal precioUnitario;
     private LocalDateTime fechaRegistro;
@@ -20,29 +23,29 @@ public class DetalleOrdenResponseDto {
 	public void setIdDetOrden(Integer idDetOrden) {
 		this.idDetOrden = idDetOrden;
 	}
-	public Integer getIdPedido() {
-		return idPedido;
+	public OrdenPedidoEntity getOrdenPedido() {
+		return ordenPedido;
 	}
-	public void setIdPedido(Integer idPedido) {
-		this.idPedido = idPedido;
+	public void setOrdenPedido(OrdenPedidoEntity ordenPedido) {
+		this.ordenPedido = ordenPedido;
 	}
-	public Integer getIdMaterial() {
-		return idMaterial;
+	public DetalleCatalogoEntity getMaterial() {
+		return material;
 	}
-	public void setIdMaterial(Integer idMaterial) {
-		this.idMaterial = idMaterial;
+	public void setMaterial(DetalleCatalogoEntity material) {
+		this.material = material;
 	}
-	public Integer getIdMarco() {
-		return idMarco;
+	public DetalleCatalogoEntity getMarco() {
+		return marco;
 	}
-	public void setIdMarco(Integer idMarco) {
-		this.idMarco = idMarco;
+	public void setMarco(DetalleCatalogoEntity marco) {
+		this.marco = marco;
 	}
-	public Integer getIdTipoLente() {
-		return idTipoLente;
+	public DetalleCatalogoEntity getTipoLente() {
+		return tipoLente;
 	}
-	public void setIdTipoLente(Integer idTipoLente) {
-		this.idTipoLente = idTipoLente;
+	public void setTipoLente(DetalleCatalogoEntity tipoLente) {
+		this.tipoLente = tipoLente;
 	}
 	public String getTratamiento() {
 		return tratamiento;

@@ -2,11 +2,8 @@ package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.Check;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +15,6 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "detalle_examen")
-@Check(constraints = "eje_distancia_od between 0 and 180 and eje_distancia_oi between 0 and 180 and eje_lectura_od between 0 and 180 and eje_lectura_oi between 0 and 180")
 public class DetalleExamenEntity {
 
     @Id
@@ -26,8 +22,8 @@ public class DetalleExamenEntity {
     @Column(name = "id_detalle_examen")
     private Integer idDetExamen;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "id_examen", unique = true, foreignKey = @ForeignKey(name = "fk_detalle_examen_examen_visual"))
+    @OneToOne
+    @JoinColumn(name = "id_examen")
     private ExamenVisualEntity examenVisual;
 
     @Column(name = "esfera_distancia_od", precision = 5, scale = 2)

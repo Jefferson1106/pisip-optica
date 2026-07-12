@@ -3,16 +3,17 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.response;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ExamenVisualEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.PacienteEntity;
+
 public class OrdenPedidoResponseDto {
 	
 	 	private Integer idPedido;
-	    private Integer idExamen;
-	    private Integer idPaciente;
+	    private ExamenVisualEntity examenVisual;
+	    private PacienteEntity paciente;
 	    private LocalDate fechaPedido;
 	    private LocalDate fechaEntrega;
-	    private Integer idEstadoPedido;
-	    private String nombreEstadoPedido;
-	    private String identificadorEstadoPedido;
+	    private String estado;
 	    private LocalDateTime fechaRegistro;
 	    
 		public Integer getIdPedido() {
@@ -21,17 +22,17 @@ public class OrdenPedidoResponseDto {
 		public void setIdPedido(Integer idPedido) {
 			this.idPedido = idPedido;
 		}
-		public Integer getIdExamen() {
-			return idExamen;
+		public ExamenVisualEntity getExamenVisual() {
+			return examenVisual;
 		}
-		public void setIdExamen(Integer idExamen) {
-			this.idExamen = idExamen;
+		public void setExamenVisual(ExamenVisualEntity examenVisual) {
+			this.examenVisual = examenVisual;
 		}
-		public Integer getIdPaciente() {
-			return idPaciente;
+		public PacienteEntity getPaciente() {
+			return paciente;
 		}
-		public void setIdPaciente(Integer idPaciente) {
-			this.idPaciente = idPaciente;
+		public void setPaciente(PacienteEntity paciente) {
+			this.paciente = paciente;
 		}
 		public LocalDate getFechaPedido() {
 			return fechaPedido;
@@ -45,23 +46,11 @@ public class OrdenPedidoResponseDto {
 		public void setFechaEntrega(LocalDate fechaEntrega) {
 			this.fechaEntrega = fechaEntrega;
 		}
-		public Integer getIdEstadoPedido() {
-			return idEstadoPedido;
+		public String getEstado() {
+			return estado;
 		}
-		public void setIdEstadoPedido(Integer idEstadoPedido) {
-			this.idEstadoPedido = idEstadoPedido;
-		}
-		public String getNombreEstadoPedido() {
-			return nombreEstadoPedido;
-		}
-		public void setNombreEstadoPedido(String nombreEstadoPedido) {
-			this.nombreEstadoPedido = nombreEstadoPedido;
-		}
-		public String getIdentificadorEstadoPedido() {
-			return identificadorEstadoPedido;
-		}
-		public void setIdentificadorEstadoPedido(String identificadorEstadoPedido) {
-			this.identificadorEstadoPedido = identificadorEstadoPedido;
+		public void setEstado(String estado) {
+			this.estado = estado;
 		}
 		public LocalDateTime getFechaRegistro() {
 			return fechaRegistro;

@@ -1,20 +1,18 @@
 package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.UsuarioAdministradorEntity;
 
 public class Paciente {
 
-    private Integer idPaciente;
     private String cedula;
     private String nombres;
     private String apellidos;
     private String direccion;
     private String telefono;
     private String correo;
-    private LocalDate fechaNacimiento;
+    private LocalDateTime fechaNacimiento;
     private LocalDateTime fechaRegistro;
     private Boolean activo;
     private UsuarioAdministradorEntity usuarioAdministrador;
@@ -22,11 +20,10 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Paciente(Integer idPaciente, String cedula, String nombres, String apellidos, String direccion,
-                    String telefono, String correo, LocalDate fechaNacimiento,
+    public Paciente(String cedula, String nombres, String apellidos, String direccion,
+                    String telefono, String correo, LocalDateTime fechaNacimiento,
                     LocalDateTime fechaRegistro, Boolean activo,
                     UsuarioAdministradorEntity usuarioAdministrador) {
-        this.idPaciente = idPaciente;
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -39,19 +36,11 @@ public class Paciente {
         this.usuarioAdministrador = usuarioAdministrador;
     }
 
-    public Paciente(Integer idPaciente2, String cedula2, UsuarioAdministradorEntity usuarioAdministrador2, String nombres2,
-            String apellidos2, String direccion2, String telefono2, String correo2, LocalDate fechaNacimiento2,
-            LocalDateTime fechaRegistro2, Boolean activo2) {
+    public Paciente(String cedula2, UsuarioAdministradorEntity usuarioAdministrador2, String nombres2,
+			String apellidos2, String direccion2, String telefono2, String correo2, LocalDateTime fechaNacimiento2,
+			LocalDateTime fechaRegistro2, Boolean activo2) {
 		// TODO Auto-generated constructor stub
 	}
-
-    public Integer getIdPaciente() {
-        return idPaciente;
-    }
-
-    public void setIdPaciente(Integer idPaciente) {
-        this.idPaciente = idPaciente;
-    }
 
 	public String getCedula() {
         return cedula;
@@ -101,11 +90,11 @@ public class Paciente {
         this.correo = correo;
     }
 
-	public LocalDate getFechaNacimiento() {
+    public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

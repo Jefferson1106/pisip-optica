@@ -43,10 +43,6 @@ public class DetalleEntregaUseCaseImpl implements IDetalleEntregaUseCase {
         existente.setCantidad(detalleEntrega.getCantidad());
         existente.setFechaRegistro(detalleEntrega.getFechaRegistro());
         existente.setIdDetEntrega(detalleEntrega.getIdDetEntrega());
-
-        existente.setProductoCatalogo(detalleEntrega.getProductoCatalogo());
-        existente.setOrdenEntrega(detalleEntrega.getOrdenEntrega());
-
         existente.setEstado(detalleEntrega.getEstado());
 
         return repositorio.guardar(existente);

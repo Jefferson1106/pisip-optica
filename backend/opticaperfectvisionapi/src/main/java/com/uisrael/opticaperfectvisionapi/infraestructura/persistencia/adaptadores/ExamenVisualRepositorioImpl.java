@@ -69,11 +69,11 @@ public class ExamenVisualRepositorioImpl implements IExamenVisualRepositorio {
 	}
 
 	private PacienteEntity obtenerPacienteAdministrado(PacienteEntity paciente) {
-		if (paciente == null || paciente.getIdPaciente() == null) {
-			throw new RuntimeException("El id del paciente es obligatorio");
+		if (paciente == null || paciente.getCedula() == null || paciente.getCedula().isBlank()) {
+			throw new RuntimeException("La cédula del paciente es obligatoria");
 		}
 
-		return pacienteJpaRepositorio.findById(paciente.getIdPaciente())
+		return pacienteJpaRepositorio.findById(paciente.getCedula())
 				.orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 	}
 }

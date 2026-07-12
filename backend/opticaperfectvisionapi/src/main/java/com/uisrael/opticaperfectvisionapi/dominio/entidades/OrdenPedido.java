@@ -3,7 +3,6 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ExamenVisualEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.PacienteEntity;
 
@@ -14,7 +13,7 @@ public class OrdenPedido {
     private PacienteEntity paciente;
     private LocalDate fechaPedido;
     private LocalDate fechaEntrega;
-	private DetalleCatalogoEntity estadoPedido;
+    private String estado;
     private LocalDateTime fechaRegistro;
     
 	public OrdenPedido() {
@@ -22,13 +21,13 @@ public class OrdenPedido {
 	}
 
 	public OrdenPedido(Integer idPedido, ExamenVisualEntity examenVisual, PacienteEntity paciente,
-			LocalDate fechaPedido, LocalDate fechaEntrega, DetalleCatalogoEntity estadoPedido, LocalDateTime fechaRegistro) {
+			LocalDate fechaPedido, LocalDate fechaEntrega, String estado, LocalDateTime fechaRegistro) {
 		this.idPedido = idPedido;
 		this.examenVisual = examenVisual;
 		this.paciente = paciente;
 		this.fechaPedido = fechaPedido;
 		this.fechaEntrega = fechaEntrega;
-		this.estadoPedido = estadoPedido;
+		this.estado = estado;
 		this.fechaRegistro = fechaRegistro;
 	}
 
@@ -72,12 +71,12 @@ public class OrdenPedido {
 		this.fechaEntrega = fechaEntrega;
 	}
 
-	public DetalleCatalogoEntity getEstadoPedido() {
-		return estadoPedido;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setEstadoPedido(DetalleCatalogoEntity estadoPedido) {
-		this.estadoPedido = estadoPedido;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public LocalDateTime getFechaRegistro() {

@@ -27,7 +27,7 @@ public class PacienteRepositorioImpl implements IPacienteRepositorio{
 	@Override
 	public Optional<Paciente> buscarPorId(int idPaciente) {
 		
-		return jpaRepositorio.findById(idPaciente).map(entityMapper::toDomain);
+		return jpaRepositorio.findById(String.valueOf(idPaciente)).map(entityMapper::toDomain);
 	}
 	@Override
 	public List<Paciente> listarTodos() {
@@ -36,9 +36,8 @@ public class PacienteRepositorioImpl implements IPacienteRepositorio{
 	}
 	@Override
 	public void eliminar(String cedula) {
-		PacienteEntity paciente = jpaRepositorio.findByCedula(cedula)
-				.orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
-		jpaRepositorio.deleteById(paciente.getIdPaciente());
+		// TODO Auto-generated method stub
+		
 	}
 	@Override
 	

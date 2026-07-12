@@ -2,34 +2,32 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
+
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 
-@Data
 public class DetalleOrdenRequestDto {
+	
+	@NotBlank
+	private Integer idDetOrden;
 
-    @NotNull
-    private Integer idPedido;
-
-    @NotNull
-    private Integer idMaterial;
-
-    @NotNull
-    private Integer idMarco;
-
-    @NotNull
-    private Integer idTipoLente;
-
-    @NotNull
+    private OrdenPedidoEntity ordenPedido;
+	
+    private DetalleCatalogoEntity material;
+	
+    private DetalleCatalogoEntity marco;
+	
+    private DetalleCatalogoEntity tipoLente;
+	
     private String tratamiento;
-
-    @NotNull
+	
     private Integer cantidad;
-
-    @NotNull
+	
     private BigDecimal precioUnitario;
-
-    @NotNull
+	
     private LocalDateTime fechaRegistro;
 
 }

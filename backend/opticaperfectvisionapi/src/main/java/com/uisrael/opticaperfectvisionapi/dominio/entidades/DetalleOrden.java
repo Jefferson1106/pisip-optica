@@ -13,7 +13,7 @@ public class DetalleOrden {
     private DetalleCatalogoEntity material;
     private DetalleCatalogoEntity marco;
     private DetalleCatalogoEntity tipoLente;
-    private String tratamiento;
+	private String tratamiento;
     private Integer cantidad;
     private BigDecimal precioUnitario;
     private LocalDateTime fechaRegistro;
@@ -118,12 +118,12 @@ public class DetalleOrden {
 		
 	}
 
-	public Object getIdProducto() {
+	public Object getIdDetalleOrden() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void setIdProducto(Object idProducto) {
+	public void setIdDetalleOrden(Object idDetalleOrden) {
 		// TODO Auto-generated method stub
 		
 	}

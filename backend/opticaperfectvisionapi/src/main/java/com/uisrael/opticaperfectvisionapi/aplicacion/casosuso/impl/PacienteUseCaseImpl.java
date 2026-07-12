@@ -30,31 +30,36 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
         return repositorio.listarTodos();
     }
 
-     @Override
-   public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
-        repositorio.buscarPorId(idPaciente)
-                .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+    /* @Override
+    public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
+         repositorio.buscarPorId(idPaciente)
+                 .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
-        Paciente actualizado = new Paciente(
-                pacienteActualizado.getCedula(),
-                pacienteActualizado.getUsuarioAdministrador(),
-                pacienteActualizado.getNombres(),
-                pacienteActualizado.getApellidos(),
-                pacienteActualizado.getDireccion(),
-                pacienteActualizado.getTelefono(),
-                pacienteActualizado.getCorreo(),
-                pacienteActualizado.getFechaNacimiento(),
-                pacienteActualizado.getFechaRegistro(),
-                pacienteActualizado.getActivo()
-        );
+         Paciente actualizado = new Paciente(
+                 pacienteActualizado.getCedula(),
+                 pacienteActualizado.getUsuarioAdministrador(),
+                 pacienteActualizado.getNombres(),
+                 pacienteActualizado.getApellidos(),
+                 pacienteActualizado.getDireccion(),
+                 pacienteActualizado.getTelefono(),
+                 pacienteActualizado.getCorreo(),
+                 pacienteActualizado.getFechaNacimiento(),
+                 pacienteActualizado.getFechaRegistro(),
+                 pacienteActualizado.getActivo()
+         );
 
-        return repositorio.guardar(actualizado);
-    }
+         return repositorio.guardar(actualizado);
+     }*/
 
     @Override
     public void eliminar(String cedula) {
         repositorio.eliminar(cedula);
     }
 
+    @Override
+	public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

@@ -2,8 +2,11 @@ package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.Check;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,6 +17,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "detalle_entrega")
+@Check(constraints = "cantidad > 0")
 
 public class DetalleEntregaEntity {
 
@@ -23,11 +27,11 @@ public class DetalleEntregaEntity {
     private Integer idDetEntrega;
 
     @ManyToOne
-    @JoinColumn(name = "id_entrega")
+    @JoinColumn(name = "id_entrega", foreignKey = @ForeignKey(name = "fk_detalle_entrega_orden_entrega"))
     private OrdenEntregaEntity ordenEntrega;
 
     @ManyToOne
-    @JoinColumn(name = "id_producto")
+    @JoinColumn(name = "id_producto", foreignKey = @ForeignKey(name = "fk_detalle_entrega_detalle_orden"))
     private DetalleOrdenEntity producto;
 
     @Column(name = "cantidad")

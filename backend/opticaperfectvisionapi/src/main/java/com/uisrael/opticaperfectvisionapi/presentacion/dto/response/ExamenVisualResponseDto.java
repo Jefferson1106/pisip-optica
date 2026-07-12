@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class ExamenVisualResponseDto {
 
 	private Integer idExamen;
-	private String cedulaPaciente;
+	private Integer idPaciente;
 	private LocalDate fechaExamen;
 	private String observaciones;
 	private boolean estado;
@@ -18,12 +18,12 @@ public class ExamenVisualResponseDto {
 		this.idExamen = idExamen;
 	}
 
-	public String getCedulaPaciente() {
-		return cedulaPaciente;
+	public Integer getIdPaciente() {
+		return idPaciente;
 	}
 
-	public void setCedulaPaciente(String cedulaPaciente) {
-		this.cedulaPaciente = cedulaPaciente;
+	public void setIdPaciente(Integer idPaciente) {
+		this.idPaciente = idPaciente;
 	}
 
 	public LocalDate getFechaExamen() {

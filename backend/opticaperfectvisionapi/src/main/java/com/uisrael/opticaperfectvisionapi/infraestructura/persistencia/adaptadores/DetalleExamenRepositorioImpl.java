@@ -23,10 +23,6 @@ public class DetalleExamenRepositorioImpl implements IDetalleExamenRepositorio {
 	@Override
 	public DetalleExamen guardar(DetalleExamen nuevoDetalleExamn) {
 		DetalleExamenEntity entity= entityMapper.toEntity(nuevoDetalleExamn);
-		if (entity.getExamenVisual() != null && entity.getExamenVisual().getIdExamen() != null) {
-			jpaRepositorio.findByExamenVisual_IdExamen(entity.getExamenVisual().getIdExamen())
-					.ifPresent(existente -> entity.setIdDetExamen(existente.getIdDetExamen()));
-		}
 		DetalleExamenEntity guardado= jpaRepositorio.save(entity);
 	    return entityMapper.toDomain(guardado);
 

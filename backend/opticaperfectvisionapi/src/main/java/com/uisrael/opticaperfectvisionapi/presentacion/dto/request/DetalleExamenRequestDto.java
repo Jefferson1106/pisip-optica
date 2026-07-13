@@ -2,19 +2,17 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 
 import java.math.BigDecimal;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ExamenVisualEntity;
-
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class DetalleExamenRequestDto {
-		
-		@NotBlank
-	 	private Integer idDetExamen;
-		
-	  	private ExamenVisualEntity examenVisual;
+
+		@Valid
+		@NotNull
+		private ExamenVisualRef examenVisual;
 		
 	    private BigDecimal esferaDistanciaOd;
 		
@@ -49,6 +47,17 @@ public class DetalleExamenRequestDto {
 	    private BigDecimal cilindroLecturaOi;
 		
 	    private Integer ejeLecturaOi;
+
+		@AssertTrue(message = "Debe enviar examenVisual.idExamen")
+		public boolean isIdExamenValido() {
+			return examenVisual != null && examenVisual.getIdExamen() != null;
+		}
+
+		@Data
+		public static class ExamenVisualRef {
+			@NotNull
+			private Integer idExamen;
+		}
 
 
 }

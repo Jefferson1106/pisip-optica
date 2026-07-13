@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -26,7 +26,7 @@ public class DetalleExamenEntity {
     @Column(name = "id_detalle_examen")
     private Integer idDetExamen;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "id_examen", foreignKey = @ForeignKey(name = "fk_detalle_examen_examen_visual"))
     private ExamenVisualEntity examenVisual;
 

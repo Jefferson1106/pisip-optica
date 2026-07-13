@@ -2,12 +2,11 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.response;
 
 import java.math.BigDecimal;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ExamenVisualEntity;
-
 public class DetalleExamenResponseDto {
 	
 	private Integer idDetExamen;
-    private ExamenVisualEntity examenVisual;
+	private Integer idExamen;
+	private ExamenVisualRef examenVisual;
     private BigDecimal esferaDistanciaOd;
     private BigDecimal cilindroDistanciaOd;
     private Integer ejeDistanciaOd;
@@ -32,10 +31,16 @@ public class DetalleExamenResponseDto {
 	public void setIdDetExamen(Integer idDetExamen) {
 		this.idDetExamen = idDetExamen;
 	}
-	public ExamenVisualEntity getExamenVisual() {
+	public Integer getIdExamen() {
+		return idExamen;
+	}
+	public void setIdExamen(Integer idExamen) {
+		this.idExamen = idExamen;
+	}
+	public ExamenVisualRef getExamenVisual() {
 		return examenVisual;
 	}
-	public void setExamenVisual(ExamenVisualEntity examenVisual) {
+	public void setExamenVisual(ExamenVisualRef examenVisual) {
 		this.examenVisual = examenVisual;
 	}
 	public BigDecimal getEsferaDistanciaOd() {
@@ -139,6 +144,18 @@ public class DetalleExamenResponseDto {
 	}
 	public void setEjeLecturaOi(Integer ejeLecturaOi) {
 		this.ejeLecturaOi = ejeLecturaOi;
+	}
+
+	public static class ExamenVisualRef {
+		private Integer idExamen;
+
+		public Integer getIdExamen() {
+			return idExamen;
+		}
+
+		public void setIdExamen(Integer idExamen) {
+			this.idExamen = idExamen;
+		}
 	}
     
     

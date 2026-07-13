@@ -42,5 +42,7 @@ public class DetalleEntregaEntity {
 
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
+    
+  
 
 }

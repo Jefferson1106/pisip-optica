@@ -27,7 +27,7 @@ public class DetalleExamenEntity {
     private Integer idDetExamen;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "id_examen", unique = true, foreignKey = @ForeignKey(name = "fk_detalle_examen_examen_visual"))
+    @JoinColumn(name = "id_examen", foreignKey = @ForeignKey(name = "fk_detalle_examen_examen_visual"))
     private ExamenVisualEntity examenVisual;
 
     @Column(name = "esfera_distancia_od", precision = 5, scale = 2)

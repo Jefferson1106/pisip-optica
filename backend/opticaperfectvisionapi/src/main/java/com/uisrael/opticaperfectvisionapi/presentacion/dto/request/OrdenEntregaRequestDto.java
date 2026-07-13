@@ -3,22 +3,23 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
-
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class OrdenEntregaRequestDto {
 	
-	@NotBlank
-    private Integer ordenPedido;
-    @NotBlank
+	
+	@NotNull
+	@JsonAlias("ordenPedido")
+    private Integer idPedido;
+	@NotNull
     private LocalDate fechaEntrega;
-    @NotBlank
+	@NotNull
     private Boolean recibido;
-    @NotBlank
+	@NotNull
     private String observaciones;
-    @NotBlank
+	@NotNull
     private LocalDateTime fechaRegistro;
 }

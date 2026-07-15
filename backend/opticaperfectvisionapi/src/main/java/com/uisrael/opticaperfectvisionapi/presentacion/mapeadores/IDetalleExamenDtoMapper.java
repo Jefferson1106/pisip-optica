@@ -15,7 +15,6 @@ public interface IDetalleExamenDtoMapper {
 	@Mapping(target = "examenVisual", expression = "java(mapExamenVisual(detalleOrdenDto.getExamenVisual()))")
 	DetalleExamen toDomain(DetalleExamenRequestDto detalleOrdenDto);
 
-	@Mapping(target = "idExamen", source = "examenVisual.idExamen")
 	@Mapping(target = "examenVisual", expression = "java(mapExamenVisualRef(detalleExamenPojo.getExamenVisual()))")
 	DetalleExamenResponseDto toResponseDto(DetalleExamen detalleExamenPojo);
 
@@ -26,5 +25,14 @@ public interface IDetalleExamenDtoMapper {
 		ExamenVisualEntity examenVisual = new ExamenVisualEntity();
 		examenVisual.setIdExamen(examenVisualRef.getIdExamen());
 		return examenVisual;
+	}
+
+	default DetalleExamenResponseDto.ExamenVisualRef mapExamenVisualRef(ExamenVisualEntity examenVisual) {
+		if (examenVisual == null || examenVisual.getIdExamen() == null) {
+			return null;
+		}
+		DetalleExamenResponseDto.ExamenVisualRef examenVisualRef = new DetalleExamenResponseDto.ExamenVisualRef();
+		examenVisualRef.setIdExamen(examenVisual.getIdExamen());
+		return examenVisualRef;
 	}
 }

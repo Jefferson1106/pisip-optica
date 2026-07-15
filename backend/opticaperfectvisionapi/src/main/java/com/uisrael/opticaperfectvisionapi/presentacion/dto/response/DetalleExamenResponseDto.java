@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public class DetalleExamenResponseDto {
 	
 	private Integer idDetExamen;
-	private Integer idExamen;
 	private ExamenVisualRef examenVisual;
     private BigDecimal esferaDistanciaOd;
     private BigDecimal cilindroDistanciaOd;
@@ -30,12 +29,6 @@ public class DetalleExamenResponseDto {
 	}
 	public void setIdDetExamen(Integer idDetExamen) {
 		this.idDetExamen = idDetExamen;
-	}
-	public Integer getIdExamen() {
-		return idExamen;
-	}
-	public void setIdExamen(Integer idExamen) {
-		this.idExamen = idExamen;
 	}
 	public ExamenVisualRef getExamenVisual() {
 		return examenVisual;

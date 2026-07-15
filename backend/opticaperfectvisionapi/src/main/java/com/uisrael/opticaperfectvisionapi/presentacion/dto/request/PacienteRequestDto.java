@@ -30,6 +30,12 @@ public class PacienteRequestDto {
 	    private LocalDateTime fechaRegistro;
 		@NotNull
 		private Integer idUsuarioRegistro;
+		
+		//1207
+		@NotNull
+		private Boolean activo;
+	
+
 	    
 
 }

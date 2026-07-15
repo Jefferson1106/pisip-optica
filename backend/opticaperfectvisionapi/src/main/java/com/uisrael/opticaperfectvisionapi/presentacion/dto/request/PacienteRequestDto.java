@@ -33,9 +33,12 @@ public class PacienteRequestDto {
 		@NotNull
 		@JsonAlias({ "idUsuario", "idUsuarioAdministrador", "id_usuario_registro" })
 		private Integer idUsuarioRegistro;
-
+		
+		//1207
 		@NotNull
 		private Boolean activo;
+	
+
 	    
 
 }

@@ -60,7 +60,8 @@ public class PacienteEntity {
 
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
-
+    
+    //1207
     @Column(name = "activo")
-    private Boolean activo;
+    private Boolean activo = true;
 }

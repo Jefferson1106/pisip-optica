@@ -130,8 +130,9 @@ public class ConfigGeneral {
     // Paciente
     @Bean
     IPacienteRepositorio pacienteRepositorio(IPacienteJpaRepositorio jpaRepositorio,
-                                             IPacienteJpaMapper mapper) {
-        return new PacienteRepositorioImpl(jpaRepositorio, mapper);
+                                             IPacienteJpaMapper mapper,
+                                             IUsuarioAdministradorJpaRepositorio usuarioAdministradorRepositorio) {
+        return new PacienteRepositorioImpl(jpaRepositorio, mapper, usuarioAdministradorRepositorio);
     }
 
     @Bean

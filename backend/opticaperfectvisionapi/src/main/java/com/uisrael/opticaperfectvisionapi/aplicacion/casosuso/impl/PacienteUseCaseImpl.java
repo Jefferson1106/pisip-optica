@@ -30,15 +30,13 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
         return repositorio.listarTodos();
     }
 
-    //15
+    
     @Override
     public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
         Paciente existente = repositorio.buscarPorId(idPaciente)
             .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
-
         // No actualizar la cédula si ya existe
         // existente.setCedula(pacienteActualizado.getCedula());
-
         existente.setUsuarioAdministrador(pacienteActualizado.getUsuarioAdministrador());
         existente.setNombres(pacienteActualizado.getNombres());
         existente.setApellidos(pacienteActualizado.getApellidos());
@@ -53,9 +51,15 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
     }
 
 
-    @Override
-    public void eliminar(String cedula) {
-        repositorio.eliminar(cedula);
-    }
 
+	 @Override
+	    public Paciente actualizarEstado(int idPaciente, Boolean estado) {
+	        Paciente existente = repositorio.buscarPorId(idPaciente)
+	            .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+
+	        existente.setActivo(estado);
+	        return repositorio.guardar(existente);
+	    }
+
+    
 }

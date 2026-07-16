@@ -55,7 +55,7 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    // Actualizar paciente
+    /*// Actualizar paciente
     @PutMapping("/{id}")
     public ResponseEntity<PacienteResponseDto> actualizar(@PathVariable int id,
                                                @Valid @RequestBody PacienteRequestDto requestDto) {
@@ -66,7 +66,7 @@ public class PacienteController {
             responseDto.setIdUsuarioRegistro(requestDto.getIdUsuarioRegistro());
         }
         return ResponseEntity.ok(responseDto);
-    }
+    }*/
 
     // Eliminar paciente
     @DeleteMapping("/{cedula}")
@@ -80,5 +80,28 @@ public class PacienteController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "idUsuarioRegistro es obligatorio para crear o actualizar pacientes");
         }
+        
+     }
+    
+    //actualizar nuevo 15
+    @PutMapping("/{id}")
+    public ResponseEntity<PacienteResponseDto> actualizar(
+            @PathVariable int id,
+            @Valid @RequestBody PacienteRequestDto requestDto) {
+
+        Paciente existente = pacienteUseCase.buscarPorId(id);
+        if (existente == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Paciente actualizado = pacienteUseCase.actualizar(id, mapper.toDomain(requestDto));
+        if (actualizado == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        PacienteResponseDto responseDto = mapper.toResponseDto(actualizado);
+        return ResponseEntity.ok(responseDto);
     }
+
+
 }

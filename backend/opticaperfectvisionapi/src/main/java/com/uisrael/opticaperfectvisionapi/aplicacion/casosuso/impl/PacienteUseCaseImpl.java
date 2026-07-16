@@ -30,35 +30,32 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
         return repositorio.listarTodos();
     }
 
-    /* @Override
-   public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
-        repositorio.buscarPorId(idPaciente)
-                .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+    //15
+    @Override
+    public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
+        Paciente existente = repositorio.buscarPorId(idPaciente)
+            .orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
 
-        Paciente actualizado = new Paciente(
-                pacienteActualizado.getCedula(),
-                pacienteActualizado.getUsuarioAdministrador(),
-                pacienteActualizado.getNombres(),
-                pacienteActualizado.getApellidos(),
-                pacienteActualizado.getDireccion(),
-                pacienteActualizado.getTelefono(),
-                pacienteActualizado.getCorreo(),
-                pacienteActualizado.getFechaNacimiento(),
-                pacienteActualizado.getFechaRegistro(),
-                pacienteActualizado.getActivo()
-        );
+        // No actualizar la cédula si ya existe
+        // existente.setCedula(pacienteActualizado.getCedula());
 
-        return repositorio.guardar(actualizado);
-    }*/
+        existente.setUsuarioAdministrador(pacienteActualizado.getUsuarioAdministrador());
+        existente.setNombres(pacienteActualizado.getNombres());
+        existente.setApellidos(pacienteActualizado.getApellidos());
+        existente.setDireccion(pacienteActualizado.getDireccion());
+        existente.setTelefono(pacienteActualizado.getTelefono());
+        existente.setCorreo(pacienteActualizado.getCorreo());
+        existente.setFechaNacimiento(pacienteActualizado.getFechaNacimiento());
+        existente.setFechaRegistro(pacienteActualizado.getFechaRegistro());
+        existente.setActivo(pacienteActualizado.getActivo());
+
+        return repositorio.guardar(existente);
+    }
+
 
     @Override
     public void eliminar(String cedula) {
         repositorio.eliminar(cedula);
     }
 
-	@Override
-	public Paciente actualizar(int idPaciente, Paciente pacienteActualizado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

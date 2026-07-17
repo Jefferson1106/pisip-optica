@@ -1,82 +1,100 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/plantilla/plantillaui">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Perfect Vision - Usuarios</title>
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
-    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Perfect Vision - Usuarios</title>
 </head>
-<body id="page-top">
-<div id="wrapper">
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/catalogo">
-            <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-glasses"></i></div>
-            <div class="sidebar-brand-text mx-3">Perfect Vision</div>
-        </a>
-        <hr class="sidebar-divider my-0">
-        <div class="sidebar-heading">Administracion</div>
-        <li class="nav-item"><a class="nav-link" href="/catalogo"><i class="fas fa-fw fa-book"></i><span>Catalogos</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="/detalle-catalogo"><i class="fas fa-fw fa-list"></i><span>Detalle Catalogo</span></a></li>
-        <li class="nav-item active"><a class="nav-link" href="/usuarios"><i class="fas fa-fw fa-users"></i><span>Usuarios</span></a></li>
-        <hr class="sidebar-divider">
-        <div class="sidebar-heading">Gestion</div>
-        <li class="nav-item"><a class="nav-link" href="/pacientes"><i class="fas fa-fw fa-user-injured"></i><span>Pacientes</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="/examenes-visuales"><i class="fas fa-fw fa-eye"></i><span>Examenes Visuales</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="/ordenes-pedido"><i class="fas fa-fw fa-shopping-cart"></i><span>Ordenes de Pedido</span></a></li>
-        <li class="nav-item"><a class="nav-link" href="/ordenes-entrega"><i class="fas fa-fw fa-truck"></i><span>Ordenes de Entrega</span></a></li>
-        <hr class="sidebar-divider">
-        <div class="sidebar-heading">Reportes</div>
-        <li class="nav-item"><a class="nav-link" href="/certificados"><i class="fas fa-fw fa-file-medical"></i><span>Certificados</span></a></li>
-    </ul>
-    <div id="content-wrapper" class="d-flex flex-column">
-        <div id="content">
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <h1 class="h5 mb-0 text-gray-800">Administracion / Usuarios</h1>
-            </nav>
-            <div class="container-fluid">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3"><h5 class="m-0 font-weight-bold text-primary">Usuarios</h5></div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Nombres</th>
-                                        <th>Apellidos</th>
-                                        <th>Correo</th>
-                                        <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Juan</td><td>Perez</td><td>admin1@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Maria</td><td>Gomez</td><td>admin2@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Carlos</td><td>Ruiz</td><td>admin3@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Ana</td><td>Torres</td><td>admin4@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Luis</td><td>Vargas</td><td>admin5@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Sofia</td><td>Mendoza</td><td>admin6@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>David</td><td>Herrera</td><td>admin7@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Paula</td><td>Lopez</td><td>admin8@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Miguel</td><td>Castro</td><td>admin9@optica.com</td><td>Activo</td></tr>
-                                    <tr><td>Lucia</td><td>Salazar</td><td>admin10@optica.com</td><td>Activo</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="/js/sb-admin-2.min.js"></script>
-<script src="/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="/js/demo/datatables-demo.js"></script>
+
+<body>
+
+	<div layout:fragment="contenidopaginas">
+		<div class="container-fluid">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h5 class="m-0 font-weight-bold text-primary">Perfect Vision - Usuarios</h5>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered" id="dataTable" width="100%"
+							cellspacing="0">
+							<thead>
+								<tr>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+									<th>Correo</th>
+									<th>Estado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Juan</td>
+									<td>Perez</td>
+									<td>admin1@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Maria</td>
+									<td>Gomez</td>
+									<td>admin2@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Carlos</td>
+									<td>Ruiz</td>
+									<td>admin3@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Ana</td>
+									<td>Torres</td>
+									<td>admin4@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Luis</td>
+									<td>Vargas</td>
+									<td>admin5@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Sofia</td>
+									<td>Mendoza</td>
+									<td>admin6@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>David</td>
+									<td>Herrera</td>
+									<td>admin7@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Paula</td>
+									<td>Lopez</td>
+									<td>admin8@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Miguel</td>
+									<td>Castro</td>
+									<td>admin9@optica.com</td>
+									<td>Activo</td>
+								</tr>
+								<tr>
+									<td>Lucia</td>
+									<td>Salazar</td>
+									<td>admin10@optica.com</td>
+									<td>Activo</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

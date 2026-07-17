@@ -26,7 +26,7 @@ public interface IDetalleEntregaDtoMapper {
             return null;
         }
         OrdenEntregaEntity ordenEntrega = new OrdenEntregaEntity();
-        ordenEntrega.setIdEntrega(idEntrega);
+       ordenEntrega.setIdEntrega(idEntrega);
         return ordenEntrega;
     }
 

@@ -57,7 +57,7 @@ public class PacienteRepositorioImpl implements IPacienteRepositorio{
 				.orElseThrow(() -> new RuntimeException("Usuario administrador no encontrado"));
 	}
 
-	
-	
+
+
 	
 }

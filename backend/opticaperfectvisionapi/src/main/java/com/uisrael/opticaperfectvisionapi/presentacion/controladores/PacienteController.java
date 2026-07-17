@@ -55,30 +55,64 @@ public class PacienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
-    // Actualizar paciente
-    @PutMapping("/{id}")
-    public ResponseEntity<PacienteResponseDto> actualizar(@PathVariable int id,
-                                               @Valid @RequestBody PacienteRequestDto requestDto) {
-        validarIdUsuarioRegistro(requestDto);
-        Paciente actualizado = pacienteUseCase.actualizar(id, mapper.toDomain(requestDto));
-        PacienteResponseDto responseDto = mapper.toResponseDto(actualizado);
-        if (responseDto.getIdUsuarioRegistro() == null) {
-            responseDto.setIdUsuarioRegistro(requestDto.getIdUsuarioRegistro());
-        }
-        return ResponseEntity.ok(responseDto);
-    }
-
-    // Eliminar paciente
-    @DeleteMapping("/{cedula}")
-    public ResponseEntity<Void> eliminar(@PathVariable String cedula) {
-        pacienteUseCase.eliminar(cedula);
-        return ResponseEntity.noContent().build();
-    }
 
     private void validarIdUsuarioRegistro(PacienteRequestDto requestDto) {
         if (requestDto.getIdUsuarioRegistro() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "idUsuarioRegistro es obligatorio para crear o actualizar pacientes");
         }
+        
+     }
+    
+    //actualizar
+    @PutMapping("/{id}")
+    public ResponseEntity<PacienteResponseDto> actualizar(
+            @PathVariable int id,
+            @Valid @RequestBody PacienteRequestDto requestDto) {
+
+        Paciente existente = pacienteUseCase.buscarPorId(id);
+        if (existente == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Paciente actualizado = pacienteUseCase.actualizar(id, mapper.toDomain(requestDto));
+        if (actualizado == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        PacienteResponseDto responseDto = mapper.toResponseDto(actualizado);
+        return ResponseEntity.ok(responseDto);
     }
+
+    
+    //actualizar estado
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<PacienteResponseDto> actualizarEstado(
+            @PathVariable int id,
+            @RequestParam(required = false) Boolean estado,
+            @RequestBody(required = false) EstadoPatchRequest request) {
+
+        Boolean estadoFinal = estado != null ? estado : (request != null ? request.getEstado() : null);
+        if (estadoFinal == null) {
+            throw new IllegalArgumentException("El campo estado es obligatorio");
+        }
+
+        Paciente actualizado = pacienteUseCase.actualizarEstado(id, estadoFinal);
+        return ResponseEntity.ok(mapper.toResponseDto(actualizado));
+    }
+
+    private static class EstadoPatchRequest {
+        private Boolean estado;
+
+        public Boolean getEstado() {
+            return estado;
+        }
+
+        public void setEstado(Boolean estado) {
+            this.estado = estado;
+        }
+    }
+    
+
+
 }

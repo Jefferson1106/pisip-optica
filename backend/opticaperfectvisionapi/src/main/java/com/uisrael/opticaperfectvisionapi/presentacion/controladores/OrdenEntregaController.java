@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -80,4 +81,55 @@ public class OrdenEntregaController {
             this.recibido = recibido;
         }
     }
+    
+    //1807
+
+        // Buscar por estado recibido
+        @GetMapping("/recibido/{recibido}")
+        public ResponseEntity<List<OrdenEntregaResponseDto>> findByRecibido(@PathVariable Boolean recibido) {
+            return ResponseEntity.ok(
+                ordenEntregaUseCase.findByRecibido(recibido).stream()
+                    .map(mapper::toResponseDto).toList()
+            );
+        }
+
+        // Buscar por fecha de entrega exacta
+        @GetMapping("/fecha/{fechaEntrega}")
+        public ResponseEntity<List<OrdenEntregaResponseDto>> findByFechaEntrega(@PathVariable LocalDate fechaEntrega) {
+            return ResponseEntity.ok(
+                ordenEntregaUseCase.findByFechaEntrega(fechaEntrega).stream()
+                    .map(mapper::toResponseDto).toList()
+            );
+        }
+
+        // Buscar por rango de fechas
+        @GetMapping("/fechas")
+        public ResponseEntity<List<OrdenEntregaResponseDto>> buscarPorRangoFechas(
+                @RequestParam LocalDate inicio,
+                @RequestParam LocalDate fin) {
+            return ResponseEntity.ok(
+                ordenEntregaUseCase.buscarPorRangoFechas(inicio, fin).stream()
+                    .map(mapper::toResponseDto).toList()
+            );
+        }
+
+        // Buscar por observaciones (texto parcial)
+        @GetMapping("/observaciones/{texto}")
+        public ResponseEntity<List<OrdenEntregaResponseDto>> buscarPorObservaciones(@PathVariable String texto) {
+            return ResponseEntity.ok(
+                ordenEntregaUseCase.buscarPorObservaciones(texto).stream()
+                    .map(mapper::toResponseDto).toList()
+            );
+        }
+
+        // Listar todas ordenadas por fecha de registro
+        @GetMapping("/ordenadas")
+        public ResponseEntity<List<OrdenEntregaResponseDto>> listarTodosOrdenados() {
+            return ResponseEntity.ok(
+                ordenEntregaUseCase.listarTodosOrdenados().stream()
+                    .map(mapper::toResponseDto).toList()
+            );
+        }
+    
+
 }

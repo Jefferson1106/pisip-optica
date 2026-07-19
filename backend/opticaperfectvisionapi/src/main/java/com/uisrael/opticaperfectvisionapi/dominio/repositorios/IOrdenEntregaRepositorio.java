@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.dominio.repositorios;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +15,13 @@ public interface IOrdenEntregaRepositorio {
 	List<OrdenEntrega> listarTodos();
 	
 	void eliminar (int idOrdenEntrega);
+	
+	//1807
+	List<OrdenEntrega> findByRecibido(Boolean recibido);
+	List<OrdenEntrega> findByFechaEntrega(LocalDate fechaEntrega);
+	List<OrdenEntrega> buscarPorRangoFechas(LocalDate inicio, LocalDate fin);
+	List<OrdenEntrega> buscarPorObservaciones(String texto);
+	List<OrdenEntrega> listarTodosOrdenados();
+
+	
 }

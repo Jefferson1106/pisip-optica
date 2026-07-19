@@ -11,36 +11,40 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadore
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IPacienteJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IUsuarioAdministradorJpaRepositorio;
 
-public class PacienteRepositorioImpl implements IPacienteRepositorio{
-	
+public class PacienteRepositorioImpl implements IPacienteRepositorio {
+
 	private final IPacienteJpaRepositorio jpaRepositorio;
 	private final IPacienteJpaMapper entityMapper;
 	private final IUsuarioAdministradorJpaRepositorio usuarioAdministradorRepositorio;
 
 	public PacienteRepositorioImpl(IPacienteJpaRepositorio jpaRepositorio, IPacienteJpaMapper entityMapper,
 			IUsuarioAdministradorJpaRepositorio usuarioAdministradorRepositorio) {
-		
+
 		this.jpaRepositorio = jpaRepositorio;
 		this.entityMapper = entityMapper;
 		this.usuarioAdministradorRepositorio = usuarioAdministradorRepositorio;
 	}
+
 	@Override
 	public Paciente guardar(Paciente nuevoPaciente) {
-		PacienteEntity entity=entityMapper.toEntity(nuevoPaciente);
+		PacienteEntity entity = entityMapper.toEntity(nuevoPaciente);
 		entity.setUsuarioAdministrador(resolverUsuarioAdministrador(entity.getUsuarioAdministrador()));
-		PacienteEntity guardado=jpaRepositorio.save(entity);
+		PacienteEntity guardado = jpaRepositorio.save(entity);
 		return entityMapper.toDomain(guardado);
 	}
+
 	@Override
 	public Optional<Paciente> buscarPorId(int idPaciente) {
-		
+
 		return jpaRepositorio.findById(idPaciente).map(entityMapper::toDomain);
 	}
+
 	@Override
 	public List<Paciente> listarTodos() {
-		
+
 		return jpaRepositorio.findAll().stream().map(entityMapper::toDomain).toList();
 	}
+
 	@Override
 	public void eliminar(String cedula) {
 		PacienteEntity paciente = jpaRepositorio.findByCedula(cedula)
@@ -57,7 +61,30 @@ public class PacienteRepositorioImpl implements IPacienteRepositorio{
 				.orElseThrow(() -> new RuntimeException("Usuario administrador no encontrado"));
 	}
 
+	//
+	@Override
+	public Optional<Paciente> findByCorreo(String correo) {
+		return jpaRepositorio.findByCorreo(correo).map(entityMapper::toDomain);
+	}
 
+	@Override
+	public List<Paciente> findByActivo(Boolean activo) {
+		return jpaRepositorio.findByActivo(activo).stream().map(entityMapper::toDomain).toList();
+	}
 
-	
+	@Override
+	public List<Paciente> buscarPorNombreOApellido(String texto) {
+		return jpaRepositorio.buscarPorNombreOApellido(texto).stream().map(entityMapper::toDomain).toList();
+	}
+
+	@Override
+	public List<Paciente> listarTodosOrdenados() {
+		return jpaRepositorio.listarTodosOrdenados().stream().map(entityMapper::toDomain).toList();
+	}
+
+	@Override
+
+	public Optional<Paciente> findByCedula(String cedula) {
+		return jpaRepositorio.findByCedula(cedula).map(entityMapper::toDomain);
+	}
 }

@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IOrdenEntregaUseCase;
@@ -48,5 +49,33 @@ public class OrdenEntregaUseCaseImpl implements IOrdenEntregaUseCase {
 	    return repositorio.guardar(existente);
 	}
 
+
+
+	    // 1807
+	    @Override
+	    public List<OrdenEntrega> findByRecibido(Boolean recibido) {
+	        return repositorio.findByRecibido(recibido);
+	    }
+
+	    @Override
+	    public List<OrdenEntrega> findByFechaEntrega(LocalDate fechaEntrega) {
+	        return repositorio.findByFechaEntrega(fechaEntrega);
+	    }
+
+	    @Override
+	    public List<OrdenEntrega> buscarPorRangoFechas(LocalDate inicio, LocalDate fin) {
+	        return repositorio.buscarPorRangoFechas(inicio, fin);
+	    }
+
+	    @Override
+	    public List<OrdenEntrega> buscarPorObservaciones(String texto) {
+	        return repositorio.buscarPorObservaciones(texto);
+	    }
+
+	    @Override
+	    public List<OrdenEntrega> listarTodosOrdenados() {
+	        return repositorio.listarTodosOrdenados();
+	    }
 	
+
 }

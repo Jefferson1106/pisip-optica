@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,38 @@ public class OrdenEntregaRepositorioImpl implements IOrdenEntregaRepositorio {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	//1807
+	@Override
+	public List<OrdenEntrega> findByRecibido(Boolean recibido) {
+	    return jpaRepositorio.findByRecibido(recibido).stream()
+	            .map(entityMapper::toDomain).toList();
+	}
+
+	@Override
+	public List<OrdenEntrega> findByFechaEntrega(LocalDate fechaEntrega) {
+	    return jpaRepositorio.findByFechaEntrega(fechaEntrega).stream()
+	            .map(entityMapper::toDomain).toList();
+	}
+
+	@Override
+	public List<OrdenEntrega> buscarPorRangoFechas(LocalDate inicio, LocalDate fin) {
+	    return jpaRepositorio.buscarPorRangoFechas(inicio, fin).stream()
+	            .map(entityMapper::toDomain).toList();
+	}
+
+	@Override
+	public List<OrdenEntrega> buscarPorObservaciones(String texto) {
+	    return jpaRepositorio.buscarPorObservaciones(texto).stream()
+	            .map(entityMapper::toDomain).toList();
+	}
+
+	@Override
+	public List<OrdenEntrega> listarTodosOrdenados() {
+	    return jpaRepositorio.listarTodosOrdenados().stream()
+	            .map(entityMapper::toDomain).toList();
+	}
+
 
 
 }

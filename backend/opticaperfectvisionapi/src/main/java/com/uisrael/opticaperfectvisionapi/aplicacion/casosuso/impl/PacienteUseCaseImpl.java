@@ -1,6 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IPacienteUseCase;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.Paciente;
@@ -61,5 +62,21 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
 	        return repositorio.guardar(existente);
 	    }
 
-    
+	 //1807
+	 
+	 @Override
+	    public Optional<Paciente> findByCedula(String cedula) { return repositorio.findByCedula(cedula); }
+
+	    @Override
+	    public Optional<Paciente> findByCorreo(String correo) { return repositorio.findByCorreo(correo); }
+
+	    @Override
+	    public List<Paciente> findByActivo(Boolean activo) { return repositorio.findByActivo(activo); }
+
+	    @Override
+	    public List<Paciente> buscarPorNombreOApellido(String texto) { return repositorio.buscarPorNombreOApellido(texto); }
+
+	    @Override
+	    public List<Paciente> listarTodosOrdenados() { return repositorio.listarTodosOrdenados(); }
+	
 }

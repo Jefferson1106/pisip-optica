@@ -113,6 +113,53 @@ public class PacienteController {
         }
     }
     
+//1807
+ // Buscar por cédula
+    @GetMapping("/cedula/{cedula}")
+    public ResponseEntity<PacienteResponseDto> buscarPorCedula(@PathVariable String cedula) {
+        return pacienteUseCase.findByCedula(cedula)
+                .map(mapper::toResponseDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
+
+    // Buscar por correo
+    @GetMapping("/correo/{correo}")
+    public ResponseEntity<PacienteResponseDto> buscarPorCorreo(@PathVariable String correo) {
+        return pacienteUseCase.findByCorreo(correo)
+                .map(mapper::toResponseDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Buscar por estado activo
+    @GetMapping("/activo/{activo}")
+    public ResponseEntity<List<PacienteResponseDto>> findByActivo(@PathVariable Boolean activo) {
+        return ResponseEntity.ok(
+            pacienteUseCase.findByActivo(activo).stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
+    // Buscar por nombre o apellido parcial
+    @GetMapping("/nombre/{texto}")
+    public ResponseEntity<List<PacienteResponseDto>> buscarPorNombreOApellido(@PathVariable String texto) {
+        return ResponseEntity.ok(
+            pacienteUseCase.buscarPorNombreOApellido(texto).stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
+    // Listar todos ordenados por fecha de registro
+    @GetMapping("/ordenados")
+    public ResponseEntity<List<PacienteResponseDto>> listarTodosOrdenados() {
+        return ResponseEntity.ok(
+            pacienteUseCase.listarTodosOrdenados().stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
+    
 
 }

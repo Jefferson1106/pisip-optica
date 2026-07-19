@@ -15,7 +15,16 @@ public interface IPacienteRepositorio {
 	void eliminar(String cedula);
 
 	
-	
+	//1807
+	Optional<Paciente> findByCedula(String cedula);
+
+    Optional<Paciente> findByCorreo(String correo);
+
+    List<Paciente> findByActivo(Boolean activo);
+
+    List<Paciente> buscarPorNombreOApellido(String texto);
+
+    List<Paciente> listarTodosOrdenados();
 	
 
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -26,9 +26,10 @@ public class PacienteRequestDto {
 	
 	    private String correo;
 	
+	    @JsonFormat(pattern = "yyyy-MM-dd")
 	    private LocalDate fechaNacimiento;
 
-	    private LocalDateTime fechaRegistro;
+	    private LocalDate fechaRegistro;
 		
 		@JsonAlias({ "idUsuario", "idUsuarioAdministrador", "id_usuario_registro" })
 		private Integer idUsuarioRegistro;

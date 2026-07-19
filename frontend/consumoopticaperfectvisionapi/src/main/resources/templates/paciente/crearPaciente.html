@@ -1,87 +1,87 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/plantilla/plantillaui">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/plantilla/plantillaui">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Nuevo Paciente - Perfect Vision</title>
+<meta charset="UTF-8">
+<title>Nuevo Paciente - Perfect Vision</title>
 </head>
 
 <body>
-<div layout:fragment="contenidopaginas">
-    <div class="container-fluid">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h5 class="m-0 font-weight-bold text-primary">Registrar Nuevo Paciente</h5>
-            </div>
-            <div class="card-body">
+	<div layout:fragment="contenidopaginas">
+		<div class="container-fluid">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h5 class="m-0 font-weight-bold text-primary">Registrar Nuevo
+						Paciente</h5>
+				</div>
+				<div class="card-body">
 
-                <!-- Mensaje de error desde el backend -->
-                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+					<!-- Mensaje de error desde el backend -->
+					<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-                <form th:action="@{/paciente/guardar}" th:object="${paciente}" method="post">
-                    
-                    <div class="form-group">
-                        <label for="cedula">Cédula</label>
-                        <input type="text" th:field="*{cedula}" 
-                               class="form-control" 
-                               id="cedula"
-                               required 
-                               maxlength="10"
-                               pattern="[0-9]{10}" 
-                               title="La cédula debe tener exactamente 10 dígitos numéricos"/>
-                    </div>
+					<form th:action="@{/paciente/guardar}" th:object="${paciente}"
+						method="post">
 
-                    <div class="form-group">
-                        <label for="nombres">Nombres</label>
-                        <input type="text" th:field="*{nombres}" class="form-control" required />
-                    </div>
+						<div class="form-group">
+							<label for="cedula">Cédula</label> <input type="text"
+								th:field="*{cedula}" class="form-control" id="cedula" required
+								maxlength="10" pattern="[0-9]{10}"
+								title="La cédula debe tener exactamente 10 dígitos numéricos" />
+						</div>
 
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos</label>
-                        <input type="text" th:field="*{apellidos}" class="form-control" required />
-                    </div>
+						<div class="form-group">
+							<label for="nombres">Nombres</label> <input type="text"
+								th:field="*{nombres}" class="form-control" required />
+						</div>
 
-                    <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <input type="text" th:field="*{direccion}" class="form-control" required />
-                    </div>
+						<div class="form-group">
+							<label for="apellidos">Apellidos</label> <input type="text"
+								th:field="*{apellidos}" class="form-control" required />
+						</div>
 
-                    <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <input type="text" th:field="*{telefono}" class="form-control" required />
-                    </div>
+						<div class="form-group">
+							<label for="direccion">Dirección</label> <input type="text"
+								th:field="*{direccion}" class="form-control" required />
+						</div>
 
-                    <div class="form-group">
-                        <label for="correo">Correo</label>
-                        <input type="email" th:field="*{correo}" class="form-control" required />
-                    </div>
+						<div class="form-group">
+							<label for="telefono">Teléfono</label> <input type="text"
+								th:field="*{telefono}" class="form-control" required />
+						</div>
 
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input type="date" th:field="*{fechaNacimiento}" class="form-control" required />
-                    </div>
+						<div class="form-group">
+							<label for="correo">Correo</label> <input type="email"
+								th:field="*{correo}" class="form-control" required />
+						</div>
 
-                    <div class="form-group form-check">
-                        <input type="checkbox" th:field="*{activo}" class="form-check-input" id="activo" />
-                        <label class="form-check-label" for="activo">Activo</label>
-                    </div>
+						<div class="form-group">
+							<label for="fechaNacimiento">Fecha de Nacimiento</label> <input
+								type="date" th:field="*{fechaNacimiento}" class="form-control"
+								required />
+						</div>
 
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <a th:href="@{/paciente}" class="btn btn-secondary">Cancelar</a>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+						<div class="form-group form-check">
+							<input type="checkbox" th:field="*{activo}"
+								class="form-check-input" id="activo" /> <label
+								class="form-check-label" for="activo">Activo</label>
+						</div>
 
-<!-- Validación en tiempo real con JavaScript -->
-<script>
-  document.getElementById("cedula").addEventListener("input", function() {
-    this.value = this.value.replace(/\D/g, '').substring(0,10);
-  });
-</script>
+						<button type="submit" class="btn btn-success">Guardar</button>
+						<a th:href="@{/paciente}" class="btn btn-secondary">Cancelar</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Validación en tiempo real con JavaScript -->
+	<script>
+		document.getElementById("cedula").addEventListener("input", function() {
+			this.value = this.value.replace(/\D/g, '').substring(0, 10);
+		});
+	</script>
 
 </body>
 </html>

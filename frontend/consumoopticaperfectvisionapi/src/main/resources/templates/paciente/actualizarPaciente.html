@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/plantilla/plantillaui">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Paciente - Perfect Vision</title>
+</head>
+
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">Actualizar Datos del Paciente</h5>
+            </div>
+            <div class="card-body">
+
+                <!-- Mensaje de error desde el backend -->
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <form th:action="@{/paciente/actualizar}" th:object="${paciente}" method="post">
+
+                    <!-- Campo oculto para ID -->
+                    <input type="hidden" th:field="*{idPaciente}" />
+
+                    <div class="form-group">
+                        <label for="cedula">Cédula</label>
+                        <input type="text" th:field="*{cedula}" class="form-control" id="cedula" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombres">Nombres</label>
+                        <input type="text" th:field="*{nombres}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos</label>
+                        <input type="text" th:field="*{apellidos}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" th:field="*{direccion}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="text" th:field="*{telefono}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correo">Correo</label>
+                        <input type="email" th:field="*{correo}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input type="date" th:field="*{fechaNacimiento}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" th:field="*{activo}" class="form-check-input" id="activo" />
+                        <label class="form-check-label" for="activo">Activo</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <a th:href="@{/paciente}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

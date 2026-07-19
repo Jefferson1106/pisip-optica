@@ -11,33 +11,28 @@ import lombok.Data;
 @Data
 public class PacienteRequestDto {
 
-
-		private String cedula;
-	   
-		
-
-	    private String nombres;
-
-	    private String apellidos;
-
-	    private String direccion;
-
-	    private String telefono;
+	private Long idPaciente; // <-- agrega este campo
 	
-	    private String correo;
-	
-	    @JsonFormat(pattern = "yyyy-MM-dd")
-	    private LocalDate fechaNacimiento;
+	private String cedula;
 
-	    private LocalDate fechaRegistro;
-		
-		@JsonAlias({ "idUsuario", "idUsuarioAdministrador", "id_usuario_registro" })
-		private Integer idUsuarioRegistro;
-	
+	private String nombres;
 
-		private Boolean activo;
-	
+	private String apellidos;
 
-	    
+	private String direccion;
+
+	private String telefono;
+
+	private String correo;
+
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaNacimiento;
+
+	private LocalDate fechaRegistro;
+
+	@JsonAlias({ "idUsuario", "idUsuarioAdministrador", "id_usuario_registro" })
+	private Integer idUsuarioRegistro;
+
+	private Boolean activo;
 
 }

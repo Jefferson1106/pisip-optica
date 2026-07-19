@@ -22,7 +22,7 @@
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
-						
+
 						<div th:if="${success}" class="alert alert-success" role="alert">
 							<span th:text="${success}"></span>
 						</div>
@@ -50,9 +50,15 @@
 									<td th:text="${paciente.correo}"></td>
 									<td th:text="${paciente.telefono}"></td>
 									<td th:text="${paciente.activo}"></td>
-									<td><a href="#" class="btn btn-primary" title="Editar"><i
-											class="ti-pencil-alt"></i></a> <a href="#" class="btn btn-danger"
-										title="Eliminar"><i class="ti-trash"></i></a></td>
+									<td><a
+										th:href="@{/paciente/editar/{id}(id=${paciente.idPaciente})}"
+										class="btn btn-warning btn-sm">Actualizar</a> <a
+										th:href="@{/paciente/eliminar/{id}(id=${paciente.idPaciente})}"
+										class="btn btn-danger btn-sm"
+										onclick="return confirm('¿Está seguro de eliminar el paciente?');">Eliminar</a>
+
+									</td>
+
 								</tr>
 							</tbody>
 						</table>

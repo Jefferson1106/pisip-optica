@@ -47,4 +47,54 @@ public class PacienteServiceImpl implements IPacienteService {
     }
 
     
+    //actualizar validar
+    @Override
+    public void actualizarPaciente(PacienteRequestDto paciente) {
+        webClient.put()
+            .uri("/api/paciente/" + paciente.getIdPaciente()) // o cedula, según tu API
+            .bodyValue(paciente) // envía TODOS los campos
+            .retrieve()
+            .onStatus(HttpStatusCode::is4xxClientError, response ->
+                response.bodyToMono(Map.class)
+                        .map(body -> new RuntimeException((String) body.get("error")))
+            )
+            .onStatus(HttpStatusCode::is5xxServerError, response ->
+                response.bodyToMono(String.class)
+                        .map(msg -> new RuntimeException("Error del servidor: " + msg))
+            )
+            .bodyToMono(Void.class)
+            .block();
+    }
+
+	@Override
+	public PacienteResponseDto buscarPorId(Long idPaciente) {
+	    return webClient.get()
+	        .uri("/api/paciente/" + idPaciente)
+	        .retrieve()
+	        .bodyToMono(PacienteResponseDto.class)
+	        .block();
+	}
+
+	@Override
+	public void eliminarPaciente(Long idPaciente) {
+	    // Primero obtienes el paciente
+	    PacienteResponseDto paciente = webClient.get()
+	        .uri("/api/paciente/" + idPaciente)
+	        .retrieve()
+	        .bodyToMono(PacienteResponseDto.class)
+	        .block();
+
+	    // Marcas como inactivo
+	    paciente.setActivo(false);
+
+	    // Envías la actualización al backend
+	    webClient.put()
+	        .uri("/api/paciente/" + idPaciente)
+	        .bodyValue(paciente)
+	        .retrieve()
+	        .bodyToMono(Void.class)
+	        .block();
+	}
+
+
 }

@@ -50,5 +50,50 @@ public class PacienteController {
             return "paciente/crearPaciente";
         }
     }
+    
+    //funcional validar
+    
+ // Mostrar formulario de edición con datos cargados
+    @GetMapping("/editar/{id}")
+    public String editarPaciente(@PathVariable Long id, Model model) {
+        // Llamas al servicio para obtener el paciente por ID
+        PacienteResponseDto paciente = servicioPaciente.buscarPorId(id);
+        
+        // Lo agregas al modelo con el nombre "paciente"
+        model.addAttribute("paciente", paciente);
+        
+        // Retornas la vista de edición
+        return "paciente/actualizarPaciente";
+    }
+
+
+    // Guardar cambios del paciente
+    @PostMapping("/actualizar")
+    public String actualizarPaciente(@ModelAttribute PacienteRequestDto paciente,
+                                     RedirectAttributes redirectAttributes,
+                                     Model model) {
+        try {
+            servicioPaciente.actualizarPaciente(paciente);
+            redirectAttributes.addFlashAttribute("success", "Datos actualizados exitosamente");
+            return "redirect:/paciente";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("paciente", paciente);
+            return "paciente/actualizarPaciente";
+        }
+    }
+
+    
+    @GetMapping("/eliminar/{id}")
+    public String eliminarPaciente(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            servicioPaciente.eliminarPaciente(id);
+            redirectAttributes.addFlashAttribute("success", "Paciente eliminado (borrado lógico)");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/paciente";
+    }
+
 
 }

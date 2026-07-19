@@ -9,4 +9,12 @@ public interface IDetalleEntregaUseCase {
     void eliminar(int idDetalleEntrega);
     DetalleEntrega actualizar(int idDetalleEntrega, DetalleEntrega detalleEntrega);
     DetalleEntrega actualizarEstado(int idDetalleEntrega, Boolean estado);
+    
+    
+    //1807
+    List<DetalleEntrega> findByEstado(Boolean estado);
+    List<DetalleEntrega> findByCantidad(Integer cantidad);
+    List<DetalleEntrega> buscarPorProductoYEstado(Integer idDetOrden, Boolean estado);
+    List<DetalleEntrega> listarTodosOrdenados();
+
 }

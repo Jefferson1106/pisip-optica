@@ -9,5 +9,11 @@ public interface IDetalleEntregaRepositorio {
 	Optional<DetalleEntrega> buscarPorId(int idDetalleEntrega);
 	List<DetalleEntrega> listarTodos();
 	void eliminar (int idDetalleEntrega);
+	
+	//1807
+	List<DetalleEntrega> findByEstado(Boolean estado);
+	List<DetalleEntrega> findByCantidad(Integer cantidad);
+	List<DetalleEntrega> buscarPorProductoYEstado(Integer idDetOrden, Boolean estado);
+	List<DetalleEntrega> listarTodosOrdenados();
 
 }

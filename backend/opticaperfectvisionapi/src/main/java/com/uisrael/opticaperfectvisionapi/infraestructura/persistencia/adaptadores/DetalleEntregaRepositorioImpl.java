@@ -39,5 +39,30 @@ public class DetalleEntregaRepositorioImpl implements IDetalleEntregaRepositorio
 	public void eliminar(int idDetalleEntrega) {
 		jpaRepositorio.deleteById(idDetalleEntrega);		
 	}
+	
+	//1807
+	@Override
+	public List<DetalleEntrega> findByEstado(Boolean estado) {
+	    return jpaRepositorio.findByEstado(estado).stream()
+	            .map(entityMapper::toDomain).toList();
+	}
 
+	
+	   @Override
+	    public List<DetalleEntrega> findByCantidad(Integer cantidad) {
+	        return jpaRepositorio.findByCantidad(cantidad).stream()
+	                .map(entityMapper::toDomain).toList();
+	    }
+
+	    @Override
+	    public List<DetalleEntrega> buscarPorProductoYEstado(Integer idDetOrden, Boolean estado) {
+	        return jpaRepositorio.buscarPorProductoYEstado(idDetOrden, estado).stream()
+	                .map(entityMapper::toDomain).toList();
+	    }
+
+	    @Override
+	    public List<DetalleEntrega> listarTodosOrdenados() {
+	        return jpaRepositorio.listarTodosOrdenados().stream()
+	                .map(entityMapper::toDomain).toList();
+	    }
 }

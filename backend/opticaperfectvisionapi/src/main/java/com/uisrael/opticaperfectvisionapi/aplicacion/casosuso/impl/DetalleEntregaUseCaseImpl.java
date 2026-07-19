@@ -56,4 +56,26 @@ public class DetalleEntregaUseCaseImpl implements IDetalleEntregaUseCase {
         existente.setEstado(estado);
         return repositorio.guardar(existente);
     }
+    
+    //1807
+    @Override
+    public List<DetalleEntrega> findByEstado(Boolean estado) {
+        return repositorio.findByEstado(estado);
+    }
+
+    @Override
+    public List<DetalleEntrega> findByCantidad(Integer cantidad) {
+        return repositorio.findByCantidad(cantidad);
+    }
+
+    @Override
+    public List<DetalleEntrega> buscarPorProductoYEstado(Integer idDetOrden, Boolean estado) {
+        return repositorio.buscarPorProductoYEstado(idDetOrden, estado);
+    }
+
+    @Override
+    public List<DetalleEntrega> listarTodosOrdenados() {
+        return repositorio.listarTodosOrdenados();
+    }
+
 }

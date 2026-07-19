@@ -77,4 +77,39 @@ public class DetalleEntregaController {
             this.estado = estado;
         }
     }
+    
+    //1807
+    @GetMapping("/estado/{estado}")
+    public ResponseEntity<List<DetalleEntregaResponseDto>> findByEstado(@PathVariable Boolean estado) {
+        return ResponseEntity.ok(
+            detalleEntregaUseCase.findByEstado(estado).stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
+    @GetMapping("/cantidad/{cantidad}")
+    public ResponseEntity<List<DetalleEntregaResponseDto>> findByCantidad(@PathVariable Integer cantidad) {
+        return ResponseEntity.ok(
+            detalleEntregaUseCase.findByCantidad(cantidad).stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
+    @GetMapping("/producto/{idDetOrden}/estado/{estado}")
+    public ResponseEntity<List<DetalleEntregaResponseDto>> buscarPorProductoYEstado(@PathVariable Integer idDetOrden,
+                                                                                    @PathVariable Boolean estado) {
+        return ResponseEntity.ok(
+            detalleEntregaUseCase.buscarPorProductoYEstado(idDetOrden, estado).stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
+    @GetMapping("/ordenados")
+    public ResponseEntity<List<DetalleEntregaResponseDto>> listarTodosOrdenados() {
+        return ResponseEntity.ok(
+            detalleEntregaUseCase.listarTodosOrdenados().stream()
+                .map(mapper::toResponseDto).toList()
+        );
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 
 import java.time.LocalDate;
+//import com.fasterxml.jackson.annotation.JsonAlias;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -28,14 +29,20 @@ public class PacienteRequestDto {
 	    private String correo;
 		@NotNull
 	    private LocalDate fechaNacimiento;
-		@NotNull
+		private Boolean activo;
+		
+		//1907
+		
+		//@NotNull
 	    private LocalDateTime fechaRegistro;
-		@NotNull
+		//@NotNull
 		@JsonAlias({ "idUsuario", "idUsuarioAdministrador", "id_usuario_registro" })
 		private Integer idUsuarioRegistro;
-	
-		@NotNull
-		private Boolean activo;
+		
+		
+		
+
+
 	
 
 	    

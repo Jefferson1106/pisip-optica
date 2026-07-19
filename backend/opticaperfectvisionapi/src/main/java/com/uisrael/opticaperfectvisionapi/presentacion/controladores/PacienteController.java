@@ -1,11 +1,12 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+//import org.springframework.web.server.ResponseStatusException;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IPacienteUseCase;
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.Paciente;
@@ -16,7 +17,7 @@ import com.uisrael.opticaperfectvisionapi.presentacion.mapeadores.IPacienteDtoMa
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/pacientes")
+@RequestMapping("/api/paciente")
 public class PacienteController {
 
     private final IPacienteUseCase pacienteUseCase;
@@ -28,7 +29,7 @@ public class PacienteController {
     }
 
     // Listar todos
-    @GetMapping
+    @GetMapping ("/all")
     public ResponseEntity<List<PacienteResponseDto>> listarTodos() {
         List<PacienteResponseDto> pacientes = pacienteUseCase.listarTodos().stream()
                 .map(mapper::toResponseDto)
@@ -44,7 +45,7 @@ public class PacienteController {
     }
 
     // Guardar nuevo paciente
-    @PostMapping
+   /* @PostMapping
     public ResponseEntity<PacienteResponseDto> guardar(@Valid @RequestBody PacienteRequestDto requestDto) {
         validarIdUsuarioRegistro(requestDto);
         Paciente guardado = pacienteUseCase.guardar(mapper.toDomain(requestDto));
@@ -63,6 +64,26 @@ public class PacienteController {
         }
         
      }
+    */
+    
+    //1907
+    @PostMapping
+ 
+    public ResponseEntity<PacienteResponseDto> guardar(@Valid @RequestBody PacienteRequestDto requestDto) {
+        if (requestDto.getFechaRegistro() == null) {
+            requestDto.setFechaRegistro(LocalDateTime.now());
+        }
+        if (requestDto.getIdUsuarioRegistro() == null) {
+            requestDto.setIdUsuarioRegistro(1); // o el ID del usuario autenticado
+        }
+
+        Paciente guardado = pacienteUseCase.guardar(mapper.toDomain(requestDto));
+        PacienteResponseDto responseDto = mapper.toResponseDto(guardado);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+    }
+
+//hasta aqui
+
     
     //actualizar
     @PutMapping("/{id}")

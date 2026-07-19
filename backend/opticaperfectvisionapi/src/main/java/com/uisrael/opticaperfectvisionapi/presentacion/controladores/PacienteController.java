@@ -2,6 +2,7 @@ package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import com.uisrael.opticaperfectvisionapi.dominio.entidades.Paciente;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.PacienteRequestDto;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.PacienteResponseDto;
 import com.uisrael.opticaperfectvisionapi.presentacion.mapeadores.IPacienteDtoMapper;
+import com.uisrael.opticaperfectvisionapi.util.CedulaValidator;
 
 import jakarta.validation.Valid;
 
@@ -43,33 +45,40 @@ public class PacienteController {
         Paciente paciente = pacienteUseCase.buscarPorId(id);
         return ResponseEntity.ok(mapper.toResponseDto(paciente));
     }
-
-    // Guardar nuevo paciente
-   /* @PostMapping
-    public ResponseEntity<PacienteResponseDto> guardar(@Valid @RequestBody PacienteRequestDto requestDto) {
-        validarIdUsuarioRegistro(requestDto);
-        Paciente guardado = pacienteUseCase.guardar(mapper.toDomain(requestDto));
-        PacienteResponseDto responseDto = mapper.toResponseDto(guardado);
-        if (responseDto.getIdUsuarioRegistro() == null) {
-            responseDto.setIdUsuarioRegistro(requestDto.getIdUsuarioRegistro());
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
-    }
-
-
-    private void validarIdUsuarioRegistro(PacienteRequestDto requestDto) {
-        if (requestDto.getIdUsuarioRegistro() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "idUsuarioRegistro es obligatorio para crear o actualizar pacientes");
-        }
-        
-     }
-    */
     
     //1907
+   
+   /* @PostMapping
+    public ResponseEntity<?> guardar(@Valid @RequestBody PacienteRequestDto requestDto) {
+        // Validación de formato y algoritmo
+        String mensajeError = CedulaValidator.validarCedulaEcuatoriana(requestDto.getCedula());
+        if (mensajeError != null) {
+            return ResponseEntity.badRequest().body(Map.of("error", mensajeError));
+        }
+
+        // Validación de repetición
+        if (pacienteUseCase.findByCedula(requestDto.getCedula()).isPresent()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "La cédula ya está registrada"));
+        }
+
+        Paciente guardado = pacienteUseCase.guardar(mapper.toDomain(requestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(guardado));
+    }*/
+    
     @PostMapping
- 
-    public ResponseEntity<PacienteResponseDto> guardar(@Valid @RequestBody PacienteRequestDto requestDto) {
+    public ResponseEntity<?> guardar(@Valid @RequestBody PacienteRequestDto requestDto) {
+        // Validación de cédula
+        String mensajeError = CedulaValidator.validarCedulaEcuatoriana(requestDto.getCedula());
+        if (mensajeError != null) {
+            return ResponseEntity.badRequest().body(Map.of("error", mensajeError));
+        }
+
+        // Validación de repetición
+        if (pacienteUseCase.findByCedula(requestDto.getCedula()).isPresent()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "La cédula ya está registrada"));
+        }
+
+        // Asignar valores por defecto
         if (requestDto.getFechaRegistro() == null) {
             requestDto.setFechaRegistro(LocalDateTime.now());
         }
@@ -77,10 +86,12 @@ public class PacienteController {
             requestDto.setIdUsuarioRegistro(1); // o el ID del usuario autenticado
         }
 
+        // Guardar
         Paciente guardado = pacienteUseCase.guardar(mapper.toDomain(requestDto));
-        PacienteResponseDto responseDto = mapper.toResponseDto(guardado);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(guardado));
     }
+
+
 
 //hasta aqui
 
@@ -180,7 +191,8 @@ public class PacienteController {
                 .map(mapper::toResponseDto).toList()
         );
     }
-
     
+  
+
 
 }

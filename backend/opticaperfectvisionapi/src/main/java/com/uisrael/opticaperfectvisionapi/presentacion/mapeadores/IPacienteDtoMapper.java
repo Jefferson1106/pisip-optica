@@ -10,12 +10,16 @@ import com.uisrael.opticaperfectvisionapi.presentacion.dto.response.PacienteResp
 @Mapper(componentModel = "spring")
 public interface IPacienteDtoMapper {
 
-    @Mapping(target = "idPaciente", ignore = true)
-    @Mapping(target = "usuarioAdministrador.idUsuario", source = "idUsuarioRegistro")
-    Paciente toDomain(PacienteRequestDto dto);
+	
 
-    @Mapping(target = "idUsuarioRegistro", source = "usuarioAdministrador.idUsuario")
-    PacienteResponseDto toResponseDto(Paciente paciente);
+	    @Mapping(target = "idPaciente", ignore = true)
+	    @Mapping(target = "usuarioAdministrador.idUsuario", source = "idUsuarioRegistro")
+	    @Mapping(target = "activo", source = "activo") // mapeo del estado
+	    Paciente toDomain(PacienteRequestDto dto);
 
+	    @Mapping(target = "idUsuarioRegistro", source = "usuarioAdministrador.idUsuario")
+	    @Mapping(target = "activo", source = "activo") // mapeo del estado
+	    PacienteResponseDto toResponseDto(Paciente paciente);
+	
 
 }

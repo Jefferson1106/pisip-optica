@@ -19,7 +19,8 @@ public class Paciente {
     private Boolean activo;
     private UsuarioAdministradorEntity usuarioAdministrador;
 
-    public Paciente() {
+    //1907
+   public Paciente() {
     }
 
     public Paciente(Integer idPaciente, String cedula, String nombres, String apellidos, String direccion,

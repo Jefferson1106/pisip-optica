@@ -10,4 +10,5 @@ public interface IDetalleOrdenUseCase {
     List<DetalleOrden> listarTodos();
     void eliminar(int idDetalleOrden);
     DetalleOrden actualizar(int idDetalleOrden, DetalleOrden detalleOrden);
+    
 }

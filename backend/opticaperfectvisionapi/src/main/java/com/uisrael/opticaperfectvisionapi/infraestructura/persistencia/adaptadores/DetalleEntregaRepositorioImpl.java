@@ -66,3 +66,4 @@ public class DetalleEntregaRepositorioImpl implements IDetalleEntregaRepositorio
 	                .map(entityMapper::toDomain).toList();
 	    }
 }
+

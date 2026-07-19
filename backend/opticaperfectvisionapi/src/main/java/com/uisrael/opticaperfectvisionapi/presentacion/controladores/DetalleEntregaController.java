@@ -108,8 +108,8 @@ public class DetalleEntregaController {
     public ResponseEntity<List<DetalleEntregaResponseDto>> listarTodosOrdenados() {
         return ResponseEntity.ok(
             detalleEntregaUseCase.listarTodosOrdenados().stream()
-                .map(mapper::toResponseDto).toList()
-        );
+                .map(mapper::toResponseDto).toList());
     }
 
+    
 }

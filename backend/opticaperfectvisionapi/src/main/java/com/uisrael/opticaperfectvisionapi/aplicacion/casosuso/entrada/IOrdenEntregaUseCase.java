@@ -13,5 +13,6 @@ public interface IOrdenEntregaUseCase {
     OrdenEntrega actualizar(int idOrdenEntrega, OrdenEntrega ordenEntregaActualizada);
         // Nuevo: actualizar solo el campo "recibido"
     OrdenEntrega actualizarRecibido(int idOrdenEntrega, Boolean recibido);
+    
 
 }

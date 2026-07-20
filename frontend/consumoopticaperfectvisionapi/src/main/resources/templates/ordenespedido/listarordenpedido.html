@@ -22,83 +22,29 @@
 							cellspacing="0">
 							<thead>
 								<tr>
-									<th>ID Pedido</th>
+									<th>ID Examen</th>
+									<th>Paciente</th>
+									<th>Estado</th>
+									<th>Fecha Registro</th>
 									<th>Fecha Pedido</th>
 									<th>Fecha Entrega</th>
-									<th>Estado Pedido</th>
-									<th>ID Paciente</th>
+									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>2026-07-11</td>
-									<td>2026-07-15</td>
-									<td>Pendiente</td>
-									<td>1</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>2026-07-11</td>
-									<td>2026-07-16</td>
-									<td>En Proceso</td>
-									<td>2</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>2026-07-11</td>
-									<td>2026-07-17</td>
-									<td>Pendiente</td>
-									<td>3</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>2026-07-11</td>
-									<td>2026-07-18</td>
-									<td>Terminado</td>
-									<td>4</td>
-								</tr>
-								<tr>
-									<td>5</td>
-									<td>2026-07-11</td>
-									<td>2026-07-19</td>
-									<td>En Proceso</td>
-									<td>5</td>
-								</tr>
-								<tr>
-									<td>6</td>
-									<td>2026-07-11</td>
-									<td>2026-07-20</td>
-									<td>Pendiente</td>
-									<td>6</td>
-								</tr>
-								<tr>
-									<td>7</td>
-									<td>2026-07-11</td>
-									<td>2026-07-21</td>
-									<td>Terminado</td>
-									<td>7</td>
-								</tr>
-								<tr>
-									<td>8</td>
-									<td>2026-07-11</td>
-									<td>2026-07-22</td>
-									<td>Pendiente</td>
-									<td>8</td>
-								</tr>
-								<tr>
-									<td>9</td>
-									<td>2026-07-11</td>
-									<td>2026-07-23</td>
-									<td>En Proceso</td>
-									<td>9</td>
-								</tr>
-								<tr>
-									<td>10</td>
-									<td>2026-07-11</td>
-									<td>2026-07-24</td>
-									<td>Terminado</td>
-									<td>10</td>
+								<tr th:each="pedido : ${listaordenpedidos}">
+									<td th:text="${pedido.idPedido}"></td>
+									<td th:text="${pedido.idExamen}"></td>
+									<td th:text="${pedido.idPaciente}"></td>
+									<td th:text="${pedido.idEstadoPedido}"></td>
+									<td th:text="${pedido.idFechaRegistro}"></td>
+									<td th:text="${pedido.idFechaPedido}"></td>
+									<td th:text="${pedido.idFechaEntrega}"></td>
+									<td><a
+										th:href="@{/ordenespedido/editar/{id}(id=${pedido.idPedido})}"
+										class="btn btn-warning btn-sm">Actualizar</a> 
+
+									</td>
 								</tr>
 							</tbody>
 						</table>

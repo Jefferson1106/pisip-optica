@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="contenidopaginas">
+		<div class="container-fluid">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h5 class="m-0 font-weight-bold text-primary">Registrar Nueva
+						Orden</h5>
+				</div>
+				<div class="card-body">
+
+					<!-- Mensaje de error desde el backend -->
+					<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+					<form th:action="@{/ordenespedido/guardar}" th:object="${ordenpedido}"
+						method="post">
+
+						<div class="form-group">
+							<label for="idPaciente">Cédula Paciente</label> <input type="text"
+								th:field="*{idPaciente}" class="form-control" id="idPaciente" required
+								maxlength="10" pattern="[0-9]{10}"
+								title="La cédula debe tener exactamente 10 dígitos numéricos" />
+						</div>
+
+						<div class="form-group">
+							<label for="idExamen">Examen</label> <input type="text"
+								th:field="*{idExamen}" class="form-control" required />
+						</div>
+
+						<div class="form-group">
+							<label for="idEstadoPedido">Estado</label> <input type="text"
+								th:field="*{idEstadoPedido}" class="form-control" required />
+						</div>
+
+						<div class="form-group">
+							<label for="fechaRegistro">Fecha Registro</label> <input type="text"
+								th:field="*{fechaRegistro}" class="form-control" required />
+						</div>
+
+						<div class="form-group">
+							<label for="fechaPedido">Fecha Pedido</label> <input type="text"
+								th:field="*{fechaPedido}" class="form-control" required />
+						</div>
+
+						<div class="form-group">
+							<label for="fechaEntrega">Fecha Entrega</label> <input type="email"
+								th:field="*{fechaEntrega}" class="form-control" required />
+						</div>
+
+						<button type="submit" class="btn btn-success">Guardar</button>
+						<a th:href="@{/ordenespedido}" class="btn btn-secondary">Cancelar</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Validación en tiempo real con JavaScript -->
+	<script>
+		document.getElementById("idPaciente").addEventListener("input", function() {
+			this.value = this.value.replace(/\D/g, '').substring(0, 10);
+		});
+	</script>
+	
+	
+</body>
+</html>

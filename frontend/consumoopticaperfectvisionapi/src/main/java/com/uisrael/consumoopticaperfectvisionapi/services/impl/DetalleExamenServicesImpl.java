@@ -2,17 +2,19 @@ package com.uisrael.consumoopticaperfectvisionapi.services.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleExamenRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleExamenResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleExamen;
 
-public class DetalleExamenImpl implements IDetalleExamen {
+@Service
+public class DetalleExamenServicesImpl implements IDetalleExamen {
 	
 	private final WebClient webClient;
 	
-	public DetalleExamenImpl(WebClient webClient) {
+	public DetalleExamenServicesImpl(WebClient webClient) {
 		super();
 		this.webClient = webClient;
 	}
@@ -20,14 +22,14 @@ public class DetalleExamenImpl implements IDetalleExamen {
 	@Override
 	public List<DetalleExamenResponseDto> listarDetalleExamen() {
 		
-		return webClient.get().uri("/detalleexamen").retrieve().
+		return webClient.get().uri("api/detalleexamen/all").retrieve().
 				bodyToFlux(DetalleExamenResponseDto.class).
 				collectList().block();
 	}
 
 	@Override
 	public void guardarDetalleExamen(DetalleExamenRequestDto nuevoDetalleExamen) {
-		webClient.post().uri("/detalleexamen").bodyValue(nuevoDetalleExamen).retrieve().toBodilessEntity().block();
+		webClient.post().uri("api/detalleexamen").bodyValue(nuevoDetalleExamen).retrieve().toBodilessEntity().block();
 		
 		
 	}

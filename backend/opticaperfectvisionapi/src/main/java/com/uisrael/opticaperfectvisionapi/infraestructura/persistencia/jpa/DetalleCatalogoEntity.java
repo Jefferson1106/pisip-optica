@@ -9,17 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(
-	name = "detalle_catalogo",
-	uniqueConstraints = {
-		@UniqueConstraint(name = "uk_detalle_catalogo_catalogo_identificador", columnNames = {"id_catalogo", "identificador"})
-	}
-)
+@Table(name = "detalle_catalogo")
 public class DetalleCatalogoEntity {
 	
 	@Id

@@ -45,6 +45,12 @@ public class OrdenPedidoUseCaseImpl implements IOrdenPedidoUseCase{
 		
 		return repositorio.actualizar(idOrdenPedido, actualizado);
 	}
+
+	@Override
+	public void eliminar(int idOrdenPedido) {
+		repositorio.buscarPorId(idOrdenPedido).orElseThrow(() -> new RuntimeException("Orden Pedido no encontrado"));
+		repositorio.eliminar(idOrdenPedido);
+	}
 	
 	
 

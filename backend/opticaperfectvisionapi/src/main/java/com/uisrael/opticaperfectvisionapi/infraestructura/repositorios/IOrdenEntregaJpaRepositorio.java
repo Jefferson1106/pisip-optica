@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenEntregaEntity;
 
 public interface IOrdenEntregaJpaRepositorio extends JpaRepository<OrdenEntregaEntity, Integer> {
+
+    long countByOrdenPedido_IdPedido(Integer idPedido);
 	
 	//1807
 	// Buscar por estado recibido

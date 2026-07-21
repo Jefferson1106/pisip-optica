@@ -13,5 +13,7 @@ public interface IOrdenPedidoUseCase {
 	List<OrdenPedido> listarTodos();
 	
 	OrdenPedido actualizar(int idOrdenPedido, OrdenPedido ordenPedido);
+
+	void eliminar(int idOrdenPedido);
 	
 }

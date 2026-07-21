@@ -3,16 +3,23 @@ package com.uisrael.consumoopticaperfectvisionapi.model.dto.response;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class OrdenPedidoResponseDto {
 	
 	 	private Integer idPedido;
 	    private Integer idExamen;
 	    private Integer idPaciente;
+		    private String pacienteNombre;
+		    private String examenDescripcion;
+		    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	    private LocalDate fechaPedido;
+		    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	    private LocalDate fechaEntrega;
 	    private Integer idEstadoPedido;
 	    private String nombreEstadoPedido;
 	    private String identificadorEstadoPedido;
+		    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	    private LocalDateTime fechaRegistro;
 	    
 		public Integer getIdPedido() {
@@ -32,6 +39,18 @@ public class OrdenPedidoResponseDto {
 		}
 		public void setIdPaciente(Integer idPaciente) {
 			this.idPaciente = idPaciente;
+		}
+		public String getPacienteNombre() {
+			return pacienteNombre;
+		}
+		public void setPacienteNombre(String pacienteNombre) {
+			this.pacienteNombre = pacienteNombre;
+		}
+		public String getExamenDescripcion() {
+			return examenDescripcion;
+		}
+		public void setExamenDescripcion(String examenDescripcion) {
+			this.examenDescripcion = examenDescripcion;
 		}
 		public LocalDate getFechaPedido() {
 			return fechaPedido;

@@ -8,6 +8,8 @@ public class OrdenPedidoResponseDto {
 	 	private Integer idPedido;
 	    private Integer idExamen;
 	    private Integer idPaciente;
+	    private String pacienteNombre;
+	    private String examenDescripcion;
 	    private LocalDate fechaPedido;
 	    private LocalDate fechaEntrega;
 	    private Integer idEstadoPedido;
@@ -32,6 +34,18 @@ public class OrdenPedidoResponseDto {
 		}
 		public void setIdPaciente(Integer idPaciente) {
 			this.idPaciente = idPaciente;
+		}
+		public String getPacienteNombre() {
+			return pacienteNombre;
+		}
+		public void setPacienteNombre(String pacienteNombre) {
+			this.pacienteNombre = pacienteNombre;
+		}
+		public String getExamenDescripcion() {
+			return examenDescripcion;
+		}
+		public void setExamenDescripcion(String examenDescripcion) {
+			this.examenDescripcion = examenDescripcion;
 		}
 		public LocalDate getFechaPedido() {
 			return fechaPedido;

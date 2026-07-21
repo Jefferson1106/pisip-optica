@@ -9,7 +9,8 @@ public interface IOrdenPedido {
 	
 	List<OrdenPedidoResponseDto> listarOrdenPedido();
 	void guardarOrdenPedido(OrdenPedidoRequestDto nuevoOrdenPedido);
-	void actualizarOdenPedido(OrdenPedidoRequestDto ordenPedido);
+	void actualizarOdenPedido(Long id, OrdenPedidoRequestDto ordenPedido);
 	OrdenPedidoResponseDto buscarPorId(Long id);
+	void eliminarOrdenPedido(Long id);
 	
 }

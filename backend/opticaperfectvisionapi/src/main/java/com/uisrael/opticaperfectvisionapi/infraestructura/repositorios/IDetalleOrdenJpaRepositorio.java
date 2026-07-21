@@ -10,6 +10,8 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Detal
 public interface IDetalleOrdenJpaRepositorio extends JpaRepository<DetalleOrdenEntity, Integer> {
 	
 	List<DetalleOrdenEntity> findByIdDetOrden(Integer idDetOrden);
+
+	long countByOrdenPedido_IdPedido(Integer idPedido);
 	
 	@Query("Select o from DetalleOrdenEntity o")
 	List<DetalleOrdenEntity> listarTodosDetalleOrden();

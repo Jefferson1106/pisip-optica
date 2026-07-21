@@ -5,13 +5,17 @@ import java.util.Optional;
 
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.OrdenPedido;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleOrdenEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ExamenVisualEntity;
 import com.uisrael.opticaperfectvisionapi.dominio.repositorios.IOrdenPedidoRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenEntregaEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.PacienteEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.mapeadores.IOrdenPedidoJpaMapper;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IDetalleCatalogoJpaRepositorio;
+import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IDetalleOrdenJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IExamenVisualJpaRepositorio;
+import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IOrdenEntregaJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IOrdenPedidoJpaRepositorio;
 import com.uisrael.opticaperfectvisionapi.infraestructura.repositorios.IPacienteJpaRepositorio;
 
@@ -22,16 +26,22 @@ public class OrdenPedidoRepositorioImpl implements IOrdenPedidoRepositorio {
 	private final IExamenVisualJpaRepositorio examenVisualJpaRepositorio;
 	private final IPacienteJpaRepositorio pacienteJpaRepositorio;
 	private final IDetalleCatalogoJpaRepositorio detalleCatalogoJpaRepositorio;
+	private final IDetalleOrdenJpaRepositorio detalleOrdenJpaRepositorio;
+	private final IOrdenEntregaJpaRepositorio ordenEntregaJpaRepositorio;
 	public OrdenPedidoRepositorioImpl(IOrdenPedidoJpaRepositorio jpaRepositorio,
 			IOrdenPedidoJpaMapper entityMapper,
 			IExamenVisualJpaRepositorio examenVisualJpaRepositorio,
 			IPacienteJpaRepositorio pacienteJpaRepositorio,
-			IDetalleCatalogoJpaRepositorio detalleCatalogoJpaRepositorio) {
+			IDetalleCatalogoJpaRepositorio detalleCatalogoJpaRepositorio,
+			IDetalleOrdenJpaRepositorio detalleOrdenJpaRepositorio,
+			IOrdenEntregaJpaRepositorio ordenEntregaJpaRepositorio) {
 		this.jpaRepositorio = jpaRepositorio;
 		this.entityMapper = entityMapper;
 		this.examenVisualJpaRepositorio = examenVisualJpaRepositorio;
 		this.pacienteJpaRepositorio = pacienteJpaRepositorio;
 		this.detalleCatalogoJpaRepositorio = detalleCatalogoJpaRepositorio;
+		this.detalleOrdenJpaRepositorio = detalleOrdenJpaRepositorio;
+		this.ordenEntregaJpaRepositorio = ordenEntregaJpaRepositorio;
 	}
 	@Override
 	public OrdenPedido guardar(OrdenPedido nuevaOrdenPedido) {
@@ -67,6 +77,19 @@ public class OrdenPedidoRepositorioImpl implements IOrdenPedidoRepositorio {
 		OrdenPedidoEntity guardado = jpaRepositorio.save(existente);
 		
 		return entityMapper.toDomain(guardado);
+	}
+
+	@Override
+	public void eliminar(int idOrdenPedido) {
+		OrdenPedidoEntity existente = jpaRepositorio.findByIdWithRelaciones(idOrdenPedido)
+				.orElseThrow(() -> new RuntimeException("Orden pedido no encontrado"));
+
+		long detallesAsociados = detalleOrdenJpaRepositorio.countByOrdenPedido_IdPedido(idOrdenPedido);
+		long entregasAsociadas = ordenEntregaJpaRepositorio.countByOrdenPedido_IdPedido(idOrdenPedido);
+		if (detallesAsociados > 0 || entregasAsociadas > 0) {
+			throw new IllegalStateException("No se puede eliminar la orden porque ya tiene detalles o entregas asociadas");
+		}
+		jpaRepositorio.delete(existente);
 	}
 
 	private ExamenVisualEntity obtenerExamenAdministrado(ExamenVisualEntity examenVisual) {

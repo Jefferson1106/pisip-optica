@@ -14,6 +14,8 @@ public interface IOrdenPedidoRepositorio {
 	List<OrdenPedido> listarTodos();
 	
 	OrdenPedido actualizar(int idOrdenPedido, OrdenPedido actualizado);
+
+	void eliminar(int idOrdenPedido);
 	
 
 }

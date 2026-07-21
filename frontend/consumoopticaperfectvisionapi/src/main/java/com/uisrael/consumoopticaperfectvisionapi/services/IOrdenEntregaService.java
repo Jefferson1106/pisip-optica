@@ -6,6 +6,7 @@ import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.OrdenEntregaR
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.OrdenEntregaResponseDto;
 
 public interface IOrdenEntregaService {
+
 	
 	    
 	    // Listar todas las órdenes
@@ -24,4 +25,5 @@ public interface IOrdenEntregaService {
 	    void eliminarOrden(Integer idEntrega);
 	
 	
+
 }

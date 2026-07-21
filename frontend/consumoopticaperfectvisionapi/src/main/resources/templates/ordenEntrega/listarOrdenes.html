@@ -47,7 +47,11 @@
                             <td>
                                 <a th:href="@{/ordenes-entrega/editar/{id}(id=${orden.idEntrega})}"
                                    class="btn btn-warning btn-sm">Actualizar</a>
-                                
+
+                                <a th:href="@{/ordenes-entrega/eliminar/{id}(id=${orden.idEntrega})}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('¿Está seguro de eliminar la orden?');">Eliminar</a>
+
                             </td>
                         </tr>
                         </tbody>

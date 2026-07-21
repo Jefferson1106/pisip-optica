@@ -6,7 +6,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.OrdenEntregaRequestDto;
@@ -26,6 +25,7 @@ public class OrdenEntregaController {
         List<OrdenEntregaResponseDto> resultadoBD = servicioOrden.listarOrdenes();
         model.addAttribute("listaOrdenes", resultadoBD);
         return "ordenEntrega/listarOrdenes";
+
     }
 
     // Mostrar formulario de nueva orden
@@ -59,19 +59,7 @@ public class OrdenEntregaController {
         return "ordenEntrega/actualizarOrden";
     }
 
-    // Eliminar orden (borrado lógico)
-    @GetMapping("/eliminar/{id}")
-    public String eliminarOrden(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-        try {
-            servicioOrden.eliminarOrden(id);
-            redirectAttributes.addFlashAttribute("success", "Orden eliminada (borrado lógico)");
-        } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
-        return "redirect:/ordenes-entrega";
-    }
-
-
+    // Guardar cambios de la orden
     @PostMapping("/actualizar")
     public String actualizarOrden(@ModelAttribute OrdenEntregaResponseDto orden,
                                   RedirectAttributes redirectAttributes,
@@ -87,23 +75,26 @@ public class OrdenEntregaController {
         }
     }
 
+    // Eliminar orden (borrado lógico)
+    @GetMapping("/eliminar/{id}")
+    public String eliminarOrden(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            servicioOrden.eliminarOrden(id);
+            redirectAttributes.addFlashAttribute("success", "Orden eliminada (borrado lógico)");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/ordenes-entrega";
+    }
+
+    // Conversión ResponseDto -> RequestDto para actualizar
     private OrdenEntregaRequestDto convertirARequest(OrdenEntregaResponseDto response) {
         OrdenEntregaRequestDto request = new OrdenEntregaRequestDto();
         request.setIdPedido(response.getIdPedido());
         request.setFechaEntrega(response.getFechaEntrega());
         request.setRecibido(response.getRecibido());
         request.setObservaciones(response.getObservaciones());
-
-        // Ajustar fechaRegistro para incluir segundos
-        LocalDateTime fecha = response.getFechaRegistro();
-        if (fecha != null && fecha.getSecond() == 0) {
-            request.setFechaRegistro(fecha.withSecond(0));
-        } else {
-            request.setFechaRegistro(fecha);
-        }
-
+        request.setFechaRegistro(response.getFechaRegistro());
         return request;
-    }
-
-
+}
 }

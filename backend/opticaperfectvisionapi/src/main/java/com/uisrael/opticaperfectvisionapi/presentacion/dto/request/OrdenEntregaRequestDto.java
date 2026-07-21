@@ -22,4 +22,5 @@ public class OrdenEntregaRequestDto {
     private String observaciones;
 	@NotNull
     private LocalDateTime fechaRegistro;
+	
 }

@@ -14,4 +14,5 @@ public interface IDetalleExamenRepositorio {
 	boolean existeDescripcion(String descripcionExamen);
 	
 	DetalleExamen actualizar(int idDetalleExamen, DetalleExamen actualizado);
+	
 }

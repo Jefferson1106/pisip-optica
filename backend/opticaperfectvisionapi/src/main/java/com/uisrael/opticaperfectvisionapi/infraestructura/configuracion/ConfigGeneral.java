@@ -105,9 +105,11 @@ public class ConfigGeneral {
                                                    IOrdenPedidoJpaMapper mapper,
                                                    IExamenVisualJpaRepositorio examenVisualRepositorio,
                                                    IPacienteJpaRepositorio pacienteRepositorio,
-                                                   IDetalleCatalogoJpaRepositorio detalleCatalogoRepositorio) {
+                                                   IDetalleCatalogoJpaRepositorio detalleCatalogoRepositorio,
+                                                   IDetalleOrdenJpaRepositorio detalleOrdenRepositorio,
+                                                   IOrdenEntregaJpaRepositorio ordenEntregaRepositorio) {
         return new OrdenPedidoRepositorioImpl(repositorio, mapper, examenVisualRepositorio, pacienteRepositorio,
-                detalleCatalogoRepositorio);
+                detalleCatalogoRepositorio, detalleOrdenRepositorio, ordenEntregaRepositorio);
     }
 
     @Bean

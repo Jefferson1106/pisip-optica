@@ -19,6 +19,8 @@ public interface IOrdenPedidoDtoMapper {
 	
 	@Mapping(target = "idExamen", source = "examenVisual.idExamen")
 	@Mapping(target = "idPaciente", source = "paciente.idPaciente")
+	@Mapping(target = "pacienteNombre", expression = "java(ordenPedidoPojo.getPaciente() != null ? ((ordenPedidoPojo.getPaciente().getNombres() + \" \" + ordenPedidoPojo.getPaciente().getApellidos()).trim()) : null)")
+	@Mapping(target = "examenDescripcion", expression = "java(ordenPedidoPojo.getExamenVisual() != null ? (\"Examen #\" + ordenPedidoPojo.getExamenVisual().getIdExamen() + \" | \" + (ordenPedidoPojo.getExamenVisual().getPaciente() != null ? ((ordenPedidoPojo.getExamenVisual().getPaciente().getNombres() + \" \" + ordenPedidoPojo.getExamenVisual().getPaciente().getApellidos()).trim()) : \"\") + \" | \" + ordenPedidoPojo.getExamenVisual().getFechaExamen()) : null)")
 	@Mapping(target = "idEstadoPedido", source = "estadoPedido.idDetalleCatalogo")
 	@Mapping(target = "nombreEstadoPedido", source = "estadoPedido.nombre")
 	@Mapping(target = "identificadorEstadoPedido", source = "estadoPedido.identificador")

@@ -30,6 +30,7 @@
 							cellspacing="0">
 							<thead>
 								<tr th:each="indice : listaordenpedidos">
+									<th>N°</th>
 									<th style="display:none;">ID</th>
 									<th>Paciente</th>
 									<th>Fecha Examen</th>
@@ -39,7 +40,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="examenVisual : ${listaexamenesvisuales}">
+								<tr th:each="examenVisual, iterStat: ${listaexamenesvisuales}">
+									<td th:text="${iterStat.count}"></td>
 									<td style="display:none;" th:text="${examenVisual.idExamen}"></td>
 									<td th:text="${examenVisual.pacienteNombre}"></td>
 									<td th:text="${examenVisual.fechaExamen}"></td>

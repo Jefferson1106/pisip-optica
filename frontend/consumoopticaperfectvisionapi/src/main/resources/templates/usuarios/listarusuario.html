@@ -30,6 +30,7 @@
 							cellspacing="0">
 							<thead>
 								<tr>
+									<th>N°</th>
 									<th style="display:none;">ID</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
@@ -40,7 +41,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="usuario : ${listausuarios}">
+								<tr th:each="usuario, iterStat : ${listausuarios}">
+									<td th:text="${iterStat.count}"></td>
 									<td style="display:none;" th:text="${usuario.idUsuario}"></td>
 									<td th:text="${usuario.nombres}"></td>
 									<td th:text="${usuario.apellidos}"></td>

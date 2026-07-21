@@ -33,6 +33,7 @@
                            cellspacing="0">
                         <thead>
                             <tr>
+								<th>N°</th>
                                 <th style="display:none;">ID</th>
                                 <th>Descripción</th>
                                 <th>Estado</th>
@@ -40,7 +41,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="catalogo : ${listacatalogos}">
+                            <tr th:each="catalogo, iterStat : ${listacatalogos}">
+								<td th:text="${iterStat.count}"></td>
                                 <td style="display:none;" th:text="${catalogo.idCatalogo}"></td>
                                 <td th:text="${catalogo.descripcion}"></td>
 								<td th:text="${catalogo.estado ? 'Activo' : 'Inactivo'}"></td>

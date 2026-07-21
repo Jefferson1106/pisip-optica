@@ -21,6 +21,6 @@ public interface IDetalleExamenUseCase {
 	
 	boolean existeNombreParaOtroDetalle(String nombreDetalle, int idDetalleExamen);
 	
-	
+
 
 }

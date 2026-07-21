@@ -34,7 +34,7 @@ public class UsuarioAdministradorRepositorioImpl implements IUsuarioAdministrado
 
 	@Override
 	public Optional<UsuarioAdministrador> buscarPorId(Integer idUsuario) {
-		return jpaRepositorio.findById(idUsuario).map(mapper::toDomain);
+		return jpaRepositorio.findByIdConTipoUsuario(idUsuario).map(mapper::toDomain);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class UsuarioAdministradorRepositorioImpl implements IUsuarioAdministrado
 
 	@Override
 	public List<UsuarioAdministrador> listarTodos() {
-		return jpaRepositorio.findAll().stream().map(mapper::toDomain).toList();
+		return jpaRepositorio.findAllConTipoUsuario().stream().map(mapper::toDomain).toList();
 	}
 
 	@Override

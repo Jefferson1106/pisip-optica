@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/plantilla/plantillaui">
+
+<head>
+<meta charset="UTF-8">
+<title>Nuevo Examen Visual - Perfect Vision</title>
+</head>
+
+<body>
+	<div layout:fragment="contenidopaginas">
+		<div class="container-fluid">
+			<div class="card shadow mb-4">
+				<div class="card-header py-3">
+					<h5 class="m-0 font-weight-bold text-primary">Registrar Nuevo Examen Visual</h5>
+				</div>
+				<div class="card-body">
+					<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+					<form th:action="@{/examenes-visuales/guardar}" th:object="${examenVisual}" method="post">
+						<div class="form-group">
+							<label for="idPaciente">Paciente</label>
+							<select th:field="*{idPaciente}" class="form-control" id="idPaciente" required>
+								<option value="">Seleccione...</option>
+								<option th:each="paciente : ${listapacientes}"
+										th:value="${paciente.idPaciente}"
+										th:text="${paciente.nombres + ' ' + paciente.apellidos}"></option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="fechaExamen">Fecha de Examen</label>
+							<input type="date" th:field="*{fechaExamen}" class="form-control" id="fechaExamen" required />
+						</div>
+
+						<div class="form-group">
+							<label for="observaciones">Observaciones</label>
+							<textarea th:field="*{observaciones}" class="form-control" id="observaciones" rows="3"></textarea>
+						</div>
+
+						<div class="form-group form-check">
+							<input type="checkbox" th:field="*{estado}" class="form-check-input" id="estado" />
+							<label class="form-check-label" for="estado">Activo</label>
+						</div>
+
+						<button type="submit" class="btn btn-success">Guardar</button>
+						<a th:href="@{/examenes-visuales}" class="btn btn-secondary">Cancelar</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

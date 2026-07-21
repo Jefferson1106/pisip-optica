@@ -14,5 +14,6 @@ public interface IDetalleCatalogoDtoMapper {
 	DetalleCatalogo toDomain(DetalleCatalogoRequestDto dto);
 
 	@Mapping(target = "idCatalogo", source = "catalogo.idCatalogo")
+	@Mapping(target = "catalogoDescripcion", source = "catalogo.descripcion")
 	DetalleCatalogoResponseDto toResponseDto(DetalleCatalogo detalleCatalogoPojo);
 }

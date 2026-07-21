@@ -14,5 +14,6 @@ public interface IExamenVisualDtoMapper {
 	ExamenVisual toDomain(ExamenVisualRequestDto dto);
 
 	@Mapping(target = "idPaciente", source = "paciente.idPaciente")
+	@Mapping(target = "pacienteNombre", expression = "java(examenVisualPojo.getPaciente() != null ? ((examenVisualPojo.getPaciente().getNombres() + \" \" + examenVisualPojo.getPaciente().getApellidos()).trim()) : null)")
 	ExamenVisualResponseDto toResponseDto(ExamenVisual examenVisualPojo);
 }

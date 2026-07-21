@@ -13,25 +13,43 @@
 	<div layout:fragment="contenidopaginas">
 		<div class="container-fluid">
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
+				<div class="card-header py-3 d-flex justify-content-between align-items-center">
 					<h5 class="m-0 font-weight-bold text-primary">Perfect Vision - Examenes Visuales</h5>
+					<a th:href="@{/examenes-visuales/nuevo}" class="btn btn-success">Nuevo Examen Visual</a>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
+						<div th:if="${success}" class="alert alert-success" role="alert">
+							<span th:text="${success}"></span>
+						</div>
+						<div th:if="${error}" class="alert alert-danger" role="alert">
+							<span th:text="${error}"></span>
+						</div>
+
 						<table class="table table-bordered" id="dataTable" width="100%"
 							cellspacing="0">
 							<thead>
 								<tr th:each="indice : listaordenpedidos">
-									<th th:text="${indice.idExamen}"></th>
-									<th th:text="${indice.idPaciente}"></th>
-									<th th:text="${indice.idEstadoPedido}"></th>
-									<th th:text="${indice.idFechaRegistro}"></th>
-									<th th:text="${indice.idFechaPedido}"></th>
-									<th th:text="${indice.idFechaEntrega}"></th>
+									<th style="display:none;">ID</th>
+									<th>Paciente</th>
+									<th>Fecha Examen</th>
+									<th>Observaciones</th>
+									<th>Estado</th>
+									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								
+								<tr th:each="examenVisual : ${listaexamenesvisuales}">
+									<td style="display:none;" th:text="${examenVisual.idExamen}"></td>
+									<td th:text="${examenVisual.pacienteNombre}"></td>
+									<td th:text="${examenVisual.fechaExamen}"></td>
+									<td th:text="${examenVisual.observaciones}"></td>
+									<td th:text="${examenVisual.estado ? 'Activo' : 'Inactivo'}"></td>
+									
+									<td>
+										<a th:href="@{/examenes-visuales/editar/{id}(id=${examenVisual.idExamen})}" class="btn btn-warning btn-sm">Actualizar</a>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 

@@ -2,14 +2,12 @@ package com.uisrael.consumoopticaperfectvisionapi.services.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleExamenRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleExamenResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleExamen;
 
-@Service
 public class DetalleExamenServicesImpl implements IDetalleExamen {
 	
 	private final WebClient webClient;

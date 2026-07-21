@@ -2,14 +2,12 @@ package com.uisrael.consumoopticaperfectvisionapi.services.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleOrdenRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleOrdenResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleOrden;
 
-@Service
 public class DetalleOrdenServicesImpl implements IDetalleOrden {
 	
 	private final WebClient webClient;

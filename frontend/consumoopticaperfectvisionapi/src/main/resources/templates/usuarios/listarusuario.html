@@ -13,81 +13,43 @@
 	<div layout:fragment="contenidopaginas">
 		<div class="container-fluid">
 			<div class="card shadow mb-4">
-				<div class="card-header py-3">
+				<div class="card-header py-3 d-flex justify-content-between align-items-center">
 					<h5 class="m-0 font-weight-bold text-primary">Perfect Vision - Usuarios</h5>
+					<a th:href="@{/usuarios/nuevo}" class="btn btn-success">Nuevo Usuario</a>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
+						<div th:if="${success}" class="alert alert-success" role="alert">
+							<span th:text="${success}"></span>
+						</div>
+						<div th:if="${error}" class="alert alert-danger" role="alert">
+							<span th:text="${error}"></span>
+						</div>
+
 						<table class="table table-bordered" id="dataTable" width="100%"
 							cellspacing="0">
 							<thead>
 								<tr>
+									<th style="display:none;">ID</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
+									<th>Tipo Usuario</th>
 									<th>Correo</th>
 									<th>Estado</th>
+									<th>Acciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Juan</td>
-									<td>Perez</td>
-									<td>admin1@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Maria</td>
-									<td>Gomez</td>
-									<td>admin2@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Carlos</td>
-									<td>Ruiz</td>
-									<td>admin3@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Ana</td>
-									<td>Torres</td>
-									<td>admin4@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Luis</td>
-									<td>Vargas</td>
-									<td>admin5@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Sofia</td>
-									<td>Mendoza</td>
-									<td>admin6@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>David</td>
-									<td>Herrera</td>
-									<td>admin7@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Paula</td>
-									<td>Lopez</td>
-									<td>admin8@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Miguel</td>
-									<td>Castro</td>
-									<td>admin9@optica.com</td>
-									<td>Activo</td>
-								</tr>
-								<tr>
-									<td>Lucia</td>
-									<td>Salazar</td>
-									<td>admin10@optica.com</td>
-									<td>Activo</td>
+								<tr th:each="usuario : ${listausuarios}">
+									<td style="display:none;" th:text="${usuario.idUsuario}"></td>
+									<td th:text="${usuario.nombres}"></td>
+									<td th:text="${usuario.apellidos}"></td>
+									<td th:text="${usuario.tipoUsuarioNombre}"></td>
+									<td th:text="${usuario.correo}"></td>
+									<td th:text="${usuario.estado ? 'Activo' : 'Inactivo'}"></td>
+									<td>
+										<a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-warning btn-sm">Actualizar</a>
+									</td>
 								</tr>
 							</tbody>
 						</table>

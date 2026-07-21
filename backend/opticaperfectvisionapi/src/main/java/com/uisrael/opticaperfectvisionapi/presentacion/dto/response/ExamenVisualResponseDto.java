@@ -6,6 +6,7 @@ public class ExamenVisualResponseDto {
 
 	private Integer idExamen;
 	private Integer idPaciente;
+	private String pacienteNombre;
 	private LocalDate fechaExamen;
 	private String observaciones;
 	private boolean estado;
@@ -24,6 +25,14 @@ public class ExamenVisualResponseDto {
 
 	public void setIdPaciente(Integer idPaciente) {
 		this.idPaciente = idPaciente;
+	}
+
+	public String getPacienteNombre() {
+		return pacienteNombre;
+	}
+
+	public void setPacienteNombre(String pacienteNombre) {
+		this.pacienteNombre = pacienteNombre;
 	}
 
 	public LocalDate getFechaExamen() {

@@ -4,6 +4,7 @@ public class DetalleCatalogoResponseDto {
 
 	private Integer idDetalleCatalogo;
 	private Integer idCatalogo;
+	private String catalogoDescripcion;
 	private String nombre;
 	private String identificador;
 	private boolean estado;
@@ -22,6 +23,14 @@ public class DetalleCatalogoResponseDto {
 
 	public void setIdCatalogo(Integer idCatalogo) {
 		this.idCatalogo = idCatalogo;
+	}
+
+	public String getCatalogoDescripcion() {
+		return catalogoDescripcion;
+	}
+
+	public void setCatalogoDescripcion(String catalogoDescripcion) {
+		this.catalogoDescripcion = catalogoDescripcion;
 	}
 
 	public String getNombre() {

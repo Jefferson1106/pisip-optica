@@ -4,14 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatusCode;
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.OrdenPedidoRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.OrdenPedidoResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.services.IOrdenPedido;
 
-@Service
 public class OrdenPedidoServicesImpl implements IOrdenPedido {
 
 

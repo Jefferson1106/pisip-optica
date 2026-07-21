@@ -52,10 +52,7 @@
 									<td th:text="${paciente.activo}"></td>
 									<td><a
 										th:href="@{/paciente/editar/{id}(id=${paciente.idPaciente})}"
-										class="btn btn-warning btn-sm">Actualizar</a> <a
-										th:href="@{/paciente/eliminar/{id}(id=${paciente.idPaciente})}"
-										class="btn btn-danger btn-sm"
-										onclick="return confirm('¿Está seguro de eliminar el paciente?');">Eliminar</a>
+										class="btn btn-warning btn-sm">Actualizar</a>
 
 									</td>
 

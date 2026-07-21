@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/plantilla/plantillaui">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Orden de Entrega - Perfect Vision</title>
+</head>
+
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary">Actualizar Orden de Entrega</h5>
+            </div>
+            <div class="card-body">
+
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <form th:action="@{/ordenes-entrega/actualizar}"
+                      th:object="${ordenEntrega}" method="post">
+
+                    <input type="hidden" th:field="*{idEntrega}" />
+
+                    <div class="form-group">
+                        <label for="idPedido">ID Pedido</label>
+                        <input type="number" th:field="*{idPedido}" class="form-control" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaEntrega">Fecha de Entrega</label>
+                        <input type="date" th:field="*{fechaEntrega}" class="form-control" required />
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" th:field="*{recibido}" class="form-check-input" id="recibido" />
+                        <label class="form-check-label" for="recibido">Recibido</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observaciones">Observaciones</label>
+                        <textarea th:field="*{observaciones}" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaRegistro">Fecha de Registro</label>
+                        <!-- Campo oculto que viaja en el body -->
+                        <input type="hidden" th:field="*{fechaRegistro}" />
+
+                        <!-- Campo visible solo para mostrar -->
+                        <input type="text"
+                               th:value="${#temporals.format(ordenEntrega.fechaRegistro, 'yyyy-MM-dd HH:mm:ss')}"
+                               class="form-control" readonly />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <a th:href="@{/ordenes-entrega}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

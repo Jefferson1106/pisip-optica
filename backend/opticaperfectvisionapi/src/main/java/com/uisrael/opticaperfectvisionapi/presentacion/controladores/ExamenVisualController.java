@@ -1,6 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,14 @@ public class ExamenVisualController {
 		return ResponseEntity.ok(response);
 	}
 
+	@GetMapping("/paciente/{idPaciente}")
+	public ResponseEntity<List<ExamenVisualResponseDto>> listarPorPaciente(@PathVariable int idPaciente) {
+		List<ExamenVisualResponseDto> response = examenVisualUseCase.listarPorPaciente(idPaciente).stream()
+				.map(mapper::toResponseDto)
+				.toList();
+		return ResponseEntity.ok(response);
+	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<ExamenVisualResponseDto> buscarPorId(@PathVariable int id) {
 		ExamenVisual examenVisual = examenVisualUseCase.buscarPorId(id);
@@ -49,16 +58,24 @@ public class ExamenVisualController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ExamenVisualResponseDto> guardar(@Valid @RequestBody ExamenVisualRequestDto requestDto) {
-		ExamenVisual guardado = examenVisualUseCase.guardar(mapper.toDomain(requestDto));
-		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(guardado));
+	public ResponseEntity<?> guardar(@Valid @RequestBody ExamenVisualRequestDto requestDto) {
+		try {
+			ExamenVisual guardado = examenVisualUseCase.guardar(mapper.toDomain(requestDto));
+			return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(guardado));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+		}
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ExamenVisualResponseDto> actualizar(@PathVariable int id,
+	public ResponseEntity<?> actualizar(@PathVariable int id,
 			@Valid @RequestBody ExamenVisualRequestDto requestDto) {
-		ExamenVisual actualizado = examenVisualUseCase.actualizar(id, mapper.toDomain(requestDto));
-		return ResponseEntity.ok(mapper.toResponseDto(actualizado));
+		try {
+			ExamenVisual actualizado = examenVisualUseCase.actualizar(id, mapper.toDomain(requestDto));
+			return ResponseEntity.ok(mapper.toResponseDto(actualizado));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+		}
 	}
 
 	@PatchMapping("/{id}/estado")

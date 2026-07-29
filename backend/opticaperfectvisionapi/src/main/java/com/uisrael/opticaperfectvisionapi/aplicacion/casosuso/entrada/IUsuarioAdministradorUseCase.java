@@ -18,5 +18,7 @@ public interface IUsuarioAdministradorUseCase {
 
 	UsuarioAdministrador login(String correo, String contrasenia);
 
+	UsuarioAdministrador cambiarContraseniaInicial(Integer idUsuario, String nuevaContrasenia);
+
 	void recuperarContrasenia(String correo);
 }

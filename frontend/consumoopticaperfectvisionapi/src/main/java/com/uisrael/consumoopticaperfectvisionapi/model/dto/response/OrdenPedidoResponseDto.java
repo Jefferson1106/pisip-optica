@@ -19,7 +19,6 @@ public class OrdenPedidoResponseDto {
 	    private Integer idEstadoPedido;
 	    private String nombreEstadoPedido;
 	    private String identificadorEstadoPedido;
-		    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	    private LocalDateTime fechaRegistro;
 	    
 		public Integer getIdPedido() {

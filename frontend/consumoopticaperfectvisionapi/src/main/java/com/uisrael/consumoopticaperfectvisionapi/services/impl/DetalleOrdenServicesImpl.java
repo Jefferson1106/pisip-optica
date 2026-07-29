@@ -21,20 +21,51 @@ public class DetalleOrdenServicesImpl implements IDetalleOrden {
 
 	@Override
 	public List<DetalleOrdenResponseDto> listarDetalleOrden() {
-		
-		return webClient.get().uri("api/detalleorden/all").retrieve().
-				bodyToFlux(DetalleOrdenResponseDto.class).
-				collectList().block();
+		return webClient.get()
+				.uri("/api/detalle-orden")
+				.retrieve()
+				.bodyToFlux(DetalleOrdenResponseDto.class)
+				.collectList()
+				.block();
 	}
 
 
 	@Override
 	public void guardarDetalleOrden(DetalleOrdenRequestDto nuevoDetalleOrden) {
-		webClient.post().uri("api/detalleorden").bodyValue(nuevoDetalleOrden).retrieve().toBodilessEntity().block();
-		
-		
+		webClient.post()
+				.uri("/api/detalle-orden")
+				.bodyValue(nuevoDetalleOrden)
+				.retrieve()
+				.toBodilessEntity()
+				.block();
 	}
 
+	@Override
+	public DetalleOrdenResponseDto buscarDetalleOrdenPorId(Integer idDetOrden) {
+		return webClient.get()
+				.uri("/api/detalle-orden/{id}", idDetOrden)
+				.retrieve()
+				.bodyToMono(DetalleOrdenResponseDto.class)
+				.block();
+	}
 
+	@Override
+	public void actualizarDetalleOrden(Integer idDetOrden, DetalleOrdenRequestDto detalleOrden) {
+		webClient.put()
+				.uri("/api/detalle-orden/{id}", idDetOrden)
+				.bodyValue(detalleOrden)
+				.retrieve()
+				.toBodilessEntity()
+				.block();
+	}
+
+	@Override
+	public void eliminarDetalleOrden(Integer idDetOrden) {
+		webClient.delete()
+				.uri("/api/detalle-orden/{id}", idDetOrden)
+				.retrieve()
+				.toBodilessEntity()
+				.block();
+	}
 
 }

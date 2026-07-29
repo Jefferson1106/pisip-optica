@@ -107,7 +107,9 @@ public class PacienteController {
             return ResponseEntity.notFound().build();
         }
 
-        Paciente actualizado = pacienteUseCase.actualizar(id, mapper.toDomain(requestDto));
+        Paciente pacienteActualizado = mapper.toDomain(requestDto);
+        pacienteActualizado.setFechaRegistro(existente.getFechaRegistro());
+        Paciente actualizado = pacienteUseCase.actualizar(id, pacienteActualizado);
         if (actualizado == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

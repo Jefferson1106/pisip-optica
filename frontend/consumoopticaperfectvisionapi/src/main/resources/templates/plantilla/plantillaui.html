@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="/css/tablas-ajustadas.css" rel="stylesheet">
 </head>
 <body id="page-top">
     <div id="wrapper">
@@ -22,15 +23,27 @@
 
             <hr class="sidebar-divider my-0">
 
-            <div class="sidebar-heading">Administracion</div>
-            <li class="nav-item active">
+            <div class="sidebar-heading"
+                 th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">Administracion</div>
+            <li class="nav-item active"
+                th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">
                 <a class="nav-link" href="/catalogo"><i class="fas fa-fw fa-book"></i><span>Catalogos</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"
+                th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">
                 <a class="nav-link" href="/detalle-catalogo"><i class="fas fa-fw fa-list"></i><span>Detalle Catalogo</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"
+                th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">
                 <a class="nav-link" href="/usuarios"><i class="fas fa-fw fa-users"></i><span>Usuarios</span></a>
+            </li>
+            <li class="nav-item"
+                th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">
+                <a class="nav-link" href="/proveedores"><i class="fas fa-fw fa-truck-loading"></i><span>Proveedores</span></a>
+            </li>
+            <li class="nav-item"
+                th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">
+                <a class="nav-link" href="/productos"><i class="fas fa-fw fa-box"></i><span>Productos</span></a>
             </li>
 
             <hr class="sidebar-divider">
@@ -70,6 +83,23 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <h1 class="h5 mb-0 text-gray-800"></h1>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item d-flex flex-column align-items-end mr-3 text-gray-600 small"
+                            th:if="${session.usuarioSesion != null}">
+                            <span th:text="${session.usuarioSesion.nombres + ' ' + session.usuarioSesion.apellidos}"></span>
+                            <span class="text-xs"
+                                  th:if="${session.inicioSesion != null}"
+                                  th:text="${'Inicio: ' + session.inicioSesion}"></span>
+                                <span class="text-xs"
+                                    th:if="${session.ultimaActividad != null}"
+                                    th:text="${'Ultima actividad: ' + session.ultimaActividad}"></span>
+                        </li>
+                        <li class="nav-item">
+                            <form th:action="@{/logout}" method="post" class="m-0">
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Cerrar sesion</button>
+                            </form>
+                        </li>
+                    </ul>
                 </nav>
 
                 <div class="container-fluid">
@@ -96,5 +126,13 @@
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="/js/demo/datatables-demo.js"></script>
+    <script>
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+    <div layout:fragment="scripts"></div>
 </body>
 </html>

@@ -5,11 +5,13 @@ import java.time.LocalDateTime;
 
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
+import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ProductoEntity;
 
 public class DetalleOrden {
 	
 	private Integer idDetOrden;
     private OrdenPedidoEntity ordenPedido;
+    private ProductoEntity producto;
     private DetalleCatalogoEntity material;
     private DetalleCatalogoEntity marco;
     private DetalleCatalogoEntity tipoLente;
@@ -50,6 +52,14 @@ public class DetalleOrden {
 
 	public void setOrdenPedido(OrdenPedidoEntity ordenPedido) {
 		this.ordenPedido = ordenPedido;
+	}
+
+	public ProductoEntity getProducto() {
+		return producto;
+	}
+
+	public void setProducto(ProductoEntity producto) {
+		this.producto = producto;
 	}
 
 	public DetalleCatalogoEntity getMaterial() {

@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Nuevo Usuario - Perfect Vision</title>
+<title th:text="${modoEdicion} ? 'Actualizar Usuario - Perfect Vision' : 'Nuevo Usuario - Perfect Vision'">Usuario - Perfect Vision</title>
 </head>
 
 <body>
@@ -13,12 +13,13 @@
 		<div class="container-fluid">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h5 class="m-0 font-weight-bold text-primary">Registrar Nuevo Usuario Administrador</h5>
+					<h5 class="m-0 font-weight-bold text-primary"
+						th:text="${modoEdicion} ? 'Actualizar Usuario Administrador' : 'Registrar Nuevo Usuario Administrador'">Registrar Nuevo Usuario Administrador</h5>
 				</div>
 				<div class="card-body">
 					<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-					<form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+					<form th:action="${modoEdicion} ? @{/usuarios/actualizar/{id}(id=${idUsuario})} : @{/usuarios/guardar}" th:object="${usuario}" method="post">
 						<div class="form-group">
 							<label for="idTipoUsuario">Tipo de Usuario</label>
 							<select th:field="*{idTipoUsuario}" class="form-control" id="idTipoUsuario" required>
@@ -27,26 +28,40 @@
 										th:value="${tipo.idDetalleCatalogo}"
 										th:text="${tipo.nombre}"></option>
 							</select>
+							<small th:if="${#fields.hasErrors('idTipoUsuario')}" class="text-danger" th:errors="*{idTipoUsuario}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="nombres">Nombres</label>
-							<input type="text" th:field="*{nombres}" class="form-control" id="nombres" required />
+							<input type="text" th:field="*{nombres}" class="form-control" id="nombres" required maxlength="100"
+								pattern="[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+(?:\s+[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+)*"
+								title="Ingrese únicamente letras y espacios" />
+							<small th:if="${#fields.hasErrors('nombres')}" class="text-danger" th:errors="*{nombres}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="apellidos">Apellidos</label>
-							<input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" required />
+							<input type="text" th:field="*{apellidos}" class="form-control" id="apellidos" required maxlength="100"
+								pattern="[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+(?:\s+[A-Za-zÁÉÍÓÚáéíóúÑñÜü]+)*"
+								title="Ingrese únicamente letras y espacios" />
+							<small th:if="${#fields.hasErrors('apellidos')}" class="text-danger" th:errors="*{apellidos}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="correo">Correo</label>
 							<input type="email" th:field="*{correo}" class="form-control" id="correo" required />
+							<small th:if="${#fields.hasErrors('correo')}" class="text-danger" th:errors="*{correo}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="contrasenia">Contraseña</label>
-							<input type="password" th:field="*{contrasenia}" class="form-control" id="contrasenia" required />
+							<input type="password" th:field="*{contrasenia}" class="form-control" id="contrasenia"
+								th:attr="required=${!modoEdicion}"
+								th:placeholder="${modoEdicion} ? 'Dejar en blanco para conservar la actual' : null"
+								pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%!^&*()_+\-=\[\]{};':&quot;\\|,.<>/?]).{8,}$"
+								title="Minimo 8 caracteres, una mayuscula, una minuscula, un numero y un caracter especial" />
+							<small class="form-text text-muted">Minimo 8 caracteres, mayuscula, minuscula, numero y caracter especial.</small>
+							<small th:if="${#fields.hasErrors('contrasenia')}" class="text-danger" th:errors="*{contrasenia}"></small>
 						</div>
 
 						<div class="form-group form-check">
@@ -54,12 +69,26 @@
 							<label class="form-check-label" for="estado">Activo</label>
 						</div>
 
-						<button type="submit" class="btn btn-success">Guardar</button>
+						<button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+							th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
 						<a th:href="@{/usuarios}" class="btn btn-secondary">Cancelar</a>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div layout:fragment="scripts">
+		<script>
+			["nombres", "apellidos"].forEach(function (campoId) {
+				document.getElementById(campoId).addEventListener("input", function () {
+					this.value = this.value
+						.replace(/[^\p{L}\s]/gu, "")
+						.replace(/^\s+/, "")
+						.replace(/\s{2,}/g, " ");
+				});
+			});
+		</script>
 	</div>
 </body>
 </html>

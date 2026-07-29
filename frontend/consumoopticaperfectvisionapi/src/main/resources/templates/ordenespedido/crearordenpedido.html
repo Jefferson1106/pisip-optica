@@ -4,49 +4,68 @@
 	layout:decorate="/plantilla/plantillaui">
 <head>
 <meta charset="UTF-8">
-<title>Perfect Vision - Nueva Orden Pedido</title>
+<title th:text="${modoEdicion} ? 'Perfect Vision - Actualizar Orden Pedido' : 'Perfect Vision - Nueva Orden Pedido'">Perfect Vision - Orden Pedido</title>
 </head>
 <body>
 	<div layout:fragment="contenidopaginas">
 		<div class="container-fluid">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h5 class="m-0 font-weight-bold text-primary">Registrar Nueva Orden de Pedido</h5>
+					<h5 class="m-0 font-weight-bold text-primary"
+						th:text="${modoEdicion} ? 'Actualizar Orden de Pedido' : 'Registrar Nueva Orden de Pedido'">Registrar Nueva Orden de Pedido</h5>
 				</div>
 				<div class="card-body">
 					<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-					<form th:action="@{/ordenespedido/guardar}" th:object="${ordenpedido}"
+					<form th:action="${modoEdicion} ? @{/ordenespedido/actualizar} : @{/ordenespedido/guardar}" th:object="${ordenpedido}"
 						method="post">
+						<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">Revise los campos del formulario.</div>
+
+						<input type="hidden" th:if="${modoEdicion}" th:field="*{idPedido}" />
 
 						<div class="form-group">
 							<label for="idPaciente">Paciente</label>
-							<select th:field="*{idPaciente}" class="form-control" id="idPaciente" required>
-								<option value="">Seleccione...</option>
+							<input type="hidden" th:field="*{idPaciente}" id="idPaciente" />
+							<input type="search" class="form-control" id="pacienteBuscador"
+								list="pacientesOpciones" placeholder="Busque por nombre, apellido o cédula"
+								autocomplete="off" required />
+							<datalist id="pacientesOpciones">
 								<option th:each="paciente : ${listapacientes}"
-										th:value="${paciente.idPaciente}"
-										th:text="${paciente.nombres + ' ' + paciente.apellidos + ' - ' + paciente.cedula}"></option>
-							</select>
+										th:attr="data-id=${paciente.idPaciente}"
+										th:value="${paciente.nombres + ' ' + paciente.apellidos + ' - ' + paciente.cedula}">
+								</option>
+							</datalist>
+							<small th:if="${#fields.hasErrors('idPaciente')}" class="text-danger" th:errors="*{idPaciente}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="idExamen">Examen Visual</label>
-							<select th:field="*{idExamen}" class="form-control" id="idExamen" required>
-								<option value="">Seleccione...</option>
+							<input type="hidden" th:field="*{idExamen}" id="idExamen" />
+							<input type="search" class="form-control" id="examenBuscador"
+								list="examenesOpciones" placeholder="Busque por número, paciente o fecha"
+								autocomplete="off" required />
+							<datalist id="examenesOpciones">
 								<option th:each="examen : ${listaexamenesvisuales}"
-										th:value="${examen.idExamen}"
-										th:text="${'Examen #' + examen.idExamen + ' | ' + examen.pacienteNombre + ' | ' + examen.fechaExamen}"></option>
-							</select>
+										th:attr="data-id=${examen.idExamen}"
+										th:value="${'Examen #' + examen.idExamen + ' | ' + examen.pacienteNombre + ' | ' + examen.fechaExamen}">
+								</option>
+							</datalist>
+							<small th:if="${#fields.hasErrors('idExamen')}" class="text-danger" th:errors="*{idExamen}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="idEstadoPedido">Estado Pedido</label>
-							<select th:field="*{idEstadoPedido}" class="form-control" id="idEstadoPedido" required>
-								<option value="">Seleccione...</option>
+							<input type="hidden" th:field="*{idEstadoPedido}" id="idEstadoPedido" />
+							<input type="search" class="form-control" id="estadoBuscador"
+								list="estadosOpciones" placeholder="Busque por identificador o estado"
+								autocomplete="off" required />
+							<datalist id="estadosOpciones">
 								<option th:each="estado : ${listaestadospedido}"
-										th:value="${estado.idDetalleCatalogo}"
-										th:text="${estado.identificador + ' - ' + estado.nombre}"></option>
-							</select>
+										th:attr="data-id=${estado.idDetalleCatalogo}"
+										th:value="${estado.identificador + ' - ' + estado.nombre}">
+								</option>
+							</datalist>
+							<small th:if="${#fields.hasErrors('idEstadoPedido')}" class="text-danger" th:errors="*{idEstadoPedido}"></small>
 						</div>
 
 						<div class="form-group">
@@ -56,21 +75,81 @@
 
 						<div class="form-group">
 							<label for="fechaPedido">Fecha Pedido</label> <input type="date"
-								th:field="*{fechaPedido}" class="form-control" required />
+								th:field="*{fechaPedido}" class="form-control" id="fechaPedido" required />
+							<small th:if="${#fields.hasErrors('fechaPedido')}" class="text-danger" th:errors="*{fechaPedido}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="fechaEntrega">Fecha Entrega</label> <input type="date"
-								th:field="*{fechaEntrega}" class="form-control" required />
+								th:field="*{fechaEntrega}" class="form-control" id="fechaEntrega" required />
+							<small th:if="${#fields.hasErrors('fechaEntrega')}" class="text-danger" th:errors="*{fechaEntrega}"></small>
 						</div>
 
-						<button type="submit" class="btn btn-success">Guardar</button>
+						<button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+							th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
 						<a th:href="@{/ordenespedido}" class="btn btn-secondary">Cancelar</a>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+	<div layout:fragment="scripts">
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const fechaPedido = document.getElementById('fechaPedido');
+			const fechaEntrega = document.getElementById('fechaEntrega');
+
+			if (fechaPedido && fechaEntrega) {
+				const ajustarMinEntrega = function() {
+					fechaEntrega.min = fechaPedido.value || '';
+					if (fechaEntrega.value && fechaPedido.value && fechaEntrega.value < fechaPedido.value) {
+						fechaEntrega.value = fechaPedido.value;
+					}
+				};
+
+				fechaPedido.addEventListener('change', ajustarMinEntrega);
+				ajustarMinEntrega();
+			}
+
+			const configurarComboBuscable = function(buscadorId, campoId, listaId, mensaje) {
+				const buscador = document.getElementById(buscadorId);
+				const campo = document.getElementById(campoId);
+				const opciones = Array.from(document.querySelectorAll('#' + listaId + ' option'));
+
+				const sincronizar = function() {
+					const opcion = opciones.find(function(item) {
+						return item.value === buscador.value;
+					});
+					campo.value = opcion ? opcion.dataset.id : '';
+					buscador.setCustomValidity(opcion ? '' : mensaje);
+				};
+
+				const seleccionada = opciones.find(function(item) {
+					return item.dataset.id === campo.value;
+				});
+				if (seleccionada) {
+					buscador.value = seleccionada.value;
+				}
+
+				buscador.addEventListener('input', sincronizar);
+				buscador.addEventListener('change', sincronizar);
+				buscador.form.addEventListener('submit', sincronizar);
+			};
+
+			configurarComboBuscable(
+				'pacienteBuscador', 'idPaciente', 'pacientesOpciones',
+				'Seleccione un paciente de la lista de resultados'
+			);
+			configurarComboBuscable(
+				'examenBuscador', 'idExamen', 'examenesOpciones',
+				'Seleccione un examen visual de la lista de resultados'
+			);
+			configurarComboBuscable(
+				'estadoBuscador', 'idEstadoPedido', 'estadosOpciones',
+				'Seleccione un estado de la lista de resultados'
+			);
+		});
+	</script>
+	</div>
 </body>
 </html>

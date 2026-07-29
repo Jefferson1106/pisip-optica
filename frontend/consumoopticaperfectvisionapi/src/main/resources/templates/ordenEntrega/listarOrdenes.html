@@ -26,10 +26,13 @@
                         <span th:text="${error}"></span>
                     </div>
 
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="dataTable" data-preservar-orden="true" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>ID Entrega</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Cédula</th>
                             <th>Fecha Entrega</th>
                             <th>Recibido</th>
                             <th>Observaciones</th>
@@ -40,17 +43,67 @@
                         <tbody>
                         <tr th:each="orden : ${listaOrdenes}">
                             <td th:text="${orden.idEntrega}"></td>
+                            <td th:text="${(pedidosPorId[orden.idPedido] != null and nombresPorPaciente[pedidosPorId[orden.idPedido].idPaciente] != null) ? nombresPorPaciente[pedidosPorId[orden.idPedido].idPaciente] : '-'}"></td>
+                            <td th:text="${(pedidosPorId[orden.idPedido] != null and apellidosPorPaciente[pedidosPorId[orden.idPedido].idPaciente] != null) ? apellidosPorPaciente[pedidosPorId[orden.idPedido].idPaciente] : '-'}"></td>
+                                     <td th:text="${(pedidosPorId[orden.idPedido] != null and cedulasPorPaciente[pedidosPorId[orden.idPedido].idPaciente] != null) ? cedulasPorPaciente[pedidosPorId[orden.idPedido].idPaciente] : '-'}"></td>
                             <td th:text="${orden.fechaEntrega}"></td>
-                            <td th:text="${orden.recibido}"></td>
+                                     <td th:text="${orden.recibido != null and orden.recibido ? 'Si' : 'No'}"></td>
                             <td th:text="${orden.observaciones}"></td>
                             <td th:text="${orden.idPedido}"></td>
                             <td>
-                                <a th:href="@{/ordenes-entrega/editar/{id}(id=${orden.idEntrega})}"
-                                   class="btn btn-warning btn-sm">Actualizar</a>
+                                          <a th:if="${orden.recibido == null or !orden.recibido}"
+                                              th:href="@{/ordenes-entrega/{idEntrega}/detalles(idEntrega=${orden.idEntrega})}"
+                                              class="btn btn-info btn-sm mr-1"
+                                              title="Llenar detalle de entrega"
+                                              aria-label="Llenar detalle de entrega"><i class="fas fa-list"></i></a>
 
-                                <a th:href="@{/ordenes-entrega/eliminar/{id}(id=${orden.idEntrega})}"
+                                          <a th:if="${orden.recibido != null and orden.recibido}"
+                                              href="#"
+                                              class="btn btn-info btn-sm mr-1 disabled"
+                                              title="Detalle bloqueado por entrega confirmada"
+                                              aria-label="Detalle bloqueado"
+                                              onclick="return false;"><i class="fas fa-list"></i></a>
+
+                                <a th:if="${orden.recibido == null or !orden.recibido}"
+                                   th:href="@{/ordenes-entrega/recibir/{id}(id=${orden.idEntrega})}"
+                                   class="btn btn-success btn-sm mr-1"
+                                   title="Marcar como recibido"
+                                   aria-label="Marcar como recibido"
+                                   onclick="return confirm('¿Confirmar entrega como recibida?');"><i class="fas fa-check"></i></a>
+
+                                          <a th:if="${orden.recibido != null and orden.recibido}"
+                                              href="#"
+                                              class="btn btn-success btn-sm mr-1 disabled"
+                                              title="Entrega ya confirmada"
+                                              aria-label="Entrega ya confirmada"
+                                              onclick="return false;"><i class="fas fa-check"></i></a>
+
+                                          <a th:if="${orden.recibido == null or !orden.recibido}"
+                                              th:href="@{/ordenes-entrega/editar/{id}(id=${orden.idEntrega})}"
+                                              class="btn btn-warning btn-sm mr-1"
+                                              title="Editar"
+                                              aria-label="Editar"><i class="fas fa-edit"></i></a>
+
+                                          <a th:if="${orden.recibido != null and orden.recibido}"
+                                              href="#"
+                                              class="btn btn-warning btn-sm mr-1 disabled"
+                                              title="Edición bloqueada por entrega confirmada"
+                                              aria-label="Edicion bloqueada"
+                                              onclick="return false;"><i class="fas fa-edit"></i></a>
+
+                                          <a th:if="${orden.recibido == null or !orden.recibido}"
+                                              th:href="@{/ordenes-entrega/eliminar/{id}(id=${orden.idEntrega})}"
                                    class="btn btn-danger btn-sm"
-                                   onclick="return confirm('¿Está seguro de eliminar la orden?');">Eliminar</a>
+                                              title="Eliminar"
+                                              aria-label="Eliminar"
+                                              onclick="return confirm('¿Está seguro de eliminar la orden?');"><i class="fas fa-trash"></i></a>
+
+                                          <a th:if="${orden.recibido != null and orden.recibido}"
+                                              href="#"
+                                              class="btn btn-danger btn-sm disabled"
+                                              title="Eliminación bloqueada por entrega confirmada"
+                                              aria-label="Eliminacion bloqueada"
+                                              onclick="return false;"><i class="fas fa-trash"></i></a>
 
                             </td>
                         </tr>

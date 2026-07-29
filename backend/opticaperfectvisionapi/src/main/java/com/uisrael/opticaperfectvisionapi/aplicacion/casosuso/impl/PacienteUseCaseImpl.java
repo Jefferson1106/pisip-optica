@@ -45,7 +45,6 @@ public class PacienteUseCaseImpl implements IPacienteUseCase {
         existente.setTelefono(pacienteActualizado.getTelefono());
         existente.setCorreo(pacienteActualizado.getCorreo());
         existente.setFechaNacimiento(pacienteActualizado.getFechaNacimiento());
-        existente.setFechaRegistro(pacienteActualizado.getFechaRegistro());
         existente.setActivo(pacienteActualizado.getActivo());
 
         return repositorio.guardar(existente);

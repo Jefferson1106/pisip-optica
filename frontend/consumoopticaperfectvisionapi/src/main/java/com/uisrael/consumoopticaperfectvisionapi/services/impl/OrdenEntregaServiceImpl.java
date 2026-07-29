@@ -1,7 +1,9 @@
 package com.uisrael.consumoopticaperfectvisionapi.services.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -62,6 +64,11 @@ public class OrdenEntregaServiceImpl implements IOrdenEntregaService {
         webClient.delete()
             .uri("/api/orden-entregas/{id}", idEntrega)
             .retrieve()
+            .onStatus(HttpStatusCode::is4xxClientError, response -> response.bodyToMono(Map.class)
+                .map(body -> new RuntimeException((String) body.getOrDefault("message",
+                    "No se puede eliminar la orden de entrega"))))
+            .onStatus(HttpStatusCode::is5xxServerError, response -> response.bodyToMono(String.class)
+                .map(body -> new RuntimeException("No fue posible eliminar la orden de entrega")))
             .bodyToMono(Void.class)
             .block();
     }

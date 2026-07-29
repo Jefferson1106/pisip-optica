@@ -3,6 +3,8 @@ package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,4 +40,8 @@ public class OrdenEntregaEntity {
 
     @Column(name = "fecha_registro")
     private LocalDateTime fechaRegistro;
+
+    @UpdateTimestamp
+    @Column(name = "fecha_modificacion")
+    private LocalDateTime fechaModificacion;
 }

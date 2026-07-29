@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nuevo Detalle Catálogo - Perfect Vision</title>
+    <title th:text="${modoEdicion} ? 'Actualizar Detalle Catálogo - Perfect Vision' : 'Nuevo Detalle Catálogo - Perfect Vision'">Detalle Catálogo - Perfect Vision</title>
 </head>
 
 <body>
@@ -18,7 +18,8 @@
         <div class="card shadow mb-4">
 
             <div class="card-header py-3">
-                <h5 class="m-0 font-weight-bold text-primary">
+                <h5 class="m-0 font-weight-bold text-primary"
+                    th:text="${modoEdicion} ? 'Actualizar Detalle Catálogo' : 'Registrar Nuevo Detalle Catálogo'">
                     Registrar Nuevo Detalle Catálogo
                 </h5>
             </div>
@@ -30,9 +31,12 @@
                      th:text="${error}">
                 </div>
 
-                <form th:action="@{/detalle-catalogo/guardar}"
+                <form th:action="${modoEdicion} ? @{/detalle-catalogo/actualizar} : @{/detalle-catalogo/guardar}"
                       th:object="${detalleCatalogo}"
                       method="post">
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">Revise los campos del formulario.</div>
+
+                    <input type="hidden" th:if="${modoEdicion}" th:field="*{idDetalleCatalogo}" />
 
                     <!-- Catálogo -->
                     <div class="form-group">
@@ -52,6 +56,8 @@
 
                         </select>
 
+                        <small th:if="${#fields.hasErrors('idCatalogo')}" class="text-danger" th:errors="*{idCatalogo}"></small>
+
                     </div>
 
                     <!-- Nombre -->
@@ -66,9 +72,9 @@
                                 id="nombre"
                                 required
                                 minlength="3"
-                                maxlength="100"
-                                pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"
-                                title="Solo se permiten letras y espacios">
+                                maxlength="100">
+
+                        <small th:if="${#fields.hasErrors('nombre')}" class="text-danger" th:errors="*{nombre}"></small>
 
                     </div>
 
@@ -86,6 +92,8 @@
                                 minlength="2"
                                 maxlength="20"
                                 title="Ingrese un identificador válido">
+
+                        <small th:if="${#fields.hasErrors('identificador')}" class="text-danger" th:errors="*{identificador}"></small>
 
                     </div>
 
@@ -105,7 +113,9 @@
                     </div>
 
                     <button type="submit"
-                            class="btn btn-success">
+                            class="btn"
+                            th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+                            th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">
                         Guardar
                     </button>
 
@@ -127,13 +137,6 @@
 <div layout:fragment="scripts">
 
 <script>
-
-    // Permitir únicamente letras y espacios
-    document.getElementById("nombre").addEventListener("input", function () {
-
-        this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ ]/g, "");
-
-    });
 
     // Eliminar espacios al inicio del identificador
     document.getElementById("identificador").addEventListener("input", function () {

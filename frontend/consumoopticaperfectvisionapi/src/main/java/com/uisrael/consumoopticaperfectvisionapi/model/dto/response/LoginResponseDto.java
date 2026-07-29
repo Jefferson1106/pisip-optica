@@ -3,11 +3,14 @@ package com.uisrael.consumoopticaperfectvisionapi.model.dto.response;
 public class LoginResponseDto {
 
 	private Integer idUsuario;
+	private Integer idTipoUsuario;
+	private String tipoUsuarioNombre;
 	private String nombres;
 	private String apellidos;
 	private String correo;
 	private boolean estado;
 	private int intentosFallidos;
+	private boolean requiereCambioContrasenia;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -15,6 +18,22 @@ public class LoginResponseDto {
 
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public Integer getIdTipoUsuario() {
+		return idTipoUsuario;
+	}
+
+	public void setIdTipoUsuario(Integer idTipoUsuario) {
+		this.idTipoUsuario = idTipoUsuario;
+	}
+
+	public String getTipoUsuarioNombre() {
+		return tipoUsuarioNombre;
+	}
+
+	public void setTipoUsuarioNombre(String tipoUsuarioNombre) {
+		this.tipoUsuarioNombre = tipoUsuarioNombre;
 	}
 
 	public String getNombres() {
@@ -55,5 +74,13 @@ public class LoginResponseDto {
 
 	public void setIntentosFallidos(int intentosFallidos) {
 		this.intentosFallidos = intentosFallidos;
-}
+	}
+
+	public boolean isRequiereCambioContrasenia() {
+		return requiereCambioContrasenia;
+	}
+
+	public void setRequiereCambioContrasenia(boolean requiereCambioContrasenia) {
+		this.requiereCambioContrasenia = requiereCambioContrasenia;
+	}
 }

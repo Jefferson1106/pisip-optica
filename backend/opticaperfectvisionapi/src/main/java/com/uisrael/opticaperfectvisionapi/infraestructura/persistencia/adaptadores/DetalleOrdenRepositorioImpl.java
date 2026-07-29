@@ -43,8 +43,8 @@ public class DetalleOrdenRepositorioImpl implements IDetalleOrdenRepositorio {
 	public DetalleOrden actualizar(int idDetalleOrden, DetalleOrden detalleOrden) {
 		DetalleOrdenEntity existente = jpaRepositorio.findById(idDetalleOrden).orElseThrow(() -> new RuntimeException("Detalle orden no encontrado"));
 		
-		existente.setIdDetOrden(detalleOrden.getIdDetOrden());
 		existente.setOrdenPedido(detalleOrden.getOrdenPedido());
+		existente.setProducto(detalleOrden.getProducto());
 		existente.setMaterial(detalleOrden.getMaterial());
 		existente.setMarco(detalleOrden.getMarco());
 		existente.setTipoLente(detalleOrden.getTipoLente());

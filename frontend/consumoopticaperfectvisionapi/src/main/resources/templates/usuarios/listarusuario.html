@@ -50,7 +50,12 @@
 									<td th:text="${usuario.correo}"></td>
 									<td th:text="${usuario.estado ? 'Activo' : 'Inactivo'}"></td>
 									<td>
-										<a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}" class="btn btn-warning btn-sm">Actualizar</a>
+										<a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}"
+										   class="btn btn-warning btn-sm"
+										   title="Editar"
+										   aria-label="Editar">
+											<i class="fas fa-edit"></i>
+										</a>
 									</td>
 								</tr>
 							</tbody>

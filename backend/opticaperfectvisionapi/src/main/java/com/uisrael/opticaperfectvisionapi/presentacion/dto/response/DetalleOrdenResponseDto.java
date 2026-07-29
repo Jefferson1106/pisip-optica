@@ -7,6 +7,8 @@ public class DetalleOrdenResponseDto {
 	
 	private Integer idDetOrden;
 	private Integer idPedido;
+	private Integer idProducto;
+	private String productoNombre;
 	private Integer idMaterial;
 	private Integer idMarco;
 	private Integer idTipoLente;
@@ -26,6 +28,10 @@ public class DetalleOrdenResponseDto {
 	public void setIdPedido(Integer idPedido) {
 		this.idPedido = idPedido;
 	}
+	public Integer getIdProducto() { return idProducto; }
+	public void setIdProducto(Integer idProducto) { this.idProducto = idProducto; }
+	public String getProductoNombre() { return productoNombre; }
+	public void setProductoNombre(String productoNombre) { this.productoNombre = productoNombre; }
 	public Integer getIdMaterial() {
 		return idMaterial;
 	}

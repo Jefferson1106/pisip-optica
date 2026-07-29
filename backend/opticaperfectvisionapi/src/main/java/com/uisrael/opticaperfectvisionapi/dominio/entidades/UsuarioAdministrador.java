@@ -14,6 +14,7 @@ public class UsuarioAdministrador {
     private String contrasenia;
     private boolean estado;
     private int intentosFallidos = 0;
+    private boolean requiereCambioContrasenia;
 
     public UsuarioAdministrador() {
 
@@ -94,5 +95,13 @@ public class UsuarioAdministrador {
 
 	public void setIntentosFallidos(int intentosFallidos) {
 		this.intentosFallidos = intentosFallidos;
+	}
+
+	public boolean isRequiereCambioContrasenia() {
+		return requiereCambioContrasenia;
+	}
+
+	public void setRequiereCambioContrasenia(boolean requiereCambioContrasenia) {
+		this.requiereCambioContrasenia = requiereCambioContrasenia;
 	}
 }

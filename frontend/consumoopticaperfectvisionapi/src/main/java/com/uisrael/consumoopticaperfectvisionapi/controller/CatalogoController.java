@@ -1,8 +1,12 @@
 package com.uisrael.consumoopticaperfectvisionapi.controller;
 
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,8 @@ import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.CatalogoReque
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.CatalogoResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.services.ICatalogoService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/catalogo")
 public class CatalogoController {
@@ -23,51 +29,84 @@ public class CatalogoController {
 	
 	@GetMapping
     public String leerPagina(Model model) {
-        model.addAttribute("listacatalogos", servicioCatalogo.listarCatalogos());
+    List<CatalogoResponseDto> catalogos = servicioCatalogo.listarCatalogos().stream()
+        .sorted(Comparator.comparing(CatalogoResponseDto::getIdCatalogo,
+            Comparator.nullsLast(Comparator.naturalOrder())).reversed())
+        .toList();
+    model.addAttribute("listacatalogos", catalogos);
         return "catalogos/listarcatalogo";
     }
 
     @GetMapping("/nuevo")
     public String nuevoCatalogo(Model model) {
         model.addAttribute("catalogo", new CatalogoRequestDto());
+        configurarFormulario(model, false);
         return "catalogos/crearCatalogo";
     }
 
     @PostMapping("/guardar")
-    public String guardarCatalogo(@ModelAttribute CatalogoRequestDto catalogo,
+    public String guardarCatalogo(@Valid @ModelAttribute CatalogoRequestDto catalogo,
+            BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Revise los campos obligatorios del formulario");
+            model.addAttribute("catalogo", catalogo);
+            configurarFormulario(model, false);
+            return "catalogos/crearCatalogo";
+        }
         try {
             servicioCatalogo.guardarCatalogo(catalogo);
             redirectAttributes.addFlashAttribute("success", "Catálogo registrado correctamente");
             return "redirect:/catalogo";
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
+            String mensaje = e.getMessage() == null || e.getMessage().isBlank()
+                    ? "No se pudo registrar el catálogo. Verifique que no exista previamente."
+                    : e.getMessage();
+            model.addAttribute("error", mensaje);
             model.addAttribute("catalogo", catalogo);
+            configurarFormulario(model, false);
             return "catalogos/crearCatalogo";
         }
     }
 
     @GetMapping("/editar/{id}")
     public String editarCatalogo(@PathVariable Integer id, Model model) {
-        CatalogoResponseDto catalogo = servicioCatalogo.buscarPorId(id);
+        CatalogoResponseDto catalogoActual = servicioCatalogo.buscarPorId(id);
+        CatalogoRequestDto catalogo = new CatalogoRequestDto();
+        catalogo.setIdCatalogo(catalogoActual.getIdCatalogo());
+        catalogo.setDescripcion(catalogoActual.getDescripcion());
+        catalogo.setEstado(catalogoActual.isEstado());
         model.addAttribute("catalogo", catalogo);
-        return "catalogos/actualizarCatalogo";
+        configurarFormulario(model, true);
+        return "catalogos/crearCatalogo";
     }
 
     @PostMapping("/actualizar")
-    public String actualizarCatalogo(@ModelAttribute CatalogoResponseDto catalogo,
+    public String actualizarCatalogo(@Valid @ModelAttribute CatalogoRequestDto catalogo,
+            BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Revise los campos obligatorios del formulario");
+            model.addAttribute("catalogo", catalogo);
+            configurarFormulario(model, true);
+            return "catalogos/crearCatalogo";
+        }
         try {
-            CatalogoRequestDto requestDto = new CatalogoRequestDto();
-            requestDto.setDescripcion(catalogo.getDescripcion());
-            requestDto.setEstado(catalogo.isEstado());
-            servicioCatalogo.actualizarCatalogo(catalogo.getIdCatalogo(), requestDto);
+            servicioCatalogo.actualizarCatalogo(catalogo.getIdCatalogo(), catalogo);
             redirectAttributes.addFlashAttribute("success", "Catálogo actualizado correctamente");
             return "redirect:/catalogo";
         } catch (RuntimeException e) {
-            model.addAttribute("error", e.getMessage());
+            String mensaje = e.getMessage() == null || e.getMessage().isBlank()
+                    ? "No se pudo actualizar el catálogo. Verifique que no exista previamente."
+                    : e.getMessage();
+            model.addAttribute("error", mensaje);
             model.addAttribute("catalogo", catalogo);
-            return "catalogos/actualizarCatalogo";
+            configurarFormulario(model, true);
+            return "catalogos/crearCatalogo";
         }
+    }
+
+    private void configurarFormulario(Model model, boolean modoEdicion) {
+        model.addAttribute("modoEdicion", modoEdicion);
     }
 }

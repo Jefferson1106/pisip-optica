@@ -21,5 +21,7 @@ public interface IUsuarioAdministradorDtoMapper {
 	@Mapping(target = "tipoUsuarioNombre", source = "tipoUsuario.nombre")
 	UsuarioAdministradorResponseDto toResponseDto(UsuarioAdministrador usuarioAdministrador);
 
+	@Mapping(target = "idTipoUsuario", source = "tipoUsuario.idDetalleCatalogo")
+	@Mapping(target = "tipoUsuarioNombre", source = "tipoUsuario.nombre")
 	LoginResponseDto toLoginResponseDto(UsuarioAdministrador usuarioAdministrador);
 }

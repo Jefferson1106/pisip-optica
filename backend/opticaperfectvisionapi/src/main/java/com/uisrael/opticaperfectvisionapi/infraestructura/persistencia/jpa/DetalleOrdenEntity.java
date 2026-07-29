@@ -32,6 +32,10 @@ public class DetalleOrdenEntity {
     private OrdenPedidoEntity ordenPedido;
 
     @ManyToOne
+    @JoinColumn(name = "id_producto", foreignKey = @ForeignKey(name = "fk_detalle_orden_producto"))
+    private ProductoEntity producto;
+
+    @ManyToOne
     @JoinColumn(name = "id_material", foreignKey = @ForeignKey(name = "fk_detalle_orden_material"))
     private DetalleCatalogoEntity material;
 

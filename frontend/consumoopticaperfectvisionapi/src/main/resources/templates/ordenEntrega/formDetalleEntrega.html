@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/plantilla/plantillaui">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfect Vision - Formulario Detalle Entrega</title>
+</head>
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary"
+                    th:text="${modoEdicion} ? 'Editar Detalle Entrega' : 'Nuevo Detalle Entrega'">Detalle Entrega</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <form th:action="${modoEdicion} ? @{/ordenes-entrega/{idEntrega}/detalles/actualizar/{idDetEntrega}(idEntrega=${idEntrega},idDetEntrega=${idDetEntrega})} : @{/ordenes-entrega/{idEntrega}/detalles/guardar(idEntrega=${idEntrega})}"
+                      th:object="${detalleEntrega}" method="post">
+                    <input type="hidden" th:field="*{idEntrega}" />
+
+                    <div class="form-group">
+                        <label>Detalle Pedido</label>
+                        <select th:field="*{idProducto}" class="form-control" required>
+                            <option value="">Seleccione...</option>
+                            <option th:each="item : ${listaproductosEntrega}"
+                                    th:value="${item.idDetOrden}"
+                                    th:text="${item.descripcion}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Cantidad</label>
+                            <input type="number" th:field="*{cantidad}" class="form-control" required />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Estado</label>
+                            <select th:field="*{estado}" class="form-control" required>
+                                <option th:value="true">Activo</option>
+                                <option th:value="false">Inactivo</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Fecha Registro</label>
+                            <input type="datetime-local" name="fechaRegistro"
+                                   th:value="${detalleEntrega.fechaRegistro != null ? #temporals.format(detalleEntrega.fechaRegistro, 'yyyy-MM-dd''T''HH:mm') : ''}"
+                                   class="form-control" required />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+                            th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
+                    <a th:href="@{/ordenes-entrega/{idEntrega}/detalles(idEntrega=${idEntrega})}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

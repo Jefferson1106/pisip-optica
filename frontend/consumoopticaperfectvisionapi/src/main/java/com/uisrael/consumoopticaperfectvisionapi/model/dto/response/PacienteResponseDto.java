@@ -22,7 +22,7 @@ public class PacienteResponseDto {
     private LocalDate fechaNacimiento;
 
 	  
-    private LocalDate fechaRegistro;
+    private LocalDateTime fechaRegistro;
     private Boolean activo;
 
     

@@ -38,7 +38,7 @@ public class DetalleCatalogoUseCaseImpl implements IDetalleCatalogoUseCase {
 		repositorio.buscarPorId(id).orElseThrow(() -> new RuntimeException("Detalle de catálogo no encontrado"));
 
 		if (repositorio.existeNombreParaOtro(detalleCatalogo.getNombre().trim(), id)) {
-			throw new RuntimeException("Ya existe otro detalle de catálogo con ese nombre");
+			throw new RuntimeException("Este detalle de catálogo ya existe");
 		}
 
 		DetalleCatalogo actualizado = new DetalleCatalogo(

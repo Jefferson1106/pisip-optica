@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/plantilla/plantillaui">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfect Vision - Certificado</title>
+</head>
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h5 class="m-0 font-weight-bold text-primary">Certificado Medico Visual</h5>
+                <div>
+                    <a th:href="@{/certificados}" class="btn btn-secondary btn-sm">Volver</a>
+                    <a th:href="@{/certificados/pdf/{idExamen}(idExamen=${certificado.idExamen})}"
+                       class="btn btn-primary btn-sm">Descargar PDF</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="border rounded p-4">
+                    <h4 class="text-center mb-4">Optica Perfect Vision</h4>
+                    <p class="mb-1"><strong>Certificado:</strong> <span th:text="${'CERT-' + certificado.idExamen}"></span></p>
+                    <p class="mb-1"><strong>Paciente:</strong> <span th:text="${certificado.pacienteNombre}"></span></p>
+                    <p class="mb-1"><strong>Fecha de examen:</strong> <span th:text="${certificado.fechaExamen}"></span></p>
+                    <p class="mb-3"><strong>Estado:</strong> <span th:text="${certificado.estado ? 'Activo' : 'Inactivo'}"></span></p>
+
+                    <h6 class="font-weight-bold">Medidas Optometricas</h6>
+                    <div th:if="${detalleExamen != null}" class="mb-3">
+                        <p class="mb-1"><strong>OD Distancia:</strong>
+                            Esf <span th:text="${detalleExamen.esferaDistanciaOd}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroDistanciaOd}"></span> /
+                            Eje <span th:text="${detalleExamen.ejeDistanciaOd}"></span></p>
+                        <p class="mb-1"><strong>OI Distancia:</strong>
+                            Esf <span th:text="${detalleExamen.esferaDistanciaOi}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroDistanciaOi}"></span> /
+                            Eje <span th:text="${detalleExamen.ejeDistanciaOi}"></span></p>
+                        <p class="mb-1"><strong>Adicion:</strong>
+                            OD <span th:text="${detalleExamen.adicionOd}"></span> /
+                            OI <span th:text="${detalleExamen.adicionOi}"></span></p>
+                        <p class="mb-1"><strong>Lectura OD:</strong>
+                            Esf <span th:text="${detalleExamen.esferaLecturaOd}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroLecturaOd}"></span> /
+                            Eje <span th:text="${detalleExamen.ejeLecturaOd}"></span></p>
+                        <p class="mb-1"><strong>Lectura OI:</strong>
+                            Esf <span th:text="${detalleExamen.esferaLecturaOi}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroLecturaOi}"></span> /
+                            Eje <span th:text="${detalleExamen.ejeLecturaOi}"></span></p>
+                        <p class="mb-1"><strong>DP:</strong> <span th:text="${detalleExamen.distanciaPupilar}"></span></p>
+                        <p class="mb-1"><strong>Altura Bifocal:</strong> <span th:text="${detalleExamen.alturaBifocal}"></span></p>
+                        <p class="mb-1"><strong>Altura Progresivo:</strong> <span th:text="${detalleExamen.alturaProgresivo}"></span></p>
+                    </div>
+                    <p th:if="${detalleExamen == null}" class="mb-3">Sin medidas registradas para este examen.</p>
+
+                    <h6 class="font-weight-bold">Diagnostico / Observaciones</h6>
+                    <p class="mb-4" th:text="${certificado.observaciones != null and !#strings.isEmpty(certificado.observaciones) ? certificado.observaciones : 'Sin observaciones registradas.'}"></p>
+
+                    <p class="mb-0">Se extiende el presente certificado para los fines pertinentes.</p>
+                    <p class="mb-0">Fecha de emision: <span th:text="${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"></span></p>
+
+                    <div class="mt-5 text-right">
+                        <p class="mb-0">__________________________________</p>
+                        <p class="mb-0">Administrador responsable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

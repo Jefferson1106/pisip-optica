@@ -10,6 +10,7 @@ public interface IOrdenEntregaUseCase {
 	OrdenEntrega guardar(OrdenEntrega nuevaOrdenEntrega);
 	OrdenEntrega buscarPorId(int idOrdenEntrega);
 	List<OrdenEntrega> listarTodos();
+    void eliminar(int idOrdenEntrega);
 	// Nuevo: actualizar todos los campos
     OrdenEntrega actualizar(int idOrdenEntrega, OrdenEntrega ordenEntregaActualizada);
         // Nuevo: actualizar solo el campo "recibido"

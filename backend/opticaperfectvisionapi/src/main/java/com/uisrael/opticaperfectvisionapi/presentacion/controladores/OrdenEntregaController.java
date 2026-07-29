@@ -2,6 +2,7 @@ package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +58,17 @@ public class OrdenEntregaController {
         OrdenEntrega actualizado = ordenEntregaUseCase.actualizar(id, mapper.toDomain(requestDto));
         return ResponseEntity.ok(mapper.toResponseDto(actualizado));
     }
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> eliminar(@PathVariable int id) {
+		try {
+			ordenEntregaUseCase.eliminar(id);
+			return ResponseEntity.noContent().build();
+		} catch (IllegalStateException e) {
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body(Map.of("message", e.getMessage()));
+		}
+	}
 
     // Actualizar solo el campo "recibido" (PATCH)
     @PatchMapping("/{id}/recibido")

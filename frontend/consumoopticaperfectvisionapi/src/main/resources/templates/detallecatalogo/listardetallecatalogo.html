@@ -48,7 +48,12 @@
 									<td th:text="${detalleCatalogo.identificador}"></td>
 									<td th:text="${detalleCatalogo.estado ? 'Activo' : 'Inactivo'}"></td>
 									<td>
-										<a th:href="@{/detalle-catalogo/editar/{id}(id=${detalleCatalogo.idDetalleCatalogo})}" class="btn btn-warning btn-sm">Actualizar</a>
+										<a th:href="@{/detalle-catalogo/editar/{id}(id=${detalleCatalogo.idDetalleCatalogo})}"
+										   class="btn btn-warning btn-sm"
+										   title="Editar"
+										   aria-label="Editar">
+											<i class="fas fa-edit"></i>
+										</a>
 									</td>
 								</tr>
 							</tbody>

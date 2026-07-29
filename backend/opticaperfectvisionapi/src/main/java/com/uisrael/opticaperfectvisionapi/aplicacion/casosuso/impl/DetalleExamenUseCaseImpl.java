@@ -30,6 +30,13 @@ public class DetalleExamenUseCaseImpl implements IDetalleExamenUseCase {
 		return repositorio.listarTodos();
 	}
 
+	@Override
+	public void eliminar(int idDetalleExamen) {
+		repositorio.buscarPorId(idDetalleExamen)
+				.orElseThrow(() -> new RuntimeException("Detalle examen no encontrado"));
+		repositorio.eliminar(idDetalleExamen);
+	}
+
 
 
 

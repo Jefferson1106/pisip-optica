@@ -31,7 +31,8 @@
 							cellspacing="0">
 							<thead>
 								<tr>
-									<th>ID</th>
+									<th>N°</th>
+									<th style="display:none;">ID</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
 									<th>Cédula</th>
@@ -42,17 +43,36 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="paciente : ${listapacientes}">
-									<td th:text="${paciente.idPaciente}"></td>
+								<tr th:each="paciente, iterStat : ${listapacientes}">
+									<td th:text="${iterStat.count}"></td>
+									<td style="display:none;" th:text="${paciente.idPaciente}"></td>
 									<td th:text="${paciente.nombres}"></td>
 									<td th:text="${paciente.apellidos}"></td>
 									<td th:text="${paciente.cedula}"></td>
 									<td th:text="${paciente.correo}"></td>
 									<td th:text="${paciente.telefono}"></td>
-									<td th:text="${paciente.activo}"></td>
+									<td th:text="${paciente.activo == null ? 'Sin definir' : (paciente.activo ? 'Activo' : 'Inactivo')}"></td>
 									<td><a
 										th:href="@{/paciente/editar/{id}(id=${paciente.idPaciente})}"
-										class="btn btn-warning btn-sm">Actualizar</a>
+										class="btn btn-warning btn-sm mr-1"
+										title="Editar"
+										aria-label="Editar">
+											<i class="fas fa-edit"></i>
+										</a>
+										<a
+										th:href="@{/examenes-visuales/nuevo(idPaciente=${paciente.idPaciente})}"
+										class="btn btn-success btn-sm mr-1"
+										title="Generar examen"
+										aria-label="Generar examen">
+											<i class="fas fa-file-medical"></i>
+										</a>
+										<a
+										th:href="@{/examenes-visuales/historial(idPaciente=${paciente.idPaciente})}"
+										class="btn btn-info btn-sm"
+										title="Ver historial"
+										aria-label="Ver historial">
+											<i class="fas fa-history"></i>
+										</a>
 
 									</td>
 
@@ -63,7 +83,6 @@
 				</div>
 			</div>
 		</div>
-		a
 	</div>
 </body>
 </html>

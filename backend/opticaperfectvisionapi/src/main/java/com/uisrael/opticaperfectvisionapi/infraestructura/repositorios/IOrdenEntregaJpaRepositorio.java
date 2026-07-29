@@ -11,6 +11,9 @@ import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.Orden
 public interface IOrdenEntregaJpaRepositorio extends JpaRepository<OrdenEntregaEntity, Integer> {
 
     long countByOrdenPedido_IdPedido(Integer idPedido);
+
+    @Query("SELECT COUNT(d) > 0 FROM DetalleEntregaEntity d WHERE d.ordenEntrega.idEntrega = ?1")
+    boolean existsDetallesByIdEntrega(Integer idEntrega);
 	
 	//1807
 	// Buscar por estado recibido

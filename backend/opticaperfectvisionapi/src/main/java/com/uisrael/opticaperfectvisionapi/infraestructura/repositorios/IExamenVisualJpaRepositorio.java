@@ -16,4 +16,7 @@ public interface IExamenVisualJpaRepositorio extends JpaRepository<ExamenVisualE
 
 	@Query("SELECT e FROM ExamenVisualEntity e JOIN FETCH e.paciente")
 	List<ExamenVisualEntity> findAllWithPaciente();
+
+	@Query("SELECT e FROM ExamenVisualEntity e JOIN FETCH e.paciente WHERE e.paciente.idPaciente = :idPaciente")
+	List<ExamenVisualEntity> findByPacienteIdWithPaciente(@Param("idPaciente") Integer idPaciente);
 }

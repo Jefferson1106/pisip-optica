@@ -14,6 +14,7 @@ public interface IDetalleExamenUseCase {
 	DetalleExamen guardar(DetalleExamen nuevoDetalleExamn);
 	DetalleExamen buscarPorId(int idDetalleExamen);
 	List<DetalleExamen> listarTodos();
+	void eliminar(int idDetalleExamen);
 	
 	DetalleExamen actualizar(int idDetalleExamen, DetalleExamen detalleExamen);
 	

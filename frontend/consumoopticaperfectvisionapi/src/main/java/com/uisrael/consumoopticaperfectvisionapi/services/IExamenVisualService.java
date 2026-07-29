@@ -9,6 +9,8 @@ public interface IExamenVisualService {
 
 	List<ExamenVisualResponseDto> listarExamenesVisuales();
 
+	List<ExamenVisualResponseDto> listarExamenesPorPaciente(Integer idPaciente);
+
 	ExamenVisualResponseDto buscarPorId(Integer idExamenVisual);
 
 	void guardarExamenVisual(ExamenVisualRequestDto nuevoExamenVisual);

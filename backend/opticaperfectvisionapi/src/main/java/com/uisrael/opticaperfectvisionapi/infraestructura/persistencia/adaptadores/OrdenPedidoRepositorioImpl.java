@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +61,14 @@ public class OrdenPedidoRepositorioImpl implements IOrdenPedidoRepositorio {
 	@Override
 	public List<OrdenPedido> listarTodos() {
 		
-		return jpaRepositorio.findAllWithRelaciones().stream().map(entityMapper :: toDomain).toList();
+		return jpaRepositorio.findAllWithRelaciones().stream()
+				.sorted(Comparator
+						.comparing(OrdenPedidoEntity::getFechaModificacion,
+								Comparator.nullsLast(Comparator.reverseOrder()))
+						.thenComparing(OrdenPedidoEntity::getIdPedido,
+								Comparator.nullsLast(Comparator.reverseOrder())))
+				.map(entityMapper::toDomain)
+				.toList();
 	}
 	@Override
 	public OrdenPedido actualizar(int idOrdenPedido, OrdenPedido ordenPedido) {

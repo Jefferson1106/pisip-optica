@@ -17,7 +17,7 @@ public class CatalogoUseCaseImpl implements ICatalogoUseCase {
 	@Override
 	public Catalogo guardar(Catalogo nuevoCatalogo) {
 		if (repositorio.existeDescripcion(nuevoCatalogo.getDescripcion().trim())) {
-			throw new RuntimeException("Ya existe un catalogo con esa descripcion");
+			throw new RuntimeException("Este catálogo ya existe");
 		}
 		return repositorio.guardar(nuevoCatalogo);
 	}
@@ -38,7 +38,7 @@ public class CatalogoUseCaseImpl implements ICatalogoUseCase {
 		repositorio.buscarPorId(id).orElseThrow(() -> new RuntimeException("Catalogo no encontrado"));
 
 		if (repositorio.existeNombreParaOtro(catalogo.getDescripcion().trim(), id)) {
-			throw new RuntimeException("Ya existe otro catalogo con ese nombre");
+			throw new RuntimeException("Este catálogo ya existe");
 		}
 
 		Catalogo actualizado = new Catalogo(id, catalogo.getDescripcion(), catalogo.isEstado());

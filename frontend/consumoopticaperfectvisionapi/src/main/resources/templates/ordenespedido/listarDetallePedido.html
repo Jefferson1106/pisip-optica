@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/plantilla/plantillaui">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfect Vision - Detalles de Pedido</title>
+</head>
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h5 class="m-0 font-weight-bold text-primary"
+                    th:text="${'Detalles del Pedido #'+idPedido}">Detalles del Pedido</h5>
+                <div>
+                    <a th:href="@{/ordenespedido/{idPedido}/detalles/nuevo(idPedido=${idPedido})}" class="btn btn-success btn-sm">Nuevo Detalle</a>
+                    <a th:href="@{/ordenespedido}" class="btn btn-secondary btn-sm">Volver a Ordenes</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div th:if="${success}" class="alert alert-success" role="alert">
+                    <span th:text="${success}"></span>
+                </div>
+                <div th:if="${error}" class="alert alert-danger" role="alert">
+                    <span th:text="${error}"></span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID Detalle</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
+                            <th>Fecha Registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${#lists.isEmpty(listadetalles)}">
+                            <td colspan="7" class="text-center">No existen detalles para este pedido.</td>
+                        </tr>
+                        <tr th:each="detalle : ${listadetalles}">
+                            <td th:text="${detalle.idDetOrden}"></td>
+                            <td th:text="${detalle.productoNombre != null ? detalle.productoNombre : 'Detalle anterior #' + detalle.idDetOrden}"></td>
+                            <td th:text="${detalle.cantidad}"></td>
+                            <td th:text="${detalle.precioUnitario}"></td>
+                            <td th:text="${detalle.cantidad != null and detalle.precioUnitario != null ? detalle.cantidad * detalle.precioUnitario : 0}"></td>
+                            <td th:text="${detalle.fechaRegistro}"></td>
+                            <td>
+                                <a th:href="@{/ordenespedido/{idPedido}/detalles/editar/{idDetOrden}(idPedido=${idPedido},idDetOrden=${detalle.idDetOrden})}"
+                                              class="btn btn-warning btn-sm mr-1"
+                                              title="Editar"
+                                              aria-label="Editar"><i class="fas fa-edit"></i></a>
+                                <a th:href="@{/ordenespedido/{idPedido}/detalles/eliminar/{idDetOrden}(idPedido=${idPedido},idDetOrden=${detalle.idDetOrden})}"
+                                   class="btn btn-danger btn-sm"
+                                              title="Eliminar"
+                                              aria-label="Eliminar"
+                                              onclick="return confirm('¿Desea eliminar este detalle de pedido?');"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr th:if="${!#lists.isEmpty(listadetalles)}" class="font-weight-bold bg-light">
+                            <td colspan="4" class="text-right">Total General</td>
+                            <td th:text="${totalGeneral}"></td>
+                            <td colspan="2"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -10,6 +10,7 @@ public class UsuarioAdministradorResponseDto {
 	private String correo;
 	private boolean estado;
 	private int intentosFallidos;
+	private boolean requiereCambioContrasenia;
 
 	public Integer getIdUsuario() {
 		return idUsuario;
@@ -73,5 +74,13 @@ public class UsuarioAdministradorResponseDto {
 
 	public void setIntentosFallidos(int intentosFallidos) {
 		this.intentosFallidos = intentosFallidos;
+	}
+
+	public boolean isRequiereCambioContrasenia() {
+		return requiereCambioContrasenia;
+	}
+
+	public void setRequiereCambioContrasenia(boolean requiereCambioContrasenia) {
+		this.requiereCambioContrasenia = requiereCambioContrasenia;
 	}
 }

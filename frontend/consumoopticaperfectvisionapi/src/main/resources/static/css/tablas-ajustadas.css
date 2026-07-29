@@ -1,0 +1,25 @@
+/*
+ * Mantiene cada columna ajustada a su contenido. Si la tabla supera el ancho
+ * disponible, el contenedor .table-responsive habilita el desplazamiento.
+ */
+.table-responsive > table.table,
+.dataTables_wrapper table.table {
+    width: max-content !important;
+    min-width: 100%;
+    table-layout: auto !important;
+}
+
+.table-responsive > table.table th,
+.table-responsive > table.table td,
+.dataTables_wrapper table.table th,
+.dataTables_wrapper table.table td {
+    width: 1%;
+    max-width: none;
+    white-space: nowrap;
+}
+
+/* Las celdas con formularios o botones conservan sus controles en una línea. */
+.table-responsive > table.table td .btn,
+.dataTables_wrapper table.table td .btn {
+    white-space: nowrap;
+}

@@ -22,6 +22,7 @@ import com.uisrael.opticaperfectvisionapi.aplicacion.excepciones.UsuarioNoEncont
 import com.uisrael.opticaperfectvisionapi.dominio.entidades.UsuarioAdministrador;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.UsuarioAdministradorLoginRequestDto;
+import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.CambioContraseniaInicialRequestDto;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.UsuarioAdministradorRecuperacionRequestDto;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.UsuarioAdministradorRequestDto;
 import com.uisrael.opticaperfectvisionapi.presentacion.dto.request.UsuarioAdministradorUpdateRequestDto;
@@ -85,6 +86,7 @@ public class UsuarioAdministradorController {
 		}
 		if (requestDto.getContrasenia() != null) {
 			existente.setContrasenia(requestDto.getContrasenia());
+			existente.setRequiereCambioContrasenia(true);
 		}
 		if (requestDto.getEstado() != null) {
 			existente.setEstado(requestDto.getEstado());
@@ -92,6 +94,14 @@ public class UsuarioAdministradorController {
 
 		UsuarioAdministrador actualizado = useCase.actualizar(id, existente);
 		return ResponseEntity.ok(mapper.toResponseDto(actualizado));
+	}
+
+	@PostMapping("/{id}/cambiar-contrasenia-inicial")
+	public ResponseEntity<LoginResponseDto> cambiarContraseniaInicial(
+			@PathVariable Integer id,
+			@Valid @RequestBody CambioContraseniaInicialRequestDto requestDto) {
+		UsuarioAdministrador actualizado = useCase.cambiarContraseniaInicial(id, requestDto.getNuevaContrasenia());
+		return ResponseEntity.ok(mapper.toLoginResponseDto(actualizado));
 	}
 
 	@PatchMapping("/{id}/estado")
@@ -126,9 +136,16 @@ public class UsuarioAdministradorController {
 			@Valid @RequestBody UsuarioAdministradorRecuperacionRequestDto requestDto) {
 		try {
 			useCase.recuperarContrasenia(requestDto.getCorreo());
-			return ResponseEntity.ok(Map.of("message", "Se envio la contrasenia al correo registrado"));
+			return ResponseEntity.ok(Map.of(
+					"message",
+					"Se envió la contraseña al correo registrado y el usuario fue desbloqueado"));
 		} catch (UsuarioNoEncontradoException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
+		} catch (IllegalStateException e) {
+			return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("message", e.getMessage()));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+					.body(Map.of("message", "No fue posible enviar el correo en este momento."));
 		}
 	}
 

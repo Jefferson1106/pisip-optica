@@ -29,6 +29,7 @@ public class UsuarioAdministradorUseCaseImpl implements IUsuarioAdministradorUse
 			throw new RuntimeException("Ya existe un usuario con ese correo");
 		}
 		usuarioAdministrador.setIntentosFallidos(0);
+		usuarioAdministrador.setRequiereCambioContrasenia(true);
 		return repositorio.guardar(usuarioAdministrador);
 	}
 
@@ -65,7 +66,7 @@ public class UsuarioAdministradorUseCaseImpl implements IUsuarioAdministradorUse
 				.orElseThrow(() -> new UsuarioNoEncontradoException("Usuario administrador no encontrado"));
 
 		if (!usuario.isEstado()) {
-			throw new UsuarioBloqueadoException("El usuario se encuentra bloqueado");
+			throw new UsuarioBloqueadoException("El usuario se encuentra inactivo. Contacte al administrador.");
 		}
 
 		if (!usuario.getContrasenia().equals(contrasenia)) {
@@ -95,5 +96,19 @@ public class UsuarioAdministradorUseCaseImpl implements IUsuarioAdministradorUse
 				.orElseThrow(() -> new UsuarioNoEncontradoException("Usuario administrador no encontrado"));
 		envioCorreoService.enviarContrasenia(usuario.getCorreo(), usuario.getContrasenia());
 		repositorio.actualizarEstado(usuario.getIdUsuario(), true);
+	}
+
+	@Override
+	public UsuarioAdministrador cambiarContraseniaInicial(Integer idUsuario, String nuevaContrasenia) {
+		UsuarioAdministrador usuario = buscarPorId(idUsuario);
+		if (!usuario.isRequiereCambioContrasenia()) {
+			throw new IllegalStateException("El cambio inicial de contraseña ya fue realizado");
+		}
+		if (usuario.getContrasenia().equals(nuevaContrasenia)) {
+			throw new IllegalArgumentException("La nueva contraseña debe ser diferente a la contraseña temporal");
+		}
+		usuario.setContrasenia(nuevaContrasenia);
+		usuario.setRequiereCambioContrasenia(false);
+		return repositorio.actualizar(idUsuario, usuario);
 	}
 }

@@ -59,6 +59,7 @@ public class UsuarioAdministradorRepositorioImpl implements IUsuarioAdministrado
 		existente.setContrasenia(usuarioAdministrador.getContrasenia());
 		existente.setEstado(usuarioAdministrador.isEstado());
 		existente.setIntentosFallidos(usuarioAdministrador.getIntentosFallidos());
+		existente.setRequiereCambioContrasenia(usuarioAdministrador.isRequiereCambioContrasenia());
 
 		return mapper.toDomain(jpaRepositorio.save(existente));
 	}

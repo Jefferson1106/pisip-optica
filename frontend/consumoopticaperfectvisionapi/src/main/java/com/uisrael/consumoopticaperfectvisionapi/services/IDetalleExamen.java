@@ -8,6 +8,9 @@ import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleExame
 public interface IDetalleExamen {
 	
 	List<DetalleExamenResponseDto> listarDetalleExamen();
+	DetalleExamenResponseDto buscarDetalleExamenPorId(Integer idDetExamen);
 	void guardarDetalleExamen(DetalleExamenRequestDto nuevoDetalleExamen);
+	void actualizarDetalleExamen(Integer idDetExamen, DetalleExamenRequestDto detalleExamen);
+	void eliminarDetalleExamen(Integer idDetExamen);
 
 }

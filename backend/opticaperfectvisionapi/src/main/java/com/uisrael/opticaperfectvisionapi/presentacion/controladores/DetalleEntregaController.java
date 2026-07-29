@@ -54,6 +54,12 @@ public class DetalleEntregaController {
         return ResponseEntity.ok(mapper.toResponseDto(actualizado));
     }
 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> eliminar(@PathVariable int id) {
+		detalleEntregaUseCase.eliminar(id);
+		return ResponseEntity.noContent().build();
+	}
+
     @PatchMapping("/{id}/estado")
     public ResponseEntity<DetalleEntregaResponseDto> actualizarEstado(@PathVariable int id,
             @RequestParam(required = false) Boolean estado,

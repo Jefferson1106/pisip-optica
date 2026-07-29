@@ -1,6 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,13 +39,24 @@ public class OrdenEntregaRepositorioImpl implements IOrdenEntregaRepositorio {
 	@Override
 	public List<OrdenEntrega> listarTodos() {
 		
-		return jpaRepositorio.findAll().stream().map(entityMapper :: toDomain).toList();
+		return jpaRepositorio.findAll().stream()
+				.sorted(Comparator
+						.comparing(OrdenEntregaEntity::getFechaModificacion,
+								Comparator.nullsLast(Comparator.reverseOrder()))
+						.thenComparing(OrdenEntregaEntity::getIdEntrega,
+								Comparator.nullsLast(Comparator.reverseOrder())))
+				.map(entityMapper::toDomain)
+				.toList();
 	}
 
 	@Override
 	public void eliminar(int idOrdenEntrega) {
-		// TODO Auto-generated method stub
-		
+		jpaRepositorio.deleteById(idOrdenEntrega);
+	}
+
+	@Override
+	public boolean tieneDetalles(int idOrdenEntrega) {
+		return jpaRepositorio.existsDetallesByIdEntrega(idOrdenEntrega);
 	}
 	
 	//1807

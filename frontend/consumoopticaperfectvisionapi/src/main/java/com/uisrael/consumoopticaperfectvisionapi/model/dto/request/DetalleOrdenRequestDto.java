@@ -12,6 +12,8 @@ public class DetalleOrdenRequestDto {
 
     private Integer idPedido;
 
+    private Integer idProducto;
+
     private Integer idMaterial;
 
     private Integer idMarco;

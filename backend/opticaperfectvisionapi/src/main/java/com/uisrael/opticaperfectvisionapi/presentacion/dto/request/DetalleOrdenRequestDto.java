@@ -3,6 +3,7 @@ package com.uisrael.opticaperfectvisionapi.presentacion.dto.request;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 @Data
@@ -12,21 +13,20 @@ public class DetalleOrdenRequestDto {
     private Integer idPedido;
 
     @NotNull
+    private Integer idProducto;
+
     private Integer idMaterial;
 
-    @NotNull
     private Integer idMarco;
 
-    @NotNull
     private Integer idTipoLente;
 
-    @NotNull
     private String tratamiento;
 
     @NotNull
+    @Min(value = 1, message = "La cantidad debe ser mayor a cero")
     private Integer cantidad;
 
-    @NotNull
     private BigDecimal precioUnitario;
 
     @NotNull

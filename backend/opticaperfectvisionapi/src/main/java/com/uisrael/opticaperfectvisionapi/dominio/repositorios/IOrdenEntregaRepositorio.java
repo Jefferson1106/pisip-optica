@@ -15,6 +15,8 @@ public interface IOrdenEntregaRepositorio {
 	List<OrdenEntrega> listarTodos();
 	
 	void eliminar (int idOrdenEntrega);
+
+	boolean tieneDetalles(int idOrdenEntrega);
 	
 	//1807
 	List<OrdenEntrega> findByRecibido(Boolean recibido);

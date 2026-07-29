@@ -15,7 +15,10 @@
 			<div class="card shadow mb-4">
 				<div class="card-header py-3 d-flex justify-content-between align-items-center">
 					<h5 class="m-0 font-weight-bold text-primary">Perfect Vision - Examenes Visuales</h5>
-					<a th:href="@{/examenes-visuales/nuevo}" class="btn btn-success">Nuevo Examen Visual</a>
+					<div>
+						<a th:href="@{/examenes-visuales/historial}" class="btn btn-info mr-2">Historial</a>
+						<a th:href="@{/examenes-visuales/nuevo}" class="btn btn-success">Nuevo Examen Visual</a>
+					</div>
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">
@@ -26,13 +29,14 @@
 							<span th:text="${error}"></span>
 						</div>
 
-						<table class="table table-bordered" id="dataTable" width="100%"
+						<table class="table table-bordered" id="dataTable" data-preservar-orden="true" width="100%"
 							cellspacing="0">
 							<thead>
-								<tr th:each="indice : listaordenpedidos">
-									<th>N°</th>
-									<th style="display:none;">ID</th>
-									<th>Paciente</th>
+								<tr>
+									<th>ID</th>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+									<th>Cédula</th>
 									<th>Fecha Examen</th>
 									<th>Observaciones</th>
 									<th>Estado</th>
@@ -40,16 +44,34 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="examenVisual, iterStat: ${listaexamenesvisuales}">
-									<td th:text="${iterStat.count}"></td>
-									<td style="display:none;" th:text="${examenVisual.idExamen}"></td>
-									<td th:text="${examenVisual.pacienteNombre}"></td>
+								<tr th:each="examenVisual : ${listaexamenesvisuales}">
+									<td th:text="${examenVisual.idExamen}"></td>
+									<td th:text="${nombresPorPaciente[examenVisual.idPaciente] != null ? nombresPorPaciente[examenVisual.idPaciente] : '-'}"></td>
+									<td th:text="${apellidosPorPaciente[examenVisual.idPaciente] != null ? apellidosPorPaciente[examenVisual.idPaciente] : '-'}"></td>
+									<td th:text="${cedulasPorPaciente[examenVisual.idPaciente] != null ? cedulasPorPaciente[examenVisual.idPaciente] : '-'}"></td>
 									<td th:text="${examenVisual.fechaExamen}"></td>
 									<td th:text="${examenVisual.observaciones}"></td>
 									<td th:text="${examenVisual.estado ? 'Activo' : 'Inactivo'}"></td>
 									
 									<td>
-										<a th:href="@{/examenes-visuales/editar/{id}(id=${examenVisual.idExamen})}" class="btn btn-warning btn-sm">Actualizar</a>
+										<a th:href="@{/examenes-visuales/editar/{id}(id=${examenVisual.idExamen})}"
+										   class="btn btn-warning btn-sm mr-1"
+										   title="Editar"
+										   aria-label="Editar">
+											<i class="fas fa-edit"></i>
+										</a>
+										<a th:href="@{/examenes-visuales/{id}/detalles(id=${examenVisual.idExamen})}"
+										   class="btn btn-info btn-sm"
+										   title="Ver detalles"
+										   aria-label="Ver detalles">
+											<i class="fas fa-eye"></i>
+										</a>
+										<a th:href="@{/ordenespedido/nuevo(idExamen=${examenVisual.idExamen})}"
+										   class="btn btn-primary btn-sm ml-1"
+										   title="Generar orden de pedido"
+										   aria-label="Generar orden de pedido">
+											<i class="fas fa-cart-plus"></i>
+										</a>
 									</td>
 								</tr>
 							</tbody>

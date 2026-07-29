@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Nuevo Examen Visual - Perfect Vision</title>
+<title th:text="${modoEdicion} ? 'Actualizar Examen Visual - Perfect Vision' : 'Nuevo Examen Visual - Perfect Vision'">Examen Visual - Perfect Vision</title>
 </head>
 
 <body>
@@ -13,30 +13,51 @@
 		<div class="container-fluid">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h5 class="m-0 font-weight-bold text-primary">Registrar Nuevo Examen Visual</h5>
+					<h5 class="m-0 font-weight-bold text-primary"
+						th:text="${modoEdicion} ? 'Actualizar Examen Visual' : 'Registrar Nuevo Examen Visual'">Registrar Nuevo Examen Visual</h5>
 				</div>
 				<div class="card-body">
 					<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-					<form th:action="@{/examenes-visuales/guardar}" th:object="${examenVisual}" method="post">
+					<form th:action="${modoEdicion} ? @{/examenes-visuales/actualizar} : @{/examenes-visuales/guardar}" th:object="${examenVisual}" method="post">
+						<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">Revise los campos del formulario.</div>
+						<input type="hidden" th:if="${modoEdicion}" th:field="*{idExamen}" />
+
 						<div class="form-group">
 							<label for="idPaciente">Paciente</label>
-							<select th:field="*{idPaciente}" class="form-control" id="idPaciente" required>
-								<option value="">Seleccione...</option>
+							<input type="hidden" th:field="*{idPaciente}" id="idPaciente" />
+							<input type="search"
+								class="form-control"
+								id="pacienteBuscador"
+								list="pacientesOpciones"
+								placeholder="Busque por nombre, apellido o cédula"
+								autocomplete="off"
+								required />
+							<datalist id="pacientesOpciones">
 								<option th:each="paciente : ${listapacientes}"
-										th:value="${paciente.idPaciente}"
-										th:text="${paciente.nombres + ' ' + paciente.apellidos}"></option>
-							</select>
+										th:attr="data-id=${paciente.idPaciente}"
+										th:value="${paciente.nombres + ' ' + paciente.apellidos + (paciente.cedula != null ? ' - ' + paciente.cedula : '')}">
+								</option>
+							</datalist>
+							<small th:if="${#fields.hasErrors('idPaciente')}" class="text-danger" th:errors="*{idPaciente}"></small>
 						</div>
 
 						<div class="form-group">
 							<label for="fechaExamen">Fecha de Examen</label>
-							<input type="date" th:field="*{fechaExamen}" class="form-control" id="fechaExamen" required />
+							<input type="date"
+								id="fechaExamen"
+								name="fechaExamen"
+								th:value="${examenVisual.fechaExamen != null ? examenVisual.fechaExamen.toString() : fechaMaximaExamen}"
+								class="form-control"
+								th:attr="max=${fechaMaximaExamen}"
+								required />
+							<small th:if="${#fields.hasErrors('fechaExamen')}" class="text-danger" th:errors="*{fechaExamen}"></small>
 						</div>
 
 						<div class="form-group">
-							<label for="observaciones">Observaciones</label>
-							<textarea th:field="*{observaciones}" class="form-control" id="observaciones" rows="3"></textarea>
+							<label for="observaciones">Observaciones (opcional)</label>
+							<textarea th:field="*{observaciones}" class="form-control" id="observaciones" rows="3" placeholder="Puede dejarse en blanco al crear el examen"></textarea>
+							<small th:if="${#fields.hasErrors('observaciones')}" class="text-danger" th:errors="*{observaciones}"></small>
 						</div>
 
 						<div class="form-group form-check">
@@ -44,12 +65,48 @@
 							<label class="form-check-label" for="estado">Activo</label>
 						</div>
 
-						<button type="submit" class="btn btn-success">Guardar</button>
+						<button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+							th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
 						<a th:href="@{/examenes-visuales}" class="btn btn-secondary">Cancelar</a>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div layout:fragment="scripts">
+		<script>
+			(function () {
+				const buscador = document.getElementById("pacienteBuscador");
+				const idPaciente = document.getElementById("idPaciente");
+				const opciones = Array.from(document.querySelectorAll("#pacientesOpciones option"));
+
+				const buscarOpcionPorTexto = function (texto) {
+					return opciones.find(function (opcion) {
+						return opcion.value === texto;
+					});
+				};
+
+				const sincronizarPaciente = function () {
+					const opcion = buscarOpcionPorTexto(buscador.value);
+					idPaciente.value = opcion ? opcion.dataset.id : "";
+					buscador.setCustomValidity(
+						opcion ? "" : "Seleccione un paciente de la lista de resultados"
+					);
+				};
+
+				const opcionSeleccionada = opciones.find(function (opcion) {
+					return opcion.dataset.id === idPaciente.value;
+				});
+				if (opcionSeleccionada) {
+					buscador.value = opcionSeleccionada.value;
+				}
+
+				buscador.addEventListener("input", sincronizarPaciente);
+				buscador.addEventListener("change", sincronizarPaciente);
+				buscador.form.addEventListener("submit", sincronizarPaciente);
+			})();
+		</script>
 	</div>
 </body>
 </html>

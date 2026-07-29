@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.adaptadores;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,18 @@ public class ExamenVisualRepositorioImpl implements IExamenVisualRepositorio {
 
 	@Override
 	public List<ExamenVisual> listarTodos() {
-		return jpaRepositorio.findAllWithPaciente().stream().map(entityMapper::toDomain).toList();
+		return jpaRepositorio.findAllWithPaciente().stream()
+				.sorted(ordenPorUltimaModificacion())
+				.map(entityMapper::toDomain)
+				.toList();
+	}
+
+	@Override
+	public List<ExamenVisual> listarPorPaciente(int idPaciente) {
+		return jpaRepositorio.findByPacienteIdWithPaciente(idPaciente).stream()
+				.sorted(ordenPorUltimaModificacion())
+				.map(entityMapper::toDomain)
+				.toList();
 	}
 
 	@Override
@@ -75,5 +87,13 @@ public class ExamenVisualRepositorioImpl implements IExamenVisualRepositorio {
 
 		return pacienteJpaRepositorio.findById(paciente.getIdPaciente())
 				.orElseThrow(() -> new RuntimeException("Paciente no encontrado"));
+	}
+
+	private Comparator<ExamenVisualEntity> ordenPorUltimaModificacion() {
+		return Comparator
+				.comparing(ExamenVisualEntity::getFechaModificacion,
+						Comparator.nullsLast(Comparator.reverseOrder()))
+				.thenComparing(ExamenVisualEntity::getIdExamen,
+						Comparator.nullsLast(Comparator.reverseOrder()));
 	}
 }

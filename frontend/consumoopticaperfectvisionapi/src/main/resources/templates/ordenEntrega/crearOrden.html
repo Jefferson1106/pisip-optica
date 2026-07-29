@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nueva Orden de Entrega - Perfect Vision</title>
+    <title th:text="${modoEdicion} ? 'Actualizar Orden de Entrega - Perfect Vision' : 'Nueva Orden de Entrega - Perfect Vision'">Orden de Entrega - Perfect Vision</title>
 </head>
 
 <body>
@@ -13,22 +13,45 @@
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h5 class="m-0 font-weight-bold text-primary">Registrar Nueva Orden de Entrega</h5>
+                <h5 class="m-0 font-weight-bold text-primary"
+                    th:text="${modoEdicion} ? 'Actualizar Orden de Entrega' : 'Registrar Nueva Orden de Entrega'">Registrar Nueva Orden de Entrega</h5>
             </div>
             <div class="card-body">
 
                 <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-                <form th:action="@{/ordenes-entrega/guardar}" th:object="${ordenEntrega}" method="post">
+                <form th:action="${modoEdicion} ? @{/ordenes-entrega/actualizar} : @{/ordenes-entrega/guardar}" th:object="${ordenEntrega}" method="post" id="formOrdenEntrega">
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">Revise los campos del formulario.</div>
+
+                    <input type="hidden" th:if="${modoEdicion}" th:field="*{idEntrega}" />
 
                     <div class="form-group">
-                        <label for="idPedido">ID Pedido</label>
-                        <input type="number" th:field="*{idPedido}" class="form-control" required />
+                        <label for="pedidoBuscador">Pedido</label>
+                        <input type="hidden" th:field="*{idPedido}" id="idPedido" />
+                        <input type="search"
+                               class="form-control"
+                               id="pedidoBuscador"
+                               list="pedidosOpciones"
+                               placeholder="Busque por número, paciente, examen o fecha"
+                               autocomplete="off"
+                               th:disabled="${modoEdicion or pedidoPreseleccionado}"
+                               required />
+                        <datalist id="pedidosOpciones">
+                            <option th:each="pedido : ${listaPedidosEntrega}"
+                                    th:value="${pedido.descripcion}"
+                                    th:attr="data-id=${pedido.idPedido},data-fecha-entrega=${pedido.fechaEntrega}">
+                            </option>
+                        </datalist>
+                        <small th:if="${pedidoPreseleccionado}" class="form-text text-muted">Pedido preseleccionado desde Ordenes de Pedido.</small>
+                        <small th:if="${#fields.hasErrors('idPedido')}" class="text-danger" th:errors="*{idPedido}"></small>
                     </div>
 
                     <div class="form-group">
                         <label for="fechaEntrega">Fecha de Entrega</label>
-                        <input type="date" th:field="*{fechaEntrega}" class="form-control" required />
+                        <input type="date" name="fechaEntrega"
+                               th:value="${ordenEntrega.fechaEntrega != null ? #temporals.format(ordenEntrega.fechaEntrega, 'yyyy-MM-dd') : ''}"
+                               class="form-control" id="fechaEntrega" required />
+                           <small th:if="${#fields.hasErrors('fechaEntrega')}" class="text-danger" th:errors="*{fechaEntrega}"></small>
                     </div>
 
                     <div class="form-group form-check">
@@ -39,19 +62,84 @@
                     <div class="form-group">
                         <label for="observaciones">Observaciones</label>
                         <textarea th:field="*{observaciones}" class="form-control" rows="3"></textarea>
+                        <small th:if="${#fields.hasErrors('observaciones')}" class="text-danger" th:errors="*{observaciones}"></small>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" th:if="${!modoEdicion}">
                         <label for="fechaRegistro">Fecha de Registro</label>
-                        <input type="datetime-local" th:field="*{fechaRegistro}" class="form-control" required />
+                        <input type="datetime-local" name="fechaRegistro"
+                               th:value="${ordenEntrega.fechaRegistro != null ? #temporals.format(ordenEntrega.fechaRegistro, 'yyyy-MM-dd''T''HH:mm') : ''}"
+                               class="form-control" required />
+                        <small th:if="${#fields.hasErrors('fechaRegistro')}" class="text-danger" th:errors="*{fechaRegistro}"></small>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <div class="form-group" th:if="${modoEdicion}">
+                        <label for="fechaRegistro">Fecha de Registro</label>
+                        <input type="hidden" th:field="*{fechaRegistro}" />
+                        <input type="text"
+                               th:value="${#temporals.format(ordenEntrega.fechaRegistro, 'yyyy-MM-dd HH:mm:ss')}"
+                               class="form-control" readonly />
+                    </div>
+
+                    <button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+                            th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
                     <a th:href="@{/ordenes-entrega}" class="btn btn-secondary">Cancelar</a>
                 </form>
             </div>
         </div>
     </div>
+</div>
+
+<div layout:fragment="scripts">
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formOrdenEntrega');
+    const recibido = document.getElementById('recibido');
+    const idPedido = document.getElementById('idPedido');
+    const pedidoBuscador = document.getElementById('pedidoBuscador');
+    const opcionesPedido = Array.from(document.querySelectorAll('#pedidosOpciones option'));
+    const fechaEntregaInput = document.getElementById('fechaEntrega');
+
+    if (!form || !recibido) {
+        return;
+    }
+
+    if (idPedido && pedidoBuscador) {
+        const opcionSeleccionada = opcionesPedido.find(function(opcion) {
+            return opcion.dataset.id === idPedido.value;
+        });
+        if (opcionSeleccionada) {
+            pedidoBuscador.value = opcionSeleccionada.value;
+        }
+
+        const aplicarFechaEntregaPedido = function() {
+            const opcion = opcionesPedido.find(function(item) {
+                return item.value === pedidoBuscador.value;
+            });
+            idPedido.value = opcion ? opcion.dataset.id : '';
+            pedidoBuscador.setCustomValidity(
+                opcion ? '' : 'Seleccione un pedido de la lista de resultados'
+            );
+            if (opcion && fechaEntregaInput && opcion.dataset.fechaEntrega) {
+                fechaEntregaInput.value = opcion.dataset.fechaEntrega;
+            }
+        };
+
+        pedidoBuscador.addEventListener('input', aplicarFechaEntregaPedido);
+        pedidoBuscador.addEventListener('change', aplicarFechaEntregaPedido);
+        form.addEventListener('submit', aplicarFechaEntregaPedido);
+    }
+
+    form.addEventListener('submit', function(event) {
+        if (recibido.checked) {
+            const confirmar = window.confirm('Seguro que desea marcar como entregada?');
+            if (!confirmar) {
+                event.preventDefault();
+            }
+        }
+    });
+});
+</script>
 </div>
 </body>
 </html>

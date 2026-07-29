@@ -8,6 +8,9 @@ import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleOrden
 public interface IDetalleOrden {
 	
 	List<DetalleOrdenResponseDto> listarDetalleOrden();
+	DetalleOrdenResponseDto buscarDetalleOrdenPorId(Integer idDetOrden);
 	void guardarDetalleOrden(DetalleOrdenRequestDto nuevoDetalleOrden);
+	void actualizarDetalleOrden(Integer idDetOrden, DetalleOrdenRequestDto detalleOrden);
+	void eliminarDetalleOrden(Integer idDetOrden);
 	
 }

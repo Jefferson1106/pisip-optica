@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 @Data
 @Entity
@@ -41,4 +42,8 @@ public class UsuarioAdministradorEntity {
 
 	@Column(name = "intentos_fallidos")
 	private Integer intentosFallidos;
+
+	@Column(name = "requiere_cambio_contrasenia", nullable = false)
+	@ColumnDefault("false")
+	private boolean requiereCambioContrasenia;
 }

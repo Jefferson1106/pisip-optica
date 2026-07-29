@@ -12,6 +12,8 @@ public interface IExamenVisualUseCase {
 
 	List<ExamenVisual> listarTodos();
 
+	List<ExamenVisual> listarPorPaciente(int idPaciente);
+
 	ExamenVisual actualizar(int id, ExamenVisual examenVisual);
 
 	ExamenVisual actualizarEstado(int id, boolean estado);

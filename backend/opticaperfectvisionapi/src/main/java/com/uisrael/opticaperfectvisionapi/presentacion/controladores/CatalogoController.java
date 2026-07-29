@@ -1,6 +1,7 @@
 package com.uisrael.opticaperfectvisionapi.presentacion.controladores;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,16 +49,30 @@ public class CatalogoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<CatalogoResponseDto> guardar(@Valid @RequestBody CatalogoRequestDto requestDto) {
-		Catalogo catalogoGuardado = catalogoUseCase.guardar(mapper.toDomain(requestDto));
-		return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(catalogoGuardado));
+	public ResponseEntity<?> guardar(@Valid @RequestBody CatalogoRequestDto requestDto) {
+		try {
+			Catalogo catalogoGuardado = catalogoUseCase.guardar(mapper.toDomain(requestDto));
+			return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(catalogoGuardado));
+		} catch (RuntimeException e) {
+			String mensaje = e.getMessage() == null || e.getMessage().isBlank()
+					? "No se pudo registrar el catálogo"
+					: e.getMessage();
+			return ResponseEntity.badRequest().body(Map.of("error", mensaje));
+		}
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<CatalogoResponseDto> actualizar(@PathVariable int id,
+	public ResponseEntity<?> actualizar(@PathVariable int id,
 			@Valid @RequestBody CatalogoRequestDto requestDto) {
-		Catalogo catalogoActualizado = catalogoUseCase.actualizar(id, mapper.toDomain(requestDto));
-		return ResponseEntity.ok(mapper.toResponseDto(catalogoActualizado));
+		try {
+			Catalogo catalogoActualizado = catalogoUseCase.actualizar(id, mapper.toDomain(requestDto));
+			return ResponseEntity.ok(mapper.toResponseDto(catalogoActualizado));
+		} catch (RuntimeException e) {
+			String mensaje = e.getMessage() == null || e.getMessage().isBlank()
+					? "No se pudo actualizar el catálogo"
+					: e.getMessage();
+			return ResponseEntity.badRequest().body(Map.of("error", mensaje));
+		}
 	}
 
 	@PatchMapping("/{id}/estado")

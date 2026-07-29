@@ -32,6 +32,16 @@ public class OrdenEntregaUseCaseImpl implements IOrdenEntregaUseCase {
 	}
 
 	@Override
+	public void eliminar(int idOrdenEntrega) {
+		buscarPorId(idOrdenEntrega);
+		if (repositorio.tieneDetalles(idOrdenEntrega)) {
+			throw new IllegalStateException(
+					"No se puede eliminar la orden de entrega porque tiene detalles asociados.");
+		}
+		repositorio.eliminar(idOrdenEntrega);
+	}
+
+	@Override
 	public OrdenEntrega actualizar(int idOrdenEntrega, OrdenEntrega ordenEntregaActualizada) {
 	    OrdenEntrega existente = buscarPorId(idOrdenEntrega);
 	    existente.setOrdenPedido(ordenEntregaActualizada.getOrdenPedido());

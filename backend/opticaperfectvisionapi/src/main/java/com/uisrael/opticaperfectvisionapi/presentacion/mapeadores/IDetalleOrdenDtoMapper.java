@@ -12,12 +12,15 @@ public interface IDetalleOrdenDtoMapper {
 	
 	@Mapping(target = "idDetOrden", ignore = true)
 	@Mapping(target = "ordenPedido.idPedido", source = "idPedido")
+	@Mapping(target = "producto.idProducto", source = "idProducto")
 	@Mapping(target = "material.idDetalleCatalogo", source = "idMaterial")
 	@Mapping(target = "marco.idDetalleCatalogo", source = "idMarco")
 	@Mapping(target = "tipoLente.idDetalleCatalogo", source = "idTipoLente")
 	DetalleOrden toDomain(DetalleOrdenRequestDto dto);
 	
 	@Mapping(target = "idPedido", source = "ordenPedido.idPedido")
+	@Mapping(target = "idProducto", source = "producto.idProducto")
+	@Mapping(target = "productoNombre", source = "producto.nombre")
 	@Mapping(target = "idMaterial", source = "material.idDetalleCatalogo")
 	@Mapping(target = "idMarco", source = "marco.idDetalleCatalogo")
 	@Mapping(target = "idTipoLente", source = "tipoLente.idDetalleCatalogo")

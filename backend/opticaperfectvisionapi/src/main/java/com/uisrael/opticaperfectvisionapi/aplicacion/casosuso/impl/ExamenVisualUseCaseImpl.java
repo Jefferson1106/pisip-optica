@@ -1,5 +1,6 @@
 package com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.uisrael.opticaperfectvisionapi.aplicacion.casosuso.entrada.IExamenVisualUseCase;
@@ -16,6 +17,7 @@ public class ExamenVisualUseCaseImpl implements IExamenVisualUseCase {
 
 	@Override
 	public ExamenVisual guardar(ExamenVisual nuevoExamenVisual) {
+		validarFechaExamen(nuevoExamenVisual.getFechaExamen());
 		return repositorio.guardar(nuevoExamenVisual);
 	}
 
@@ -31,9 +33,15 @@ public class ExamenVisualUseCaseImpl implements IExamenVisualUseCase {
 	}
 
 	@Override
+	public List<ExamenVisual> listarPorPaciente(int idPaciente) {
+		return repositorio.listarPorPaciente(idPaciente);
+	}
+
+	@Override
 	public ExamenVisual actualizar(int id, ExamenVisual examenVisual) {
 		repositorio.buscarPorId(id)
 				.orElseThrow(() -> new RuntimeException("Examen visual no encontrado"));
+		validarFechaExamen(examenVisual.getFechaExamen());
 
 		ExamenVisual actualizado = new ExamenVisual(
 				id,
@@ -58,5 +66,14 @@ public class ExamenVisualUseCaseImpl implements IExamenVisualUseCase {
 				estado);
 
 		return repositorio.actualizarEstado(id, actualizado);
+	}
+
+	private void validarFechaExamen(LocalDate fechaExamen) {
+		if (fechaExamen == null) {
+			throw new IllegalArgumentException("La fecha del examen es obligatoria");
+		}
+		if (fechaExamen.isAfter(LocalDate.now())) {
+			throw new IllegalArgumentException("La fecha del examen no puede ser futura");
+		}
 	}
 }

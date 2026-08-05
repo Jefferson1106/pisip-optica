@@ -1,21 +1,65 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/plantilla/plantillaui">
-<body><div layout:fragment="contenidopaginas">
-<div class="card shadow mb-4">
- <div class="card-header py-3 d-flex justify-content-between align-items-center">
-  <h5 class="m-0 font-weight-bold text-primary">Proveedores</h5>
-  <a th:href="@{/proveedores/nuevo}" class="btn btn-success btn-sm">Nuevo proveedor</a>
- </div>
- <div class="card-body">
-  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-  <div class="table-responsive"><table class="table table-bordered">
-   <thead><tr><th>Nombre</th><th>Identificación</th><th>Correo</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr></thead>
-   <tbody><tr th:each="p : ${proveedores}">
-    <td th:text="${p.nombre}"></td><td th:text="${p.identificacion}"></td><td th:text="${p.correo}"></td>
-    <td th:text="${p.telefono}"></td><td th:text="${p.estado ? 'Activo' : 'Inactivo'}"></td>
-    <td><a th:href="@{/proveedores/editar/{id}(id=${p.idProveedor})}" class="btn btn-primary btn-sm">Editar</a></td>
-   </tr></tbody>
-  </table></div>
- </div>
-</div></div></body></html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Perfect Vision - Proveedores</title>
+</head>
+
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h5 class="m-0 font-weight-bold text-primary">Perfect Vision - Proveedores</h5>
+                <a th:href="@{/proveedores/nuevo}" class="btn btn-success">Nuevo Proveedor</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div th:if="${success}" class="alert alert-success" role="alert">
+                        <span th:text="${success}"></span>
+                    </div>
+                    <div th:if="${error}" class="alert alert-danger" role="alert">
+                        <span th:text="${error}"></span>
+                    </div>
+
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th style="display:none;">ID</th>
+                            <th>Nombre</th>
+                            <th>Identificación</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="proveedor, iterStat : ${proveedores}">
+                            <td th:text="${iterStat.count}"></td>
+                            <td style="display:none;" th:text="${proveedor.idProveedor}"></td>
+                            <td th:text="${proveedor.nombre}"></td>
+                            <td th:text="${proveedor.identificacion}"></td>
+                            <td th:text="${proveedor.correo}"></td>
+                            <td th:text="${proveedor.telefono}"></td>
+                            <td th:text="${proveedor.estado ? 'Activo' : 'Inactivo'}"></td>
+                            <td>
+                                <a th:href="@{/proveedores/editar/{id}(id=${proveedor.idProveedor})}"
+                                   class="btn btn-warning btn-sm" title="Editar" aria-label="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

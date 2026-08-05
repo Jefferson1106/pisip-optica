@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -177,6 +178,7 @@ public class PacienteController {
 
     private void configurarFormulario(Model model, boolean modoEdicion) {
         model.addAttribute("modoEdicion", modoEdicion);
+        model.addAttribute("fechaMaximaNacimiento", LocalDate.now().minusYears(5));
     }
 
     private void completarAuditoriaPaciente(PacienteRequestDto paciente, HttpSession session) {

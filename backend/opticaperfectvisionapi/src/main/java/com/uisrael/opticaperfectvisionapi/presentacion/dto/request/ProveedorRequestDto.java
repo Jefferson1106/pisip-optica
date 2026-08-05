@@ -21,7 +21,7 @@ public class ProveedorRequestDto {
 	private String correo;
 
 	@NotBlank(message = "El teléfono es obligatorio")
-	@Pattern(regexp = "^\\d+$", message = "El teléfono solo puede contener números")
+	@Pattern(regexp = "^\\d{10}$", message = "El teléfono debe contener exactamente 10 números")
 	private String telefono;
 	private String direccion;
 	private boolean estado = true;

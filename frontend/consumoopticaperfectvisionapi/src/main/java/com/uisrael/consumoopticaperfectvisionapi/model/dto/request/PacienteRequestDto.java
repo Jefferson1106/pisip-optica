@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -50,6 +52,12 @@ public class PacienteRequestDto {
 	@NotNull(message = "La fecha de nacimiento es obligatoria")
 	@Past(message = "La fecha de nacimiento debe ser anterior a hoy")
 	private LocalDate fechaNacimiento;
+
+	@JsonIgnore
+	@AssertTrue(message = "El paciente debe tener al menos 5 años")
+	public boolean isEdadMinimaValida() {
+		return fechaNacimiento == null || !fechaNacimiento.isAfter(LocalDate.now().minusYears(5));
+	}
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime fechaRegistro;

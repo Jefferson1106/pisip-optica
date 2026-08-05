@@ -14,12 +14,6 @@ public class DetalleOrdenRequestDto {
 
     private Integer idProducto;
 
-    private Integer idMaterial;
-
-    private Integer idMarco;
-
-    private Integer idTipoLente;
-
     private String tratamiento;
 
     private Integer cantidad;

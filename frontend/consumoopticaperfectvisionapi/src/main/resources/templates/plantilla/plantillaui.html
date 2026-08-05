@@ -10,11 +10,12 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="/css/tablas-ajustadas.css" rel="stylesheet">
+    <link href="/css/breadcrumbs.css" rel="stylesheet">
 </head>
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/catalogo">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-glasses"></i>
                 </div>
@@ -22,6 +23,12 @@
             </a>
 
             <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard"><i class="fas fa-fw fa-chart-line"></i><span>Inicio</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
 
             <div class="sidebar-heading"
                  th:if="${session.usuarioSesion != null and session.usuarioSesion.tipoUsuarioNombre != null and #strings.containsIgnoreCase(session.usuarioSesion.tipoUsuarioNombre, 'admin')}">Administracion</div>
@@ -103,10 +110,14 @@
                 </nav>
 
                 <div class="container-fluid">
-                   
-                            <div layout:fragment="contenidopaginas">
+                    <nav id="appBreadcrumbs" class="app-breadcrumbs" aria-label="Ruta de navegacion">
+                        <ol class="breadcrumb"></ol>
+                    </nav>
 
-                        </div>
+                    <div layout:fragment="contenidopaginas">
+
+                    </div>
+                </div>
             </div>
 
             <footer class="sticky-footer bg-white">
@@ -126,6 +137,7 @@
     <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="/js/demo/datatables-demo.js"></script>
+    <script src="/js/breadcrumbs.js"></script>
     <script>
         window.addEventListener('pageshow', function (event) {
             if (event.persisted) {

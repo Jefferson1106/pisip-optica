@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/plantilla/plantillaui">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfect Vision - Inicio</title>
+</head>
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h1 class="h3 mb-1 text-gray-800">Panel principal</h1>
+            <p class="mb-0 text-gray-600">Resumen operativo de Perfect Vision</p>
+        </div>
+        <a th:href="@{/paciente/nuevo}" class="btn btn-primary shadow-sm mt-3 mt-sm-0">
+            <i class="fas fa-user-plus fa-sm mr-1"></i> Nuevo paciente
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">
+                <div class="col mr-2"><div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pacientes registrados</div><div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${totalPacientes}">0</div></div>
+                <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+            </div></div></div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">
+                <div class="col mr-2"><div class="text-xs font-weight-bold text-success text-uppercase mb-1">Exámenes este mes</div><div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${examenesMes}">0</div></div>
+                <div class="col-auto"><i class="fas fa-eye fa-2x text-gray-300"></i></div>
+            </div></div></div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">
+                <div class="col mr-2"><div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pedidos pendientes</div><div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${pedidosPendientes}">0</div></div>
+                <div class="col-auto"><i class="fas fa-clock fa-2x text-gray-300"></i></div>
+            </div></div></div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2"><div class="card-body"><div class="row no-gutters align-items-center">
+                <div class="col mr-2"><div class="text-xs font-weight-bold text-info text-uppercase mb-1">Entregas este mes</div><div class="h5 mb-0 font-weight-bold text-gray-800" th:text="${entregasMes}">0</div></div>
+                <div class="col-auto"><i class="fas fa-check-circle fa-2x text-gray-300"></i></div>
+            </div></div></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Actividad de los últimos 6 meses</h6></div>
+                <div class="card-body"><div class="chart-area"><canvas id="actividadChart"></canvas></div></div>
+            </div>
+        </div>
+        <div class="col-xl-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header py-3"><h6 class="m-0 font-weight-bold text-primary">Pedidos por estado</h6></div>
+                <div class="card-body">
+                    <div class="chart-pie pt-2"><canvas id="estadoChart"></canvas></div>
+                    <p class="text-center text-muted small mt-3 mb-0" th:if="${#lists.isEmpty(estadosPedido)}">Aún no hay pedidos registrados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Pedidos recientes</h6>
+            <a th:href="@{/ordenespedido}" class="small">Ver todos</a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="bg-light"><tr><th>Paciente</th><th>Fecha del pedido</th><th>Entrega prevista</th><th>Estado</th></tr></thead>
+                    <tbody>
+                    <tr th:each="pedido : ${pedidosRecientes}">
+                        <td th:text="${pedido.pacienteNombre ?: 'Sin paciente'}"></td>
+                        <td th:text="${pedido.fechaPedido != null ? #temporals.format(pedido.fechaPedido, 'dd/MM/yyyy') : '-'}"></td>
+                        <td th:text="${pedido.fechaEntrega != null ? #temporals.format(pedido.fechaEntrega, 'dd/MM/yyyy') : '-'}"></td>
+                        <td><span class="badge badge-light px-2 py-1" th:text="${pedido.nombreEstadoPedido ?: 'Sin estado'}"></span></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pedidosRecientes)}"><td colspan="4" class="text-center text-muted py-4">Aún no hay pedidos registrados.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="scripts">
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+    <script th:inline="javascript">
+        const meses = /*[[${meses}]]*/ [];
+        const examenes = /*[[${examenesPorMes}]]*/ [];
+        const pedidos = /*[[${pedidosPorMes}]]*/ [];
+        const estados = /*[[${estadosPedido}]]*/ [];
+        const cantidades = /*[[${cantidadPorEstado}]]*/ [];
+
+        new Chart(document.getElementById('actividadChart'), {
+            type: 'line',
+            data: { labels: meses, datasets: [
+                { label: 'Exámenes', data: examenes, borderColor: '#1cc88a', backgroundColor: 'rgba(28,200,138,.08)', pointBackgroundColor: '#1cc88a', lineTension: .25 },
+                { label: 'Pedidos', data: pedidos, borderColor: '#4e73df', backgroundColor: 'rgba(78,115,223,.08)', pointBackgroundColor: '#4e73df', lineTension: .25 }
+            ]},
+            options: { maintainAspectRatio: false, scales: { yAxes: [{ ticks: { beginAtZero: true, precision: 0 } }] } }
+        });
+
+        if (estados.length) new Chart(document.getElementById('estadoChart'), {
+            type: 'doughnut',
+            data: { labels: estados, datasets: [{ data: cantidades, backgroundColor: ['#4e73df','#1cc88a','#f6c23e','#36b9cc','#e74a3b','#858796'] }] },
+            options: { maintainAspectRatio: false, legend: { position: 'bottom' }, cutoutPercentage: 68 }
+        });
+    </script>
+</div>
+</body>
+</html>

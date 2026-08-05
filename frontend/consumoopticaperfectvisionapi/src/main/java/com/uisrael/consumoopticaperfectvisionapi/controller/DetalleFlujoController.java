@@ -18,12 +18,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleExamenRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleEntregaRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleOrdenRequestDto;
-import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleCatalogoResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleExamenResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleEntregaResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleOrdenResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.OrdenEntregaResponseDto;
-import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleCatalogoService;
 import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleExamen;
 import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleEntrega;
 import com.uisrael.consumoopticaperfectvisionapi.services.IDetalleOrden;
@@ -37,20 +35,17 @@ public class DetalleFlujoController {
     private final IDetalleOrden servicioDetalleOrden;
     private final IDetalleEntrega servicioDetalleEntrega;
     private final IOrdenEntregaService servicioOrdenEntrega;
-    private final IDetalleCatalogoService servicioDetalleCatalogo;
     private final ProductoService servicioProducto;
 
     public DetalleFlujoController(IDetalleExamen servicioDetalleExamen,
             IDetalleOrden servicioDetalleOrden,
             IDetalleEntrega servicioDetalleEntrega,
             IOrdenEntregaService servicioOrdenEntrega,
-            IDetalleCatalogoService servicioDetalleCatalogo,
             ProductoService servicioProducto) {
         this.servicioDetalleExamen = servicioDetalleExamen;
         this.servicioDetalleOrden = servicioDetalleOrden;
         this.servicioDetalleEntrega = servicioDetalleEntrega;
         this.servicioOrdenEntrega = servicioOrdenEntrega;
-        this.servicioDetalleCatalogo = servicioDetalleCatalogo;
         this.servicioProducto = servicioProducto;
     }
 
@@ -155,13 +150,7 @@ public class DetalleFlujoController {
                 .toList();
 
         BigDecimal totalGeneral = detalles.stream()
-                .map(detalle -> {
-                    BigDecimal precio = detalle.getPrecioUnitario() != null ? detalle.getPrecioUnitario() : BigDecimal.ZERO;
-                    BigDecimal cantidad = detalle.getCantidad() != null
-                            ? BigDecimal.valueOf(detalle.getCantidad())
-                            : BigDecimal.ZERO;
-                    return precio.multiply(cantidad);
-                })
+				.map(DetalleOrdenResponseDto::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         model.addAttribute("idPedido", idPedido);
@@ -438,9 +427,6 @@ public class DetalleFlujoController {
         DetalleOrdenRequestDto form = new DetalleOrdenRequestDto();
         form.setIdPedido(idPedido);
         form.setIdProducto(detalleActual.getIdProducto());
-        form.setIdMaterial(detalleActual.getIdMaterial());
-        form.setIdMarco(detalleActual.getIdMarco());
-        form.setIdTipoLente(detalleActual.getIdTipoLente());
         form.setTratamiento(detalleActual.getTratamiento());
         form.setCantidad(detalleActual.getCantidad());
         form.setPrecioUnitario(detalleActual.getPrecioUnitario());
@@ -453,33 +439,6 @@ public class DetalleFlujoController {
                 .filter(producto -> producto.isEstado())
                 .sorted(Comparator.comparing(producto -> producto.getNombre().toLowerCase()))
                 .toList());
-    }
-
-    private void cargarCombosDetallePedido(Model model, Integer idMaterial, Integer idMarco, Integer idTipoLente) {
-        List<DetalleCatalogoResponseDto> base = servicioDetalleCatalogo.listarDetalleCatalogos().stream()
-                .filter(detalle -> detalle.isEstado()
-                        || (idMaterial != null && idMaterial.equals(detalle.getIdDetalleCatalogo()))
-                        || (idMarco != null && idMarco.equals(detalle.getIdDetalleCatalogo()))
-                        || (idTipoLente != null && idTipoLente.equals(detalle.getIdDetalleCatalogo())))
-                .toList();
-
-        List<DetalleCatalogoResponseDto> materiales = filtrarPorIdentificador(base, "MAT", idMaterial);
-        List<DetalleCatalogoResponseDto> marcos = filtrarPorIdentificador(base, "MAR", idMarco);
-        List<DetalleCatalogoResponseDto> tiposLente = filtrarPorIdentificador(base, "TIP", idTipoLente);
-
-        model.addAttribute("listamateriales", materiales);
-        model.addAttribute("listamarcos", marcos);
-        model.addAttribute("listatiposlente", tiposLente);
-    }
-
-    private List<DetalleCatalogoResponseDto> filtrarPorIdentificador(List<DetalleCatalogoResponseDto> origen,
-            String identificador,
-            Integer idSeleccionado) {
-        return origen.stream()
-                .filter(item -> (item.getIdentificador() != null
-                        && identificador.equalsIgnoreCase(item.getIdentificador().trim()))
-                        || (idSeleccionado != null && idSeleccionado.equals(item.getIdDetalleCatalogo())))
-                .toList();
     }
 
         private void cargarProductosEntrega(Model model, Integer idPedido, Integer idProductoSeleccionado) {

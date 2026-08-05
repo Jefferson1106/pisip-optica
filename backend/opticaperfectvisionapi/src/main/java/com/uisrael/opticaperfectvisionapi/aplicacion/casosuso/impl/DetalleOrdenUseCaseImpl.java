@@ -42,9 +42,6 @@ public class DetalleOrdenUseCaseImpl implements IDetalleOrdenUseCase {
                 .orElseThrow(() -> new RuntimeException("Detalle orden no encontrado"));
 
         existente.setOrdenPedido(detalleOrden.getOrdenPedido());
-        existente.setMaterial(detalleOrden.getMaterial());
-        existente.setMarco(detalleOrden.getMarco());
-        existente.setTipoLente(detalleOrden.getTipoLente());
         existente.setTratamiento(detalleOrden.getTratamiento());
         existente.setCantidad(detalleOrden.getCantidad());
         existente.setPrecioUnitario(detalleOrden.getPrecioUnitario());

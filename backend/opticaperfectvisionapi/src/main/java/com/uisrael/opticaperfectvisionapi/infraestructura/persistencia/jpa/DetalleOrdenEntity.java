@@ -35,18 +35,6 @@ public class DetalleOrdenEntity {
     @JoinColumn(name = "id_producto", foreignKey = @ForeignKey(name = "fk_detalle_orden_producto"))
     private ProductoEntity producto;
 
-    @ManyToOne
-    @JoinColumn(name = "id_material", foreignKey = @ForeignKey(name = "fk_detalle_orden_material"))
-    private DetalleCatalogoEntity material;
-
-    @ManyToOne
-    @JoinColumn(name = "id_marco", foreignKey = @ForeignKey(name = "fk_detalle_orden_marco"))
-    private DetalleCatalogoEntity marco;
-
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_lente", foreignKey = @ForeignKey(name = "fk_detalle_orden_tipo_lente"))
-    private DetalleCatalogoEntity tipoLente;
-
     @Column(name = "tratamiento", length = 100)
     private String tratamiento;
 

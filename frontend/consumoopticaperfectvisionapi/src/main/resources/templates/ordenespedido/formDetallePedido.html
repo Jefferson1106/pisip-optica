@@ -23,29 +23,22 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-8">
-                            <label>Producto</label>
-                            <select th:field="*{idProducto}" class="form-control" required>
-                                <option value="">Seleccione...</option>
+                            <label for="productoBuscador">Producto</label>
+                            <input type="hidden" th:field="*{idProducto}" />
+                            <input type="text" id="productoBuscador" class="form-control"
+                                   list="productosDisponibles" placeholder="Digite el código, producto o proveedor"
+                                   autocomplete="off" required />
+                            <datalist id="productosDisponibles">
                                 <option th:each="item : ${listaproductos}"
-                                        th:value="${item.idProducto}"
-                                        th:data-precio="${item.precio}"
-                                        th:text="${item.codigo + ' - ' + item.nombre + ' | ' + item.proveedorNombre}"></option>
-                            </select>
+                                        th:value="${item.codigo + ' - ' + item.nombre + ' | ' + item.proveedorNombre}"
+                                        th:data-id="${item.idProducto}"
+                                        th:data-seleccionado="${item.idProducto == detalleOrden.idProducto}"></option>
+                            </datalist>
+                            <small class="form-text text-muted">Escriba para buscar y seleccione un producto de la lista.</small>
                         </div>
                         <div class="form-group col-md-4">
                             <label>Cantidad</label>
                             <input type="number" min="1" th:field="*{cantidad}" class="form-control" required />
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Precio Unitario</label>
-                            <input type="number" step="0.01" th:field="*{precioUnitario}" class="form-control" readonly />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Total</label>
-                            <input type="number" id="totalDetalle" class="form-control" step="0.01" readonly />
                         </div>
                     </div>
 
@@ -64,34 +57,37 @@
         </div>
     </div>
 </div>
+<div layout:fragment="scripts">
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const cantidad = document.getElementById('cantidad');
-    const producto = document.getElementById('idProducto');
-    const precio = document.getElementById('precioUnitario');
-    const total = document.getElementById('totalDetalle');
+    const buscador = document.getElementById('productoBuscador');
+    const productoId = document.getElementById('idProducto');
+    const opciones = Array.from(document.querySelectorAll('#productosDisponibles option'));
 
-    const calcularTotal = function () {
-        const cant = parseFloat(cantidad && cantidad.value ? cantidad.value : '0');
-        const pre = parseFloat(precio && precio.value ? precio.value : '0');
-        total.value = (cant * pre).toFixed(2);
-    };
-
-    const cargarPrecio = function () {
-        const opcion = producto.options[producto.selectedIndex];
-        precio.value = opcion && opcion.dataset.precio ? opcion.dataset.precio : '';
-        calcularTotal();
-    };
-
-    if (cantidad && producto && precio && total) {
-        cantidad.addEventListener('input', calcularTotal);
-        producto.addEventListener('change', cargarPrecio);
-        if (producto.value) {
-            cargarPrecio();
-        }
-        calcularTotal();
+    if (!buscador || !productoId) {
+        return;
     }
+
+    const sincronizarProducto = function () {
+        const opcion = opciones.find(function (item) {
+            return item.value === buscador.value;
+        });
+        productoId.value = opcion ? opcion.dataset.id : '';
+        buscador.setCustomValidity(opcion ? '' : 'Seleccione un producto existente de la lista');
+    };
+
+    const seleccionada = opciones.find(function (item) {
+        return item.dataset.seleccionado === 'true';
+    });
+    if (seleccionada) {
+        buscador.value = seleccionada.value;
+    }
+
+    buscador.addEventListener('input', sincronizarProducto);
+    buscador.addEventListener('change', sincronizarProducto);
+    buscador.form.addEventListener('submit', sincronizarProducto);
 });
 </script>
+</div>
 </body>
 </html>

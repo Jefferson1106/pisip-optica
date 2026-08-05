@@ -1,0 +1,42 @@
+.app-breadcrumbs {
+    /* Las vistas usan un container-fluid propio; este margen hace coincidir
+       el breadcrumb con el borde de sus tarjetas. */
+    margin: 0 1.5rem 1rem;
+}
+
+.app-breadcrumbs .breadcrumb {
+    align-items: center;
+    background-color: #fff;
+    border-left: 0.25rem solid #4e73df;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 0.5rem rgba(58, 59, 69, 0.08);
+    margin-bottom: 0;
+    padding: 0.65rem 1rem;
+}
+
+.app-breadcrumbs .breadcrumb-item a {
+    color: #4e73df;
+    font-weight: 600;
+}
+
+.app-breadcrumbs .breadcrumb-item a:hover {
+    color: #224abe;
+    text-decoration: none;
+}
+
+.app-breadcrumbs .breadcrumb-item.active {
+    color: #5a5c69;
+    font-weight: 600;
+}
+
+@media (max-width: 575.98px) {
+    .app-breadcrumbs {
+        margin-right: 0.75rem;
+        margin-left: 0.75rem;
+    }
+
+    .app-breadcrumbs .breadcrumb {
+        font-size: 0.82rem;
+        padding: 0.55rem 0.75rem;
+    }
+}

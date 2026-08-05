@@ -9,9 +9,6 @@ public class DetalleOrdenResponseDto {
 	private Integer idPedido;
 	private Integer idProducto;
 	private String productoNombre;
-	private Integer idMaterial;
-	private Integer idMarco;
-	private Integer idTipoLente;
 	private String tratamiento;
     private Integer cantidad;
     private BigDecimal precioUnitario;
@@ -32,24 +29,6 @@ public class DetalleOrdenResponseDto {
 	public void setIdProducto(Integer idProducto) { this.idProducto = idProducto; }
 	public String getProductoNombre() { return productoNombre; }
 	public void setProductoNombre(String productoNombre) { this.productoNombre = productoNombre; }
-	public Integer getIdMaterial() {
-		return idMaterial;
-	}
-	public void setIdMaterial(Integer idMaterial) {
-		this.idMaterial = idMaterial;
-	}
-	public Integer getIdMarco() {
-		return idMarco;
-	}
-	public void setIdMarco(Integer idMarco) {
-		this.idMarco = idMarco;
-	}
-	public Integer getIdTipoLente() {
-		return idTipoLente;
-	}
-	public void setIdTipoLente(Integer idTipoLente) {
-		this.idTipoLente = idTipoLente;
-	}
 	public String getTratamiento() {
 		return tratamiento;
 	}

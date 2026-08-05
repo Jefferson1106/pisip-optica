@@ -15,12 +15,6 @@ public class DetalleOrdenRequestDto {
     @NotNull
     private Integer idProducto;
 
-    private Integer idMaterial;
-
-    private Integer idMarco;
-
-    private Integer idTipoLente;
-
     private String tratamiento;
 
     @NotNull

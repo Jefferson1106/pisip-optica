@@ -45,9 +45,6 @@ public class DetalleOrdenRepositorioImpl implements IDetalleOrdenRepositorio {
 		
 		existente.setOrdenPedido(detalleOrden.getOrdenPedido());
 		existente.setProducto(detalleOrden.getProducto());
-		existente.setMaterial(detalleOrden.getMaterial());
-		existente.setMarco(detalleOrden.getMarco());
-		existente.setTipoLente(detalleOrden.getTipoLente());
 		existente.setTratamiento(detalleOrden.getTratamiento());
 		existente.setCantidad(detalleOrden.getCantidad());
 		existente.setPrecioUnitario(detalleOrden.getPrecioUnitario());

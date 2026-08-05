@@ -47,7 +47,7 @@
                             <td th:text="${detalle.productoNombre != null ? detalle.productoNombre : 'Detalle anterior #' + detalle.idDetOrden}"></td>
                             <td th:text="${detalle.cantidad}"></td>
                             <td th:text="${detalle.precioUnitario}"></td>
-                            <td th:text="${detalle.cantidad != null and detalle.precioUnitario != null ? detalle.cantidad * detalle.precioUnitario : 0}"></td>
+                            <td th:text="${detalle.subtotal}"></td>
                             <td th:text="${detalle.fechaRegistro}"></td>
                             <td>
                                 <a th:href="@{/ordenespedido/{idPedido}/detalles/editar/{idDetOrden}(idPedido=${idPedido},idDetOrden=${detalle.idDetOrden})}"

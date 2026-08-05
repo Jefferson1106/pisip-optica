@@ -3,7 +3,6 @@ package com.uisrael.opticaperfectvisionapi.dominio.entidades;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.DetalleCatalogoEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.OrdenPedidoEntity;
 import com.uisrael.opticaperfectvisionapi.infraestructura.persistencia.jpa.ProductoEntity;
 
@@ -12,9 +11,6 @@ public class DetalleOrden {
 	private Integer idDetOrden;
     private OrdenPedidoEntity ordenPedido;
     private ProductoEntity producto;
-    private DetalleCatalogoEntity material;
-    private DetalleCatalogoEntity marco;
-    private DetalleCatalogoEntity tipoLente;
 	private String tratamiento;
     private Integer cantidad;
     private BigDecimal precioUnitario;
@@ -24,14 +20,12 @@ public class DetalleOrden {
 
 	}
 
-	public DetalleOrden(Integer idDetOrden, OrdenPedidoEntity ordenPedido, DetalleCatalogoEntity material,
-			DetalleCatalogoEntity marco, DetalleCatalogoEntity tipoLente, String tratamiento, Integer cantidad,
+	public DetalleOrden(Integer idDetOrden, OrdenPedidoEntity ordenPedido, ProductoEntity producto,
+			String tratamiento, Integer cantidad,
 			BigDecimal precioUnitario, LocalDateTime fechaRegistro) {
 		this.idDetOrden = idDetOrden;
 		this.ordenPedido = ordenPedido;
-		this.material = material;
-		this.marco = marco;
-		this.tipoLente = tipoLente;
+		this.producto = producto;
 		this.tratamiento = tratamiento;
 		this.cantidad = cantidad;
 		this.precioUnitario = precioUnitario;
@@ -60,30 +54,6 @@ public class DetalleOrden {
 
 	public void setProducto(ProductoEntity producto) {
 		this.producto = producto;
-	}
-
-	public DetalleCatalogoEntity getMaterial() {
-		return material;
-	}
-
-	public void setMaterial(DetalleCatalogoEntity material) {
-		this.material = material;
-	}
-
-	public DetalleCatalogoEntity getMarco() {
-		return marco;
-	}
-
-	public void setMarco(DetalleCatalogoEntity marco) {
-		this.marco = marco;
-	}
-
-	public DetalleCatalogoEntity getTipoLente() {
-		return tipoLente;
-	}
-
-	public void setTipoLente(DetalleCatalogoEntity tipoLente) {
-		this.tipoLente = tipoLente;
 	}
 
 	public String getTratamiento() {

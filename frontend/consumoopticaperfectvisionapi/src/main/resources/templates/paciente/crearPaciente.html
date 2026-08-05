@@ -80,8 +80,10 @@
 								id="fechaNacimiento"
 								name="fechaNacimiento"
 								th:value="${paciente.fechaNacimiento != null ? paciente.fechaNacimiento.toString() : ''}"
+								th:max="${fechaMaximaNacimiento}"
 								class="form-control"
 								required />
+							<small class="form-text text-muted">El paciente debe tener al menos 5 años.</small>
 							<small th:if="${#fields.hasErrors('fechaNacimiento')}" class="text-danger" th:errors="*{fechaNacimiento}"></small>
 						</div>
 

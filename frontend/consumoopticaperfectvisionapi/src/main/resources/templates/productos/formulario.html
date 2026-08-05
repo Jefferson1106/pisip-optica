@@ -1,26 +1,73 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/plantilla/plantillaui">
-<body><div layout:fragment="contenidopaginas">
-<div class="card shadow mb-4"><div class="card-header py-3">
- <h5 class="m-0 font-weight-bold text-primary" th:text="${modoEdicion ? 'Editar producto' : 'Nuevo producto'}"></h5>
-</div><div class="card-body">
- <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
- <form th:action="@{/productos/guardar}" th:object="${producto}" method="post">
-  <input type="hidden" th:field="*{idProducto}">
-  <div class="form-row">
-   <div class="form-group col-md-4"><label>Código</label><input class="form-control" th:field="*{codigo}" required></div>
-   <div class="form-group col-md-8"><label>Nombre</label><input class="form-control" th:field="*{nombre}" required></div>
-  </div>
-  <div class="form-group"><label>Descripción</label><textarea class="form-control" th:field="*{descripcion}"></textarea></div>
-  <div class="form-row">
-   <div class="form-group col-md-5"><label>Proveedor</label><select class="form-control" th:field="*{idProveedor}" required>
-    <option value="">Seleccione...</option><option th:each="p : ${proveedores}" th:value="${p.idProveedor}" th:text="${p.nombre}"></option>
-   </select></div>
-   <div class="form-group col-md-4"><label>Precio</label><input type="number" min="0" step="0.01" class="form-control" th:field="*{precio}" required></div>
-   <div class="form-group col-md-3"><label>Estado</label><select class="form-control" th:field="*{estado}">
-    <option th:value="true">Activo</option><option th:value="false">Inactivo</option></select></div>
-  </div>
-  <button class="btn btn-success" type="submit">Guardar</button><a th:href="@{/productos}" class="btn btn-secondary">Cancelar</a>
- </form>
-</div></div></div></body></html>
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${modoEdicion} ? 'Actualizar Producto - Perfect Vision' : 'Nuevo Producto - Perfect Vision'">Producto - Perfect Vision</title>
+</head>
+
+<body>
+<div layout:fragment="contenidopaginas">
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h5 class="m-0 font-weight-bold text-primary"
+                    th:text="${modoEdicion} ? 'Actualizar Producto' : 'Registrar Nuevo Producto'">Registrar Nuevo Producto</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <form th:action="@{/productos/guardar}" th:object="${producto}" method="post">
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">Revise los campos del formulario.</div>
+                    <input type="hidden" th:field="*{idProducto}">
+
+                    <div class="form-group">
+                        <label for="codigo">Código</label>
+                        <input type="text" class="form-control" id="codigo" th:field="*{codigo}" required>
+                        <small th:if="${#fields.hasErrors('codigo')}" class="text-danger" th:errors="*{codigo}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                        <small th:if="${#fields.hasErrors('nombre')}" class="text-danger" th:errors="*{nombre}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+                        <small th:if="${#fields.hasErrors('descripcion')}" class="text-danger" th:errors="*{descripcion}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idProveedor">Proveedor</label>
+                        <select class="form-control" id="idProveedor" th:field="*{idProveedor}" required>
+                            <option value="">Seleccione...</option>
+                            <option th:each="proveedor : ${proveedores}" th:value="${proveedor.idProveedor}" th:text="${proveedor.nombre}"></option>
+                        </select>
+                        <small th:if="${#fields.hasErrors('idProveedor')}" class="text-danger" th:errors="*{idProveedor}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="precio">Precio</label>
+                        <input type="number" min="0" step="0.01" class="form-control" id="precio" th:field="*{precio}" required>
+                        <small th:if="${#fields.hasErrors('precio')}" class="text-danger" th:errors="*{precio}"></small>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="estado" th:field="*{estado}">
+                        <label class="form-check-label" for="estado">Activo</label>
+                    </div>
+
+                    <button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
+                            th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
+                    <a th:href="@{/productos}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

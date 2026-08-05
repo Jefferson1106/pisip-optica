@@ -108,11 +108,7 @@ public class AuthController {
 	}
 
 	private String resolverRutaInicio(LoginResponseDto usuario) {
-		String rol = usuario.getTipoUsuarioNombre();
-		if (rol != null && rol.toUpperCase().contains("ADMIN")) {
-			return "/catalogo";
-		}
-		return "/paciente";
+		return "/dashboard";
 	}
 
 	@GetMapping("/recuperar-contrasenia")

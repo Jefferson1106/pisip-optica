@@ -11,6 +11,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleOrdenResponseDto;
+import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.DetalleExamenResponseDto;
+import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.ExamenVisualResponseDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.response.OrdenPedidoResponseDto;
 
 class CertificadoPdfServiceImplTest {
@@ -36,6 +38,29 @@ class CertificadoPdfServiceImplTest {
 
         String contenido = new String(pdf, StandardCharsets.ISO_8859_1);
         assertTrue(contenido.contains("TOTAL: $ 27.00"));
+    }
+
+    @Test
+    void imprimeGraduacionDeLecturaYMedidasComplementariasEnCertificado() {
+        CertificadoPdfServiceImpl servicio = new CertificadoPdfServiceImpl();
+        ExamenVisualResponseDto examen = new ExamenVisualResponseDto();
+        examen.setIdExamen(20);
+
+        DetalleExamenResponseDto detalle = new DetalleExamenResponseDto();
+        detalle.setEsferaLecturaOd(new BigDecimal("1.25"));
+        detalle.setCilindroLecturaOi(new BigDecimal("-0.75"));
+        detalle.setDistanciaPupilar(new BigDecimal("63.00"));
+        detalle.setAlturaBifocal(new BigDecimal("18.00"));
+        detalle.setAlturaProgresivo(new BigDecimal("20.00"));
+
+        String contenido = new String(
+                servicio.generarCertificadoPdf(examen, detalle), StandardCharsets.ISO_8859_1);
+
+        assertTrue(contenido.contains("OD: +1.25"));
+        assertTrue(contenido.contains("OI: -0.75"));
+        assertTrue(contenido.contains("63.00"));
+        assertTrue(contenido.contains("18.00"));
+        assertTrue(contenido.contains("20.00"));
     }
 
     private DetalleOrdenResponseDto detalle(int cantidad, String precio) {

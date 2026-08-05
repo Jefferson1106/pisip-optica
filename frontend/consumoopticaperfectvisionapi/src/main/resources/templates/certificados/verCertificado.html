@@ -29,23 +29,23 @@
                     <h6 class="font-weight-bold">Medidas Optometricas</h6>
                     <div th:if="${detalleExamen != null}" class="mb-3">
                         <p class="mb-1"><strong>OD Distancia:</strong>
-                            Esf <span th:text="${detalleExamen.esferaDistanciaOd}"></span> /
-                            Cil <span th:text="${detalleExamen.cilindroDistanciaOd}"></span> /
+                            Esf <span th:text="${detalleExamen.esferaDistanciaOd != null and detalleExamen.esferaDistanciaOd > 0 ? '+' + detalleExamen.esferaDistanciaOd : detalleExamen.esferaDistanciaOd}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroDistanciaOd != null and detalleExamen.cilindroDistanciaOd > 0 ? '+' + detalleExamen.cilindroDistanciaOd : detalleExamen.cilindroDistanciaOd}"></span> /
                             Eje <span th:text="${detalleExamen.ejeDistanciaOd}"></span></p>
                         <p class="mb-1"><strong>OI Distancia:</strong>
-                            Esf <span th:text="${detalleExamen.esferaDistanciaOi}"></span> /
-                            Cil <span th:text="${detalleExamen.cilindroDistanciaOi}"></span> /
+                            Esf <span th:text="${detalleExamen.esferaDistanciaOi != null and detalleExamen.esferaDistanciaOi > 0 ? '+' + detalleExamen.esferaDistanciaOi : detalleExamen.esferaDistanciaOi}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroDistanciaOi != null and detalleExamen.cilindroDistanciaOi > 0 ? '+' + detalleExamen.cilindroDistanciaOi : detalleExamen.cilindroDistanciaOi}"></span> /
                             Eje <span th:text="${detalleExamen.ejeDistanciaOi}"></span></p>
                         <p class="mb-1"><strong>Adicion:</strong>
-                            OD <span th:text="${detalleExamen.adicionOd}"></span> /
-                            OI <span th:text="${detalleExamen.adicionOi}"></span></p>
+                            OD <span th:text="${detalleExamen.adicionOd != null and detalleExamen.adicionOd > 0 ? '+' + detalleExamen.adicionOd : detalleExamen.adicionOd}"></span> /
+                            OI <span th:text="${detalleExamen.adicionOi != null and detalleExamen.adicionOi > 0 ? '+' + detalleExamen.adicionOi : detalleExamen.adicionOi}"></span></p>
                         <p class="mb-1"><strong>Lectura OD:</strong>
-                            Esf <span th:text="${detalleExamen.esferaLecturaOd}"></span> /
-                            Cil <span th:text="${detalleExamen.cilindroLecturaOd}"></span> /
+                            Esf <span th:text="${detalleExamen.esferaLecturaOd != null and detalleExamen.esferaLecturaOd > 0 ? '+' + detalleExamen.esferaLecturaOd : detalleExamen.esferaLecturaOd}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroLecturaOd != null and detalleExamen.cilindroLecturaOd > 0 ? '+' + detalleExamen.cilindroLecturaOd : detalleExamen.cilindroLecturaOd}"></span> /
                             Eje <span th:text="${detalleExamen.ejeLecturaOd}"></span></p>
                         <p class="mb-1"><strong>Lectura OI:</strong>
-                            Esf <span th:text="${detalleExamen.esferaLecturaOi}"></span> /
-                            Cil <span th:text="${detalleExamen.cilindroLecturaOi}"></span> /
+                            Esf <span th:text="${detalleExamen.esferaLecturaOi != null and detalleExamen.esferaLecturaOi > 0 ? '+' + detalleExamen.esferaLecturaOi : detalleExamen.esferaLecturaOi}"></span> /
+                            Cil <span th:text="${detalleExamen.cilindroLecturaOi != null and detalleExamen.cilindroLecturaOi > 0 ? '+' + detalleExamen.cilindroLecturaOi : detalleExamen.cilindroLecturaOi}"></span> /
                             Eje <span th:text="${detalleExamen.ejeLecturaOi}"></span></p>
                         <p class="mb-1"><strong>DP:</strong> <span th:text="${detalleExamen.distanciaPupilar}"></span></p>
                         <p class="mb-1"><strong>Altura Bifocal:</strong> <span th:text="${detalleExamen.alturaBifocal}"></span></p>

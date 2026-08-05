@@ -38,23 +38,33 @@
                             <th>Eje Dist. OI</th>
                             <th>Adicion OD</th>
                             <th>Adicion OI</th>
+                            <th>Lectura OD</th>
+                            <th>Lectura OI</th>
+                            <th>DP</th>
+                            <th>Alt. Bifocal</th>
+                            <th>Alt. Progresivo</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:if="${#lists.isEmpty(listadetalles)}">
-                            <td colspan="10" class="text-center">No existen detalles para este examen.</td>
+                            <td colspan="15" class="text-center">No existen detalles para este examen.</td>
                         </tr>
                         <tr th:each="detalle : ${listadetalles}">
                             <td th:text="${detalle.idDetExamen}"></td>
-                            <td th:text="${detalle.esferaDistanciaOd}"></td>
-                            <td th:text="${detalle.cilindroDistanciaOd}"></td>
+                            <td th:text="${detalle.esferaDistanciaOd != null and detalle.esferaDistanciaOd > 0 ? '+' + detalle.esferaDistanciaOd : detalle.esferaDistanciaOd}"></td>
+                            <td th:text="${detalle.cilindroDistanciaOd != null and detalle.cilindroDistanciaOd > 0 ? '+' + detalle.cilindroDistanciaOd : detalle.cilindroDistanciaOd}"></td>
                             <td th:text="${detalle.ejeDistanciaOd}"></td>
-                            <td th:text="${detalle.esferaDistanciaOi}"></td>
-                            <td th:text="${detalle.cilindroDistanciaOi}"></td>
+                            <td th:text="${detalle.esferaDistanciaOi != null and detalle.esferaDistanciaOi > 0 ? '+' + detalle.esferaDistanciaOi : detalle.esferaDistanciaOi}"></td>
+                            <td th:text="${detalle.cilindroDistanciaOi != null and detalle.cilindroDistanciaOi > 0 ? '+' + detalle.cilindroDistanciaOi : detalle.cilindroDistanciaOi}"></td>
                             <td th:text="${detalle.ejeDistanciaOi}"></td>
-                            <td th:text="${detalle.adicionOd}"></td>
-                            <td th:text="${detalle.adicionOi}"></td>
+                            <td th:text="${detalle.adicionOd != null and detalle.adicionOd > 0 ? '+' + detalle.adicionOd : detalle.adicionOd}"></td>
+                            <td th:text="${detalle.adicionOi != null and detalle.adicionOi > 0 ? '+' + detalle.adicionOi : detalle.adicionOi}"></td>
+                            <td>Esf <span th:text="${detalle.esferaLecturaOd != null and detalle.esferaLecturaOd > 0 ? '+' + detalle.esferaLecturaOd : detalle.esferaLecturaOd}"></span> / Cil <span th:text="${detalle.cilindroLecturaOd != null and detalle.cilindroLecturaOd > 0 ? '+' + detalle.cilindroLecturaOd : detalle.cilindroLecturaOd}"></span> / Eje <span th:text="${detalle.ejeLecturaOd}"></span></td>
+                            <td>Esf <span th:text="${detalle.esferaLecturaOi != null and detalle.esferaLecturaOi > 0 ? '+' + detalle.esferaLecturaOi : detalle.esferaLecturaOi}"></span> / Cil <span th:text="${detalle.cilindroLecturaOi != null and detalle.cilindroLecturaOi > 0 ? '+' + detalle.cilindroLecturaOi : detalle.cilindroLecturaOi}"></span> / Eje <span th:text="${detalle.ejeLecturaOi}"></span></td>
+                            <td th:text="${detalle.distanciaPupilar}"></td>
+                            <td th:text="${detalle.alturaBifocal}"></td>
+                            <td th:text="${detalle.alturaProgresivo}"></td>
                             <td>
                                 <a th:href="@{/examenes-visuales/{idExamen}/detalles/editar/{idDetExamen}(idExamen=${idExamen},idDetExamen=${detalle.idDetExamen})}"
                                               class="btn btn-warning btn-sm mr-1"

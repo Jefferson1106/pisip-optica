@@ -24,11 +24,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>Esfera Dist. OD</label>
-                            <input type="number" step="0.01" th:field="*{esferaDistanciaOd}" class="form-control" />
+                            <input type="text" inputmode="decimal" th:field="*{esferaDistanciaOd}" class="form-control medida-signada" placeholder="+0.00" />
                         </div>
                         <div class="form-group col-md-4">
                             <label>Cilindro Dist. OD</label>
-                            <input type="number" step="0.01" th:field="*{cilindroDistanciaOd}" class="form-control" />
+                            <input type="text" inputmode="decimal" th:field="*{cilindroDistanciaOd}" class="form-control medida-signada" placeholder="-0.00" />
                         </div>
                         <div class="form-group col-md-4">
                             <label>Eje Dist. OD</label>
@@ -39,11 +39,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>Esfera Dist. OI</label>
-                            <input type="number" step="0.01" th:field="*{esferaDistanciaOi}" class="form-control" />
+                            <input type="text" inputmode="decimal" th:field="*{esferaDistanciaOi}" class="form-control medida-signada" placeholder="+0.00" />
                         </div>
                         <div class="form-group col-md-4">
                             <label>Cilindro Dist. OI</label>
-                            <input type="number" step="0.01" th:field="*{cilindroDistanciaOi}" class="form-control" />
+                            <input type="text" inputmode="decimal" th:field="*{cilindroDistanciaOi}" class="form-control medida-signada" placeholder="-0.00" />
                         </div>
                         <div class="form-group col-md-4">
                             <label>Eje Dist. OI</label>
@@ -54,11 +54,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>Adicion OD</label>
-                            <input type="number" step="0.01" th:field="*{adicionOd}" class="form-control" />
+                            <input type="text" inputmode="decimal" th:field="*{adicionOd}" class="form-control medida-signada" placeholder="+0.00" />
                         </div>
                         <div class="form-group col-md-4">
                             <label>Adicion OI</label>
-                            <input type="number" step="0.01" th:field="*{adicionOi}" class="form-control" />
+                            <input type="text" inputmode="decimal" th:field="*{adicionOi}" class="form-control medida-signada" placeholder="+0.00" />
                         </div>
                         <div class="form-group col-md-4">
                             <label>Distancia Pupilar</label>
@@ -66,10 +66,67 @@
                         </div>
                     </div>
 
+                    <h6 class="font-weight-bold text-primary mt-3">Graduación para lectura / cerca</h6>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Esfera Lectura OD</label>
+                            <input type="text" inputmode="decimal" th:field="*{esferaLecturaOd}" class="form-control medida-signada" placeholder="+0.00" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Cilindro Lectura OD</label>
+                            <input type="text" inputmode="decimal" th:field="*{cilindroLecturaOd}" class="form-control medida-signada" placeholder="-0.00" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Eje Lectura OD</label>
+                            <input type="number" min="0" max="180" th:field="*{ejeLecturaOd}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Esfera Lectura OI</label>
+                            <input type="text" inputmode="decimal" th:field="*{esferaLecturaOi}" class="form-control medida-signada" placeholder="+0.00" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Cilindro Lectura OI</label>
+                            <input type="text" inputmode="decimal" th:field="*{cilindroLecturaOi}" class="form-control medida-signada" placeholder="-0.00" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Eje Lectura OI</label>
+                            <input type="number" min="0" max="180" th:field="*{ejeLecturaOi}" class="form-control" />
+                        </div>
+                    </div>
+
+                    <h6 class="font-weight-bold text-primary mt-3">Medidas complementarias</h6>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Altura Bifocal</label>
+                            <input type="number" step="0.01" min="0" th:field="*{alturaBifocal}" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Altura Progresivo</label>
+                            <input type="number" step="0.01" min="0" th:field="*{alturaProgresivo}" class="form-control" />
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn" th:classappend="${modoEdicion} ? ' btn-primary' : ' btn-success'"
                             th:text="${modoEdicion} ? 'Actualizar' : 'Guardar'">Guardar</button>
                     <a th:href="@{/examenes-visuales/{idExamen}/detalles(idExamen=${idExamen})}" class="btn btn-secondary">Cancelar</a>
                 </form>
+                <script>
+                    document.querySelectorAll('.medida-signada').forEach(function (campo) {
+                        function aplicarSigno() {
+                            var texto = campo.value.trim().replace(',', '.');
+                            if (texto === '' || texto === '+' || texto === '-') return;
+                            var numero = Number(texto);
+                            if (!Number.isNaN(numero)) {
+                                campo.value = numero > 0 ? '+' + texto.replace(/^\+/, '') : texto;
+                            }
+                        }
+                        campo.addEventListener('blur', aplicarSigno);
+                        aplicarSigno();
+                    });
+                </script>
             </div>
         </div>
     </div>

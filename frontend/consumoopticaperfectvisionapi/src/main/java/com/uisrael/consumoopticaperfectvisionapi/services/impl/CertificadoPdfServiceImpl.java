@@ -190,13 +190,13 @@ public class CertificadoPdfServiceImpl implements ICertificadoPdfService {
 			Object esferaOd, Object cilindroOd, Object ejeOd, Object adicionOd, Object adicionOi,
 			Object esferaOi, Object cilindroOi, Object ejeOi) {
 		texto(pdf, "F2", 9, 60, y + 13, vision, "0.12 0.27 0.38");
-		texto(pdf, "F1", 8, 142, y + 24, "OD: " + valor(esferaOd), "0.15 0.17 0.19");
-		texto(pdf, "F1", 8, 212, y + 24, "OD: " + valor(cilindroOd), "0.15 0.17 0.19");
+		texto(pdf, "F1", 8, 142, y + 24, "OD: " + valorSignado(esferaOd), "0.15 0.17 0.19");
+		texto(pdf, "F1", 8, 212, y + 24, "OD: " + valorSignado(cilindroOd), "0.15 0.17 0.19");
 		texto(pdf, "F1", 8, 282, y + 24, "OD: " + valor(ejeOd), "0.15 0.17 0.19");
-		texto(pdf, "F1", 8, 340, y + 17, valor(adicionOd), "0.15 0.17 0.19");
-		texto(pdf, "F1", 8, 410, y + 17, valor(adicionOi), "0.15 0.17 0.19");
-		texto(pdf, "F1", 8, 142, y + 8, "OI: " + valor(esferaOi), "0.15 0.17 0.19");
-		texto(pdf, "F1", 8, 212, y + 8, "OI: " + valor(cilindroOi), "0.15 0.17 0.19");
+		texto(pdf, "F1", 8, 340, y + 17, valorSignado(adicionOd), "0.15 0.17 0.19");
+		texto(pdf, "F1", 8, 410, y + 17, valorSignado(adicionOi), "0.15 0.17 0.19");
+		texto(pdf, "F1", 8, 142, y + 8, "OI: " + valorSignado(esferaOi), "0.15 0.17 0.19");
+		texto(pdf, "F1", 8, 212, y + 8, "OI: " + valorSignado(cilindroOi), "0.15 0.17 0.19");
 		texto(pdf, "F1", 8, 282, y + 8, "OI: " + valor(ejeOi), "0.15 0.17 0.19");
 	}
 
@@ -364,6 +364,15 @@ public class CertificadoPdfServiceImpl implements ICertificadoPdfService {
 
 	private String valor(Object valor) {
 		return valor != null ? valor.toString() : "N/A";
+	}
+
+	private String valorSignado(Object valor) {
+		if (valor == null) {
+			return "N/A";
+		}
+		java.math.BigDecimal numero = valor instanceof java.math.BigDecimal decimal
+				? decimal : new java.math.BigDecimal(valor.toString());
+		return numero.signum() > 0 ? "+" + numero.toPlainString() : numero.toPlainString();
 	}
 
 	private String valorTexto(String valor) {

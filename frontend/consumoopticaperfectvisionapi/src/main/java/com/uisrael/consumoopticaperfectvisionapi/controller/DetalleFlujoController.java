@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.validation.Valid;
 
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleExamenRequestDto;
 import com.uisrael.consumoopticaperfectvisionapi.model.dto.request.DetalleEntregaRequestDto;
@@ -79,8 +81,16 @@ public class DetalleFlujoController {
 
     @PostMapping("/examenes-visuales/{idExamen}/detalles/guardar")
     public String guardarDetalleExamen(@PathVariable Integer idExamen,
-            @ModelAttribute("detalleExamen") DetalleExamenRequestDto detalleExamen,
+            @Valid @ModelAttribute("detalleExamen") DetalleExamenRequestDto detalleExamen,
+            BindingResult bindingResult,
             RedirectAttributes redirectAttributes, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Revise los campos marcados en el formulario");
+            model.addAttribute("idExamen", idExamen);
+            model.addAttribute("idDetExamen", null);
+            model.addAttribute("modoEdicion", false);
+            return "examenesvisuales/formDetalleExamen";
+        }
         try {
             prepararExamenVisualRef(detalleExamen, idExamen);
             servicioDetalleExamen.guardarDetalleExamen(detalleExamen);
@@ -111,9 +121,17 @@ public class DetalleFlujoController {
     @PostMapping("/examenes-visuales/{idExamen}/detalles/actualizar/{idDetExamen}")
     public String actualizarDetalleExamen(@PathVariable Integer idExamen,
             @PathVariable Integer idDetExamen,
-            @ModelAttribute("detalleExamen") DetalleExamenRequestDto detalleExamen,
+            @Valid @ModelAttribute("detalleExamen") DetalleExamenRequestDto detalleExamen,
+            BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
             Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", "Revise los campos marcados en el formulario");
+            model.addAttribute("idExamen", idExamen);
+            model.addAttribute("idDetExamen", idDetExamen);
+            model.addAttribute("modoEdicion", true);
+            return "examenesvisuales/formDetalleExamen";
+        }
         try {
             prepararExamenVisualRef(detalleExamen, idExamen);
             servicioDetalleExamen.actualizarDetalleExamen(idDetExamen, detalleExamen);

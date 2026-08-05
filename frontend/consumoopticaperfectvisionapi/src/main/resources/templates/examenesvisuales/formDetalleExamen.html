@@ -32,7 +32,8 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Eje Dist. OD</label>
-                            <input type="number" th:field="*{ejeDistanciaOd}" class="form-control" />
+                            <input type="number" min="0" max="180" th:field="*{ejeDistanciaOd}" class="form-control" th:classappend="${#fields.hasErrors('ejeDistanciaOd')} ? ' is-invalid'" />
+                            <div class="invalid-feedback" th:errors="*{ejeDistanciaOd}">El eje debe estar entre 0 y 180 grados</div>
                         </div>
                     </div>
 
@@ -47,7 +48,8 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Eje Dist. OI</label>
-                            <input type="number" th:field="*{ejeDistanciaOi}" class="form-control" />
+                            <input type="number" min="0" max="180" th:field="*{ejeDistanciaOi}" class="form-control" th:classappend="${#fields.hasErrors('ejeDistanciaOi')} ? ' is-invalid'" />
+                            <div class="invalid-feedback" th:errors="*{ejeDistanciaOi}">El eje debe estar entre 0 y 180 grados</div>
                         </div>
                     </div>
 
@@ -78,7 +80,8 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Eje Lectura OD</label>
-                            <input type="number" min="0" max="180" th:field="*{ejeLecturaOd}" class="form-control" />
+                            <input type="number" min="0" max="180" th:field="*{ejeLecturaOd}" class="form-control" th:classappend="${#fields.hasErrors('ejeLecturaOd')} ? ' is-invalid'" />
+                            <div class="invalid-feedback" th:errors="*{ejeLecturaOd}">El eje debe estar entre 0 y 180 grados</div>
                         </div>
                     </div>
 
@@ -93,7 +96,8 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Eje Lectura OI</label>
-                            <input type="number" min="0" max="180" th:field="*{ejeLecturaOi}" class="form-control" />
+                            <input type="number" min="0" max="180" th:field="*{ejeLecturaOi}" class="form-control" th:classappend="${#fields.hasErrors('ejeLecturaOi')} ? ' is-invalid'" />
+                            <div class="invalid-feedback" th:errors="*{ejeLecturaOi}">El eje debe estar entre 0 y 180 grados</div>
                         </div>
                     </div>
 
